@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:share_prompt/page/login_page.dart';
+//import 'package:share_prompt/page/login_page.dart';
 import 'package:share_prompt/router/router.dart';
 
 void main() {
