@@ -70,7 +70,7 @@ class _IdTextFieldState extends State<IdTextField> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Color(0xFFC9C4D8),
                     width: 1.5,
                   ),
                 ),
