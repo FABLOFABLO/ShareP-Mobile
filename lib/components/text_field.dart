@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class IdTextField extends StatefulWidget {
   final String text;
+  final String hintText;
   final bool hasIcon;
   final TextEditingController controller;
   final FocusNode? focusNode;
@@ -11,6 +12,7 @@ class IdTextField extends StatefulWidget {
   const IdTextField({
     super.key,
     required this.text,
+    required this.hintText,
     required this.hasIcon,
     required this.controller,
     this.focusNode,
@@ -38,10 +40,10 @@ class _IdTextFieldState extends State<IdTextField> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.text, style: TextStyle(color: Color(0xFF484555), fontSize: 14)),
-          const SizedBox(height: 10),
+          Text(widget.text, style: TextStyle(color: Color(0xFF484555), fontSize: 13, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 7),
           SizedBox(
-            height: 44,
+            height: 39,
             width: double.infinity,
             child: TextField(
               controller: widget.controller,
@@ -53,6 +55,8 @@ class _IdTextFieldState extends State<IdTextField> {
               textInputAction: widget.textInputAction,
               onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
+                hintText: widget.hintText,
+                hintStyle: TextStyle(color: Color(0xFFBEC4CA), fontSize: 14),
                 filled: true,
                 fillColor: const Color(0xFFF8F9FA),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14),
@@ -81,6 +85,7 @@ class _IdTextFieldState extends State<IdTextField> {
                           _obscureText
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
+                          color: Color(0xFF818C98),
                         ),
                       )
                     : null,

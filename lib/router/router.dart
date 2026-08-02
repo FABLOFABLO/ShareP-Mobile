@@ -5,7 +5,7 @@ import 'package:share_prompt/page/onbording/on_bording1_page.dart';
 import 'package:share_prompt/page/sign_up_page.dart';
 
 final GoRouter router = GoRouter(
-    initialLocation: '/on_bording_1',
+    initialLocation: '/login',
     routes: <RouteBase>[
       GoRoute(
           path: '/on_bording_1',
