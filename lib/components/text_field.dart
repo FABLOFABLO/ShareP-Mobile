@@ -43,9 +43,10 @@ class _IdTextFieldState extends State<IdTextField> {
           Text(widget.text, style: TextStyle(color: Color(0xFF484555), fontSize: 13, fontWeight: FontWeight.w600)),
           const SizedBox(height: 7),
           SizedBox(
-            height: 39,
+            height: 40,
             width: double.infinity,
             child: TextField(
+              cursorHeight: 15,
               controller: widget.controller,
               focusNode: widget.focusNode,
               obscureText: widget.hasIcon && _obscureText,
