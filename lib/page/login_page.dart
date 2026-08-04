@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_prompt/components/text_field.dart';
+import 'package:share_prompt/components/id_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

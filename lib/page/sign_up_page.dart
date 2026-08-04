@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_prompt/components/text_field.dart';
+import 'package:share_prompt/components/id_text_field.dart';
+import 'package:share_prompt/components/pw_text_field.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -18,7 +19,34 @@ class _SignUpPageState extends State<SignUpPage> {
   final FocusNode _checkPasswordFocusNode = FocusNode();
 
   @override
+  void initState() {
+    super.initState();
+
+    _passwordController.addListener(_validatePasswordMatch);
+    _checkPasswordController.addListener(_validatePasswordMatch);
+  }
+
+  bool _hasPasswordCheckError = false;
+
+  void _validatePasswordMatch() {
+    final password = _passwordController.text;
+    final confirmation = _checkPasswordController.text;
+
+    final hasError = confirmation.isNotEmpty && password != confirmation;
+
+    if (_hasPasswordCheckError == hasError) {
+      return;
+    }
+
+    setState(() {
+      _hasPasswordCheckError = hasError;
+    });
+  }
+
+  @override
   void dispose() {
+    _passwordController.removeListener(_validatePasswordMatch);
+    _checkPasswordController.removeListener(_validatePasswordMatch);
     _idController.dispose();
     _passwordController.dispose();
     _checkPasswordController.dispose();
@@ -38,7 +66,8 @@ class _SignUpPageState extends State<SignUpPage> {
           child: LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
@@ -72,11 +101,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             },
                           ),
 
-                          const SizedBox(height: 20),
-
-                          IdTextField(
+                          PwTextField(
                             text: '비밀번호 재확인',
                             hintText: '동일한 비밀번호를 입력하세요',
+                            hasError: _hasPasswordCheckError,
                             hasIcon: true,
                             controller: _checkPasswordController,
                             focusNode: _checkPasswordFocusNode,
@@ -146,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
             },
           ),
         ),
-      )
+      ),
     );
   }
 }

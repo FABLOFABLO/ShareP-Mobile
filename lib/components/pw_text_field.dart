@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:share_prompt/constants/app_color.dart';
+import 'package:share_prompt/constants/app_text_style.dart';
 
-class IdTextField extends StatefulWidget {
+class PwTextField extends StatefulWidget {
   final String text;
   final String hintText;
   final bool hasIcon;
@@ -8,8 +10,9 @@ class IdTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputAction textInputAction;
   final ValueChanged<String>? onSubmitted;
+  final bool hasError;
 
-  const IdTextField({
+  const PwTextField({
     super.key,
     required this.text,
     required this.hintText,
@@ -18,13 +21,14 @@ class IdTextField extends StatefulWidget {
     this.focusNode,
     this.textInputAction = TextInputAction.next,
     this.onSubmitted,
+    this.hasError = false,
   });
 
   @override
-  State<IdTextField> createState() => _IdTextFieldState();
+  State<PwTextField> createState() => _PwTextFieldState();
 }
 
-class _IdTextFieldState extends State<IdTextField> {
+class _PwTextFieldState extends State<PwTextField> {
   late bool _obscureText;
 
   @override
@@ -36,11 +40,18 @@ class _IdTextFieldState extends State<IdTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.text, style: TextStyle(color: Color(0xFF484555), fontSize: 13, fontWeight: FontWeight.w600)),
+          Text(
+            widget.text,
+            style: TextStyle(
+              color: Color(0xFF484555),
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           const SizedBox(height: 7),
           SizedBox(
             height: 40,
@@ -63,17 +74,11 @@ class _IdTextFieldState extends State<IdTextField> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(
-                    color: Color(0xFFC9C4D8),
-                    width: 1.5,
-                  ),
+                  borderSide: BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Color(0xFFC9C4D8),
-                    width: 1.5,
-                  ),
+                  borderSide: BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
                 ),
                 suffixIcon: widget.hasIcon
                     ? IconButton(
@@ -97,6 +102,24 @@ class _IdTextFieldState extends State<IdTextField> {
               ),
             ),
           ),
+          widget.hasError
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.error, color: AppColor.error, size: 13),
+                      const SizedBox(width: 2),
+                      Text(
+                        '비밀번호가 일치하지 않습니다.',
+                        style: AppTextStyles.body5.copyWith(
+                          color: AppColor.error,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
