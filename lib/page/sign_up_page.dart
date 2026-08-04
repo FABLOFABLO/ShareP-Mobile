@@ -98,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () => context.pushReplacement('/login'),
+                              onPressed: () => context.go('/login'),
                               child: const Text(
                                 '로그인',
                                 style: TextStyle(
