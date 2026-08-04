@@ -60,8 +60,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             },
                           ),
 
-                          const SizedBox(height: 20),
-
                           IdTextField(
                             text: '비밀번호',
                             hintText: '비밀번호를 입력하세요',

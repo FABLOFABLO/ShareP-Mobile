@@ -55,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
 
-                          const SizedBox(height: 20),
 
                           IdTextField(
                             text: '비밀번호',
