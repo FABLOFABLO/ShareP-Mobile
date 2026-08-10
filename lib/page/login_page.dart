@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/id_text_field.dart';
+import 'package:share_prompt/constants/app_color.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -102,13 +103,13 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 60,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF6B4EFE),
+                                  color: AppColor.primary,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: const Text(
                                   '로그인하기',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: AppColor.white,
                                     fontSize: 17,
                                     fontWeight: FontWeight.w600,
                                   ),

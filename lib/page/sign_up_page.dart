@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/id_text_field.dart';
 import 'package:share_prompt/components/pw_text_field.dart';
+import 'package:share_prompt/constants/app_color.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -122,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               const Text(
                                 '이미 계정이 있으신가요?',
                                 style: TextStyle(
-                                  color: Color(0xFF484555),
+                                  color: AppColor.gray100,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),
@@ -132,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 child: const Text(
                                   '로그인',
                                   style: TextStyle(
-                                    color: Color(0xFF928CFF),
+                                    color: AppColor.primary,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16,
                                   ),
@@ -150,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 height: 60,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF6B4EFE),
+                                  color: AppColor.primary,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: const Text(

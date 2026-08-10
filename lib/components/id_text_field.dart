@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_prompt/constants/app_color.dart';
 
 class IdTextField extends StatefulWidget {
   final String text;
@@ -43,7 +44,7 @@ class _IdTextFieldState extends State<IdTextField> {
           Text(
             widget.text,
             style: TextStyle(
-              color: Color(0xFF484555),
+              color: AppColor.gray100,
               fontSize: 13,
               fontWeight: FontWeight.w600,
             ),
@@ -54,6 +55,7 @@ class _IdTextFieldState extends State<IdTextField> {
             width: double.infinity,
             child: TextField(
               cursorHeight: 15,
+              cursorColor: AppColor.gray100,
               controller: widget.controller,
               focusNode: widget.focusNode,
               obscureText: widget.hasIcon && _obscureText,
@@ -64,14 +66,14 @@ class _IdTextFieldState extends State<IdTextField> {
               onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
                 hintText: widget.hintText,
-                hintStyle: TextStyle(color: Color(0xFFBEC4CA), fontSize: 14),
+                hintStyle: TextStyle(color: AppColor.gray40, fontSize: 14),
                 filled: true,
-                fillColor: const Color(0xFFF8F9FA),
+                fillColor: AppColor.white,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
-                    color: Color(0xFFC9C4D8),
+                    color: AppColor.gray40,
                     width: 1.5,
                   ),
                 ),

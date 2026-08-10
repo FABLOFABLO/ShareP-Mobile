@@ -57,6 +57,7 @@ class _PwTextFieldState extends State<PwTextField> {
             height: 40,
             width: double.infinity,
             child: TextField(
+              cursorColor: AppColor.gray100,
               cursorHeight: 15,
               controller: widget.controller,
               focusNode: widget.focusNode,
