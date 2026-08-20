@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/bottom_button.dart';
 import 'package:share_prompt/components/id_text_field.dart';
+import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 65),
-                          Image.asset('assets/logo.png'),
+                          Image.asset(AppAssets.logo),
                           const SizedBox(height: 50),
 
                           IdTextField(
@@ -86,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: const Text(
                                   '회원가입',
                                   style: TextStyle(
-                                    color: Color(0xFF928CFF),
+                                    color: AppColor.primary,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16,
                                   ),

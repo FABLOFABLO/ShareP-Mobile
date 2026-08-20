@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/bottom_button.dart';
 import 'package:share_prompt/components/id_text_field.dart';
 import 'package:share_prompt/components/pw_text_field.dart';
+import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -78,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 65),
-                          Image.asset('assets/logo.png'),
+                          Image.asset(AppAssets.logo),
                           const SizedBox(height: 50),
 
                           IdTextField(

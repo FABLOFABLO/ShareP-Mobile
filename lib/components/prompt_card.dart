@@ -41,32 +41,38 @@ class _PromptCardState extends State<PromptCard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.title,
-                  textAlign: TextAlign.start,
-                  style: AppTextStyles.body3,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.main,
-                  textAlign: TextAlign.start,
-                  style: AppTextStyles.caption3,
-                ),
-                const SizedBox(height: 10),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  spacing: 5,
-                  children: [
-                    PromptTag(tag: '로고'),
-                    PromptTag(tag: '브랜딩'),
-                  ],
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.title,
+                    textAlign: TextAlign.start,
+                    style: AppTextStyles.body3,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    widget.main,
+                    textAlign: TextAlign.start,
+                    style: AppTextStyles.caption3,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 10),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: 5,
+                    children: [
+                      PromptTag(tag: '로고'),
+                      PromptTag(tag: '브랜딩'),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(width: 90),
+            const SizedBox(width: 12),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Column(

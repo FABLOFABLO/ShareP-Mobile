@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_prompt/constants/app_assets.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold({
@@ -26,7 +27,7 @@ class CustomScaffold extends StatelessWidget {
                 left: 0,
                 width: width * 0.75,
                 child: const _BackgroundAsset(
-                  path: 'assets/Background.png',
+                  path: AppAssets.background2
                 ),
               ),
               Positioned(
@@ -34,7 +35,7 @@ class CustomScaffold extends StatelessWidget {
                 right: -width * 0.04,
                 width: width * 0.72,
                 child: const _BackgroundAsset(
-                  path: 'assets/Abstract Backgrounds for depth.png',
+                  path: AppAssets.background1
                 ),
               ),
               Positioned.fill(
