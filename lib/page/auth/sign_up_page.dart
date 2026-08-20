@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_prompt/components/bottom_button.dart';
 import 'package:share_prompt/components/id_text_field.dart';
 import 'package:share_prompt/components/pw_text_field.dart';
+import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -77,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 65),
-                          Image.asset('assets/logo.png'),
+                          Image.asset(AppAssets.logo),
                           const SizedBox(height: 50),
 
                           IdTextField(
@@ -142,29 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ],
                           ),
 
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: double.infinity,
-                                height: 60,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: AppColor.primary,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Text(
-                                  '회원가입하기',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          BottomButton(text: '회원가입하기', color: AppColor.primary, onTap: () {}),
                           const SizedBox(height: 20),
                         ],
                       ),
