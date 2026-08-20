@@ -7,14 +7,14 @@ import 'package:share_prompt/components/bottom_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/constants/app_assets.dart';
 
-class OnBording2Page extends StatefulWidget {
-  const OnBording2Page({super.key});
+class OnBoarding2Page extends StatefulWidget {
+  const OnBoarding2Page({super.key});
 
   @override
-  State<OnBording2Page> createState() => _OnBording2PageState();
+  State<OnBoarding2Page> createState() => _OnBording2PageState();
 }
 
-class _OnBording2PageState extends State<OnBording2Page> {
+class _OnBording2PageState extends State<OnBoarding2Page> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(

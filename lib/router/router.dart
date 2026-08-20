@@ -3,11 +3,10 @@ import 'package:go_router/go_router.dart';
 
 import 'package:share_prompt/page/auth/login_page.dart';
 import 'package:share_prompt/page/auth/sign_up_page.dart';
-
-import 'package:share_prompt/page/onbording/on_bording1_page.dart';
-import 'package:share_prompt/page/onbording/on_bording2_page.dart';
-import 'package:share_prompt/page/onbording/on_bording3_page.dart';
-import 'package:share_prompt/page/onbording/on_bording4_page.dart';
+import 'package:share_prompt/page/onboarding/onboarding1_page.dart';
+import 'package:share_prompt/page/onboarding/onboarding2_page.dart';
+import 'package:share_prompt/page/onboarding/onboarding3_page.dart';
+import 'package:share_prompt/page/onboarding/onboarding4_page.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/onboarding',
@@ -16,25 +15,25 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/onboarding',
       builder: (BuildContext context, GoRouterState state) {
-        return const OnBording1();
+        return const OnBoarding1Page();
       },
       routes: [
         GoRoute(
           path: '2',
           builder: (BuildContext context, GoRouterState state) {
-            return const OnBording2Page();
+            return const OnBoarding2Page();
           },
         ),
         GoRoute(
           path: '3',
           builder: (BuildContext context, GoRouterState state) {
-            return const OnBording3Page();
+            return const OnBoarding3Page();
           },
         ),
         GoRoute(
           path: '4',
           builder: (BuildContext context, GoRouterState state) {
-            return const OnBording4Page();
+            return const OnBoarding4Page();
           },
         ),
       ],

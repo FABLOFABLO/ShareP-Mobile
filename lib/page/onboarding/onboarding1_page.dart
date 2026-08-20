@@ -3,14 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/bottom_button.dart';
 import 'package:share_prompt/constants/app_color.dart';
 
-class OnBording1 extends StatelessWidget {
-  const OnBording1({super.key});
+class OnBoarding1Page extends StatelessWidget {
+  const OnBoarding1Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 240),

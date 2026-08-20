@@ -6,14 +6,14 @@ import 'package:share_prompt/components/prompt_card.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
 
-class OnBording4Page extends StatelessWidget {
-  const OnBording4Page({super.key});
+class OnBoarding4Page extends StatelessWidget {
+  const OnBoarding4Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 150),

@@ -4,14 +4,14 @@ import 'package:share_prompt/components/bottom_button.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
 
-class OnBording3Page extends StatelessWidget {
-  const OnBording3Page({super.key});
+class OnBoarding3Page extends StatelessWidget {
+  const OnBoarding3Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 190),
