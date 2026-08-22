@@ -3,10 +3,14 @@ import 'package:go_router/go_router.dart';
 
 import 'package:share_prompt/page/auth/login_page.dart';
 import 'package:share_prompt/page/auth/sign_up_page.dart';
+import 'package:share_prompt/page/home/home_page.dart';
+import 'package:share_prompt/page/main/main_shell_page.dart';
+import 'package:share_prompt/page/my/my_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding1_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding2_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding3_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding4_page.dart';
+import 'package:share_prompt/page/search/search_page.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/onboarding',
@@ -51,6 +55,24 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return const SignUpPage();
       },
+    ),
+
+    StatefulShellRoute.indexedStack(
+      builder: (_, _, navigationShell) =>
+          MainShellPage(navigationShell: navigationShell),
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(path: '/search', builder: (_, _) => const SearchPage()),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [GoRoute(path: '/home', builder: (_, _) => const HomePage())],
+        ),
+        StatefulShellBranch(
+          routes: [GoRoute(path: '/my', builder: (_, _) => const MyPage())],
+        ),
+      ],
     ),
   ],
 );

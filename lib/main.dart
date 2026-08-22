@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/router/router.dart';
+import 'package:flutter/services.dart';
+
 
 void main() {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 }
 
 class MyApp extends StatelessWidget {

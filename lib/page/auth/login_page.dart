@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
 
-                          BottomButton(text: '로그인하기', color: AppColor.primary, onTap: () {}),
+                          BottomButton(text: '로그인하기', color: AppColor.primary, onTap: () => context.go('/home')),
                           const SizedBox(height: 20),
                         ],
                       ),
