@@ -83,6 +83,7 @@ class OnBoarding4Page extends StatelessWidget {
               tag: '로고',
               author: '한지석',
               like: 12,
+              onTap: () {},
             ),
             const SizedBox(height: 30),
             Text(

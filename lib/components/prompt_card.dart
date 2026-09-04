@@ -12,6 +12,7 @@ class PromptCard extends StatefulWidget {
     required this.tag,
     required this.author,
     required this.like,
+    required this.onTap,
   });
 
   final String title;
@@ -19,6 +20,7 @@ class PromptCard extends StatefulWidget {
   final String tag;
   final String author;
   final int like;
+  final VoidCallback onTap;
 
   @override
   State<PromptCard> createState() => _PromptCardState();
@@ -30,7 +32,7 @@ class _PromptCardState extends State<PromptCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push('/detail'),
+      onTap: widget.onTap,
       child: Container(
         width: 350,
         height: 144,
@@ -45,33 +47,38 @@ class _PromptCardState extends State<PromptCard> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title,
-                      textAlign: TextAlign.start,
-                      style: AppTextStyles.body3,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      widget.description,
-                      textAlign: TextAlign.start,
-                      style: AppTextStyles.caption3,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      spacing: 5,
-                      children: [
-                        PromptTag(tag: widget.tag, inPrompt: true,),
-                      ],
-                    ),
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isLiked = !isLiked;
+                    });
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        textAlign: TextAlign.start,
+                        style: AppTextStyles.body3,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        widget.description,
+                        textAlign: TextAlign.start,
+                        style: AppTextStyles.caption3,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        spacing: 5,
+                        children: [PromptTag(tag: widget.tag, inPrompt: true)],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -83,8 +90,8 @@ class _PromptCardState extends State<PromptCard> {
                     Text(
                       widget.author,
                       style: AppTextStyles.body5.copyWith(
-                          color: AppColor.gray70,
-                          fontWeight: FontWeight.w600
+                        color: AppColor.gray70,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const Spacer(),
@@ -98,7 +105,9 @@ class _PromptCardState extends State<PromptCard> {
                         children: [
                           Icon(
                             isLiked ? Icons.favorite : Icons.favorite_border,
-                            color: isLiked ? AppColor.primary : AppColor.primary,
+                            color: isLiked
+                                ? AppColor.primary
+                                : AppColor.primary,
                             size: 20,
                           ),
                           const SizedBox(width: 5),

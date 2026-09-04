@@ -26,53 +26,58 @@ class _ProflieCardState extends State<ProflieCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35),
       child: Container(
-          child: Row(
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 45,
+              backgroundColor: AppColor.gray50,
+              child: Icon(Icons.person, size: 70, color: AppColor.white),
+            ),
+            const SizedBox(width: 25),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                    radius: 45,
-                  backgroundColor: AppColor.gray50,
-                  child: Icon(Icons.person, size: 70, color: AppColor.white,),
-                ),
-                const SizedBox(width: 25,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(children: [Text(widget.name, style: AppTextStyles.title3)]),
+                const SizedBox(height: 5),
+                Row(
+                  spacing: 30,
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.name, style: AppTextStyles.title3,)
+                        Text('프롬프트', style: AppTextStyles.body5),
+                        Text(
+                          '${widget.promptCount}개',
+                          style: AppTextStyles.body3Bold,
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 5,),
-                    Row(
-                      spacing: 30,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('프롬프트', style: AppTextStyles.body5,),
-                            Text('${widget.promptCount}개', style: AppTextStyles.body3Bold,)
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('팔로워', style: AppTextStyles.body5,),
-                            Text('${widget.followerCount}명', style: AppTextStyles.body3Bold,)
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('팔로잉', style: AppTextStyles.body5,),
-                            Text('${widget.followingCount}명', style: AppTextStyles.body3Bold,)
-                          ],
+                        Text('팔로워', style: AppTextStyles.body5),
+                        Text(
+                          '${widget.followerCount}명',
+                          style: AppTextStyles.body3Bold,
                         ),
                       ],
-                    )
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('팔로잉', style: AppTextStyles.body5),
+                        Text(
+                          '${widget.followingCount}명',
+                          style: AppTextStyles.body3Bold,
+                        ),
+                      ],
+                    ),
                   ],
-                )
-              ]
-          )
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

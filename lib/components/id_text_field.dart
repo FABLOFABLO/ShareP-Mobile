@@ -48,11 +48,13 @@ class _IdTextFieldState extends State<IdTextField> {
         children: [
           Text(
             widget.text,
-            style: widget.big ? AppTextStyles.body1 :TextStyle(
-              color: AppColor.gray100,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
+            style: widget.big
+                ? AppTextStyles.body1
+                : TextStyle(
+                    color: AppColor.gray100,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
           ),
           const SizedBox(height: 7),
           SizedBox(
@@ -75,7 +77,10 @@ class _IdTextFieldState extends State<IdTextField> {
                 hintStyle: TextStyle(color: AppColor.gray40, fontSize: 14),
                 filled: true,
                 fillColor: AppColor.white,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
@@ -109,7 +114,7 @@ class _IdTextFieldState extends State<IdTextField> {
               ),
             ),
           ),
-          const SizedBox(height: 10,)
+          const SizedBox(height: 10),
         ],
       ),
     );

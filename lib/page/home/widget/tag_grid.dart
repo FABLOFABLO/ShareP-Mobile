@@ -10,11 +10,17 @@ class TagGrid extends StatefulWidget {
 }
 
 class _TagGridState extends State<TagGrid> {
-  static const List<String> tagList =
-  ['로고', '브랜딩', '일러스트',
-    '브랜딩', '일러스트', '로고',
-    '로고', '일러스트', '일러스트'];
-
+  static const List<String> tagList = [
+    '로고',
+    '브랜딩',
+    '일러스트',
+    '브랜딩',
+    '일러스트',
+    '로고',
+    '로고',
+    '일러스트',
+    '일러스트',
+  ];
 
   int selectedRow = 0;
   int selectedColumn = 0;
@@ -26,35 +32,35 @@ class _TagGridState extends State<TagGrid> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('태그', style: AppTextStyles.body1,),
-          const SizedBox(height: 10,),
+          Text('태그', style: AppTextStyles.body1),
+          const SizedBox(height: 10),
           Row(
             spacing: 10,
             children: [
               PromptTag(tag: tagList[0]),
               PromptTag(tag: tagList[1]),
-              PromptTag(tag: tagList[2])
+              PromptTag(tag: tagList[2]),
             ],
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(height: 5),
           Row(
             spacing: 10,
             children: [
               PromptTag(tag: tagList[3]),
               PromptTag(tag: tagList[4]),
-              PromptTag(tag: tagList[5])
+              PromptTag(tag: tagList[5]),
             ],
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(height: 5),
           Row(
             spacing: 10,
             children: [
               PromptTag(tag: tagList[6]),
               PromptTag(tag: tagList[7]),
-              PromptTag(tag: tagList[8])
+              PromptTag(tag: tagList[8]),
             ],
           ),
-          const SizedBox(height: 40,)
+          const SizedBox(height: 40),
         ],
       ),
     );

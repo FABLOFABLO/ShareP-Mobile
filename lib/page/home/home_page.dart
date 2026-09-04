@@ -8,7 +8,6 @@ import 'package:share_prompt/model/prompt_card_model.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final List<PromptCardModel> _promptCards = [
@@ -18,221 +17,284 @@ class HomePage extends StatelessWidget {
         tag: '로고',
         author: '한지석',
         like: 12,
-        id: 1
+        id: 1,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 2
+        like: 12,
+        id: 2,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 3
+        like: 12,
+        id: 3,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 4
+        like: 12,
+        id: 4,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 5
+        like: 12,
+        id: 5,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 6
+        like: 12,
+        id: 6,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 7
+        like: 12,
+        id: 7,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 8
+        like: 12,
+        id: 8,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 9
+        like: 12,
+        id: 9,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 10
+        like: 12,
+        id: 10,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 11
+        like: 12,
+        id: 11,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 12
+        like: 12,
+        id: 12,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 13
+        like: 12,
+        id: 13,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 14
+        like: 12,
+        id: 14,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 15
+        like: 12,
+        id: 15,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 16
+        like: 12,
+        id: 16,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 17
+        like: 12,
+        id: 17,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 18
+        like: 12,
+        id: 18,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 19
+        like: 12,
+        id: 19,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 20
+        like: 12,
+        id: 20,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 21
+        like: 12,
+        id: 21,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 22
+        like: 12,
+        id: 22,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 23
+        like: 12,
+        id: 23,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 24
+        like: 12,
+        id: 24,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 25
+        like: 12,
+        id: 25,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 26
+        like: 12,
+        id: 26,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 27
+        like: 12,
+        id: 27,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 28
+        like: 12,
+        id: 28,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 29
+        like: 12,
+        id: 29,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 30
+        like: 12,
+        id: 30,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 31
+        like: 12,
+        id: 31,
       ),
-      PromptCardModel(title: '브랜드 로고 디자인 프롬프트',
+      PromptCardModel(
+        title: '브랜드 로고 디자인 프롬프트',
         description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
         tag: '로고',
         author: '한지석',
-        like: 12, id: 32
+        like: 12,
+        id: 32,
       ),
     ];
     return Scaffold(
       appBar: HomeAppBar(),
-        body: SafeArea(
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
-                    child: PromptCard(
-                        title: _promptCards[index].title,
-                        description: _promptCards[index].description,
-                        tag: _promptCards[index].tag,
-                        author: _promptCards[index].author,
-                        like: _promptCards[index].like
-                    ),
-                  );
-                }
-            ),
+      body: SafeArea(
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
+              child: PromptCard(
+                title: _promptCards[index].title,
+                description: _promptCards[index].description,
+                tag: _promptCards[index].tag,
+                author: _promptCards[index].author,
+                like: _promptCards[index].like,
+                onTap: () => context.push('/detail'),
+              ),
+            );
+          },
         ),
-        floatingActionButton: FloatingActionButton(
-
-          shape: const CircleBorder(),
-          child: Icon(Icons.add, size: 30,),
-            backgroundColor: AppColor.primary,
-            foregroundColor: AppColor.white,
-            onPressed: () => context.push('/post')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        child: Icon(Icons.add, size: 30),
+        backgroundColor: AppColor.primary,
+        foregroundColor: AppColor.white,
+        onPressed: () => context.push('/post'),
+      ),
     );
   }
 }

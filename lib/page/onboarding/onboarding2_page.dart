@@ -65,6 +65,7 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                   tag: '로고',
                   author: '한지석',
                   like: 12,
+                  onTap: () {},
                 ),
                 const SizedBox(height: 15),
                 PromptCard(
@@ -73,6 +74,7 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                   tag: '로고',
                   author: '한지석',
                   like: 12,
+                  onTap: () {},
                 ),
               ],
             ),

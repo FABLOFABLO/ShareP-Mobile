@@ -52,7 +52,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
                       minline: 1,
                       big: true,
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 20),
                     IdTextField(
                       text: '내용',
                       hintText: '내용을 작성해주세요',
@@ -65,7 +65,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
                       minline: 1,
                       big: true,
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 20),
                     IdTextField(
                       text: '프롬프트',
                       hintText: '프롬프트를 작성해주세요',
@@ -76,8 +76,8 @@ class _PromptPostPageState extends State<PromptPostPage> {
                       minline: 7,
                       big: true,
                     ),
-                    const SizedBox(height: 20,),
-                    const TagGrid()
+                    const SizedBox(height: 20),
+                    const TagGrid(),
                   ],
                 ),
               ),

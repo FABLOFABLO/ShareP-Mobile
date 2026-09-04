@@ -12,7 +12,6 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<HomeAppBar> createState() => _HomeAppBarState();
 }
 
-
 class _HomeAppBarState extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
@@ -21,34 +20,32 @@ class _HomeAppBarState extends State<HomeAppBar> {
       child: Row(
         children: [
           Container(
-              width: 88,
-              height: 36,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: AppColor.secondary,
-                border: Border.all(color: AppColor.primary, width: 1),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '최신순',
-                    style: AppTextStyles.body5.copyWith(
-                      color: AppColor.primary,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
+            width: 88,
+            height: 36,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: AppColor.secondary,
+              border: Border.all(color: AppColor.primary, width: 1),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '최신순',
+                  style: AppTextStyles.body5.copyWith(
                     color: AppColor.primary,
+                    fontWeight: FontWeight.w700,
                   ),
-                ],
-              ),
+                ),
+                Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: AppColor.primary,
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
-
-
 }

@@ -10,8 +10,6 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('검색'),
-    );
+    return Center(child: Text('검색'));
   }
 }

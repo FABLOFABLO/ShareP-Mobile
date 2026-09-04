@@ -19,33 +19,37 @@ class _PromptContextState extends State<PromptContext> {
 
   void showToast() {
     fToast.showToast(
-      child: Platform.isAndroid ? Container() : Container(
-        height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          color: AppColor.primary,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Row(
-            children: [
-              Icon(Icons.check, size: 26, color: AppColor.white),
-              const SizedBox(width: 15),
-              Text(
-                '복사되었습니다.',
-                style: AppTextStyles.body4Bold.copyWith(color: AppColor.white),
+      child: Platform.isAndroid
+          ? Container()
+          : Container(
+              height: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                color: AppColor.primary,
+                borderRadius: BorderRadius.circular(20),
               ),
-              Spacer(),
-              IconButton(
-                onPressed: () {
-                  fToast.removeCustomToast();
-                },
-                icon: Icon(Icons.cancel, size: 20, color: AppColor.white),
+              child: Center(
+                child: Row(
+                  children: [
+                    Icon(Icons.check, size: 26, color: AppColor.white),
+                    const SizedBox(width: 15),
+                    Text(
+                      '복사되었습니다.',
+                      style: AppTextStyles.body4Bold.copyWith(
+                        color: AppColor.white,
+                      ),
+                    ),
+                    Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        fToast.removeCustomToast();
+                      },
+                      icon: Icon(Icons.cancel, size: 20, color: AppColor.white),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
       gravity: ToastGravity.BOTTOM,
       toastDuration: const Duration(seconds: 2),
     );
