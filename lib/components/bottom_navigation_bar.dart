@@ -35,10 +35,7 @@ class AppBottomNavigationbar extends StatelessWidget {
                       topLeft: Radius.circular(80),
                       topRight: Radius.circular(80),
                     ),
-                    border: Border.all(
-                      width: 1,
-                      color: AppColor.gray50,
-                    ),
+                    border: Border.all(width: 1, color: AppColor.gray50),
                   ),
                 ),
               ),
@@ -46,19 +43,13 @@ class AppBottomNavigationbar extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _item(
-                    index: 0,
-                    icon: Icons.search,
-                    label: '검색',
-                  ),
+                  _item(index: 0, icon: Icons.search, label: '검색'),
 
                   const SizedBox(width: 33),
 
                   _item(
                     index: 1,
-                    icon: currentIndex == 1
-                        ? Icons.home
-                        : Icons.home_outlined,
+                    icon: currentIndex == 1 ? Icons.home : Icons.home_outlined,
                     label: '홈',
                   ),
 
@@ -86,9 +77,7 @@ class AppBottomNavigationbar extends StatelessWidget {
     required String label,
   }) {
     final selected = currentIndex == index;
-    final color = selected
-        ? AppColor.primary
-        : AppColor.gray50;
+    final color = selected ? AppColor.primary : AppColor.gray50;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -100,17 +89,8 @@ class AppBottomNavigationbar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              color: color,
-              size: 33,
-            ),
-            Text(
-              label,
-              style: AppTextStyles.body4.copyWith(
-                color: color,
-              ),
-            ),
+            Icon(icon, color: color, size: 33),
+            Text(label, style: AppTextStyles.body4.copyWith(color: color)),
           ],
         ),
       ),

@@ -6,4 +6,5 @@ class AppAssets {
   static const String star = 'assets/star.png';
   static const String onBoardingLogo = 'assets/on_bording_logo.png';
   static const String logo = 'assets/logo.png';
+  static const String copy = 'assets/copy_icon.svg';
 }

@@ -24,7 +24,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     super.initState();
-
     _passwordController.addListener(_validatePasswordMatch);
     _checkPasswordController.addListener(_validatePasswordMatch);
   }
@@ -90,6 +89,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             onSubmitted: (_) {
                               _passwordFocusNode.requestFocus();
                             },
+                            minline: 1,
+                            big: false,
                           ),
 
                           IdTextField(
@@ -102,6 +103,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             onSubmitted: (_) {
                               _checkPasswordFocusNode.requestFocus();
                             },
+                            minline: 1,
+                            big: false,
                           ),
 
                           PwTextField(
@@ -144,7 +147,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             ],
                           ),
 
-                          BottomButton(text: '회원가입하기', color: AppColor.primary, onTap: () {}),
+                          BottomButton(
+                            text: '회원가입하기',
+                            color: AppColor.primary,
+                            onTap: () {},
+                          ),
                           const SizedBox(height: 20),
                         ],
                       ),

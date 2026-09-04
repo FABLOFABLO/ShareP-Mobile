@@ -62,7 +62,7 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                 PromptCard(
                   title: '브랜드 로고 디자인 프롬프트',
                   main: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-                  tagCount: 2,
+                  tagName: '로고',
                   userName: '한지석',
                   likeCount: 12,
                 ),
@@ -70,7 +70,7 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                 PromptCard(
                   title: '브랜드 로고 디자인 프롬프트',
                   main: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-                  tagCount: 2,
+                  tagName: '로고',
                   userName: '한지석',
                   likeCount: 12,
                 ),

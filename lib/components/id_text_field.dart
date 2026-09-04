@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/constants/app_color.dart';
+import 'package:share_prompt/constants/app_text_style.dart';
 
 class IdTextField extends StatefulWidget {
   final String text;
@@ -9,6 +10,8 @@ class IdTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputAction textInputAction;
   final ValueChanged<String>? onSubmitted;
+  final int minline;
+  final bool big;
 
   const IdTextField({
     super.key,
@@ -19,6 +22,8 @@ class IdTextField extends StatefulWidget {
     this.focusNode,
     this.textInputAction = TextInputAction.next,
     this.onSubmitted,
+    required this.minline,
+    required this.big,
   });
 
   @override
@@ -37,13 +42,13 @@ class _IdTextFieldState extends State<IdTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             widget.text,
-            style: TextStyle(
+            style: widget.big ? AppTextStyles.body1 :TextStyle(
               color: AppColor.gray100,
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -51,9 +56,10 @@ class _IdTextFieldState extends State<IdTextField> {
           ),
           const SizedBox(height: 7),
           SizedBox(
-            height: 40,
             width: double.infinity,
             child: TextField(
+              minLines: widget.minline,
+              maxLines: widget.minline,
               cursorHeight: 15,
               cursorColor: AppColor.gray100,
               controller: widget.controller,
@@ -69,7 +75,7 @@ class _IdTextFieldState extends State<IdTextField> {
                 hintStyle: TextStyle(color: AppColor.gray40, fontSize: 14),
                 filled: true,
                 fillColor: AppColor.white,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
@@ -103,6 +109,7 @@ class _IdTextFieldState extends State<IdTextField> {
               ),
             ),
           ),
+          const SizedBox(height: 10,)
         ],
       ),
     );
