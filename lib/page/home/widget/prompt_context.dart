@@ -5,6 +5,7 @@ import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:io';
 
 class PromptContext extends StatefulWidget {
   const PromptContext({super.key});
@@ -18,7 +19,7 @@ class _PromptContextState extends State<PromptContext> {
 
   void showToast() {
     fToast.showToast(
-      child: Container(
+      child: Platform.isAndroid ? Container() : Container(
         height: 50,
         padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
