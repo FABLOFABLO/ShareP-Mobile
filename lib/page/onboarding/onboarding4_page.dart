@@ -79,10 +79,10 @@ class OnBoarding4Page extends StatelessWidget {
 
             PromptCard(
               title: '브랜드 로고 디자인 프롬프트',
-              main: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-              tagName: '로고',
-              userName: '한지석',
-              likeCount: 12,
+              description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
+              tag: '로고',
+              author: '한지석',
+              like: 12,
             ),
             const SizedBox(height: 30),
             Text(

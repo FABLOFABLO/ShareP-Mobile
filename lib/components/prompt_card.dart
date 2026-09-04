@@ -8,17 +8,17 @@ class PromptCard extends StatefulWidget {
   const PromptCard({
     super.key,
     required this.title,
-    required this.main,
-    required this.tagName,
-    required this.userName,
-    required this.likeCount,
+    required this.description,
+    required this.tag,
+    required this.author,
+    required this.like,
   });
 
   final String title;
-  final String main;
-  final String tagName;
-  final String userName;
-  final int likeCount;
+  final String description;
+  final String tag;
+  final String author;
+  final int like;
 
   @override
   State<PromptCard> createState() => _PromptCardState();
@@ -57,7 +57,7 @@ class _PromptCardState extends State<PromptCard> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      widget.main,
+                      widget.description,
                       textAlign: TextAlign.start,
                       style: AppTextStyles.caption3,
                       maxLines: 2,
@@ -68,7 +68,7 @@ class _PromptCardState extends State<PromptCard> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       spacing: 5,
                       children: [
-                        PromptTag(tag: widget.tagName, inPrompt: true,),
+                        PromptTag(tag: widget.tag, inPrompt: true,),
                       ],
                     ),
                   ],
@@ -81,7 +81,7 @@ class _PromptCardState extends State<PromptCard> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      widget.userName,
+                      widget.author,
                       style: AppTextStyles.body5.copyWith(
                           color: AppColor.gray70,
                           fontWeight: FontWeight.w600
@@ -103,7 +103,7 @@ class _PromptCardState extends State<PromptCard> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            '${widget.likeCount + (isLiked ? 1 : 0)}',
+                            '${widget.like + (isLiked ? 1 : 0)}',
                             style: AppTextStyles.body4Bold.copyWith(
                               color: AppColor.primary,
                             ),
