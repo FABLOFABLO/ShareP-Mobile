@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
+import 'package:share_prompt/components/prompt_tag.dart';
 import 'package:share_prompt/page/home/widget/prompt_context.dart';
 
 import '../../constants/app_color.dart';

@@ -33,14 +33,18 @@ class _PromptSortButtonState extends State<PromptSortButton> {
                 width: 88,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: AppColor.primary
+                    color: AppColor.white,
+                    border: Border.all(
+                    color: AppColor.primary,
+                      width: 1.5
+                )
+
                 ),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(otherOption, style: AppTextStyles.body5.copyWith(color: AppColor.white),),
-                      Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.white,)
+                      Text(otherOption, style: AppTextStyles.body5.copyWith(color: AppColor.primary),),
                     ],
                   ),
                 ),
@@ -65,15 +69,18 @@ class _PromptSortButtonState extends State<PromptSortButton> {
         width: 88,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: AppColor.primary
+            color: AppColor.secondary,
+            border: Border.all(
+            color: AppColor.primary,
+              width: 1.5
+        )
         ),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(now, style: AppTextStyles.body5.copyWith(color: AppColor.white)),
-              const SizedBox(width: 3,),
-              Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.white)
+              Text(now, style: AppTextStyles.body5.copyWith(color: AppColor.primary)),
+              Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.primary)
             ],
           ),
         ),

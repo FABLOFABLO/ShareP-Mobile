@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_prompt/components/prompt_tag.dart';
 import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
@@ -22,7 +23,7 @@ class _PromptContextState extends State<PromptContext> {
       child: Platform.isAndroid
           ? Container()
           : Container(
-              height: 50,
+              height: 80,
               padding: const EdgeInsets.symmetric(horizontal: 15),
               decoration: BoxDecoration(
                 color: AppColor.primary,
@@ -107,6 +108,13 @@ class _PromptContextState extends State<PromptContext> {
               child: Text(promptContext, style: AppTextStyles.body4),
             ),
           ),
+          const SizedBox(height: 8,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              PromptTag(tag: '로고'),
+            ],
+          )
         ],
       ),
     );

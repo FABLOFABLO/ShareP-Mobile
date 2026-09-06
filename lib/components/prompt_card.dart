@@ -48,11 +48,7 @@ class _PromptCardState extends State<PromptCard> {
             children: [
               Expanded(
                 child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isLiked = !isLiked;
-                    });
-                  },
+                  onTap: widget.onTap,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
