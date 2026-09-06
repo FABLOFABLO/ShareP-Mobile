@@ -146,6 +146,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         shape: const CircleBorder(),
         child: Icon(Icons.add, size: 30),
         backgroundColor: AppColor.primary,
