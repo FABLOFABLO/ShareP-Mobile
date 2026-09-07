@@ -12,78 +12,86 @@ class PromptSortButton extends StatefulWidget {
 class _PromptSortButtonState extends State<PromptSortButton> {
   String now = '최신순';
   OverlayEntry? _overlayEntry;
+  bool isTap = false;
 
   void _showOverlay() {
     final String otherOption = now == '최신순' ? '좋아요순' : '최신순';
     _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        top: 100,
-        left: 27,
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              now = otherOption;
-              _hideOverlay();
-            });
-          },
-          child: Container(
-            height: 36,
-            width: 88,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: AppColor.white,
-              border: Border.all(color: AppColor.primary, width: 1.5),
-            ),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    otherOption,
-                    style: AppTextStyles.body5.copyWith(
-                      color: AppColor.primary,
-                    ),
+      builder: (context) =>
+          Positioned(
+            top: 100,
+            left: 27,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  now = otherOption;
+                  _hideOverlay();
+                });
+              },
+              child: Container(
+                height: 36,
+                width: 88,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: AppColor.white,
+                  border: Border.all(color: AppColor.primary, width: 1.5),
+                ),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        otherOption,
+                        style: AppTextStyles.body5.copyWith(
+                          color: AppColor.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
     );
-
+    setState(() {
+      isTap = !isTap;
+    });
     Overlay.of(context).insert(_overlayEntry!);
   }
 
   void _hideOverlay() {
     _overlayEntry!.remove();
+    isTap = !isTap;
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _showOverlay,
+      onTap: () {
+        setState(() {
+          isTap ? _hideOverlay() : _showOverlay();
+        });
+      },
       child: Container(
-        height: 36,
-        width: 88,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: AppColor.secondary,
-          border: Border.all(color: AppColor.primary, width: 1.5),
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                now,
-                style: AppTextStyles.body5.copyWith(color: AppColor.primary),
-              ),
-              Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.primary),
-            ],
-          ),
+      height: 36,
+      width: 88,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: AppColor.secondary,
+        border: Border.all(color: AppColor.primary, width: 1.5),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              now,
+              style: AppTextStyles.body5.copyWith(color: AppColor.primary),
+            ),
+            Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.primary),
+          ],
         ),
       ),
-    );
+    ),);
   }
 }
