@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
 import 'package:share_prompt/components/prompt_tag.dart';
 import 'package:share_prompt/page/home/widget/prompt_context.dart';
@@ -76,20 +77,29 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                           const SizedBox(height: 14),
                           Row(
                             children: [
-                              CircleAvatar(
-                                radius: 13,
-                                backgroundColor: AppColor.gray50,
-                                child: Icon(
-                                  Icons.person,
-                                  color: AppColor.white,
-                                  size: 20,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                '한지석',
-                                style: AppTextStyles.body1.copyWith(
-                                  color: AppColor.gray100,
+                              GestureDetector(
+                                onTap: () => context.push('/profile'),
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 13,
+                                        backgroundColor: AppColor.gray50,
+                                        child: Icon(
+                                          Icons.person,
+                                          color: AppColor.white,
+                                          size: 20,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        '한지석',
+                                        style: AppTextStyles.body1.copyWith(
+                                          color: AppColor.gray100,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
 

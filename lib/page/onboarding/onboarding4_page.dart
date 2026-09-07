@@ -17,7 +17,7 @@ class OnBoarding4Page extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 150),
-            ProflieCard(
+            ProfileCard(
               name: '한지석',
               promptCount: 124,
               followerCount: 4,

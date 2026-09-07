@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/page/auth/login_page.dart';
 import 'package:share_prompt/page/auth/sign_up_page.dart';
 import 'package:share_prompt/page/home/home_page.dart';
+import 'package:share_prompt/page/home/profile_page.dart';
 import 'package:share_prompt/page/home/prompt_detail_page.dart';
 import 'package:share_prompt/page/home/prompt_post_page.dart';
 import 'package:share_prompt/page/main/main_shell_page.dart';
@@ -70,6 +71,13 @@ final GoRouter router = GoRouter(
       path: '/detail',
       builder: (BuildContext context, GoRouterState state) {
         return const PromptDetailPage();
+      },
+    ),
+
+    GoRoute(
+      path: '/profile',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ProfilePage();
       },
     ),
 

@@ -13,15 +13,20 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBarLabel = label;
+
     return SizedBox(
       child: Stack(
-        alignment: Alignment.center,
+        alignment: Alignment.bottomCenter,
         children: [
-          Center(
-            child: (label != null)
-                ? Text(label!, style: AppTextStyles.title3)
-                : null,
-          ),
+          if (appBarLabel != null)
+            Positioned(
+              bottom: 20,
+              child: Text(
+                appBarLabel,
+                style: AppTextStyles.title3,
+              ),
+            ),
 
           Positioned(
             left: 10,
