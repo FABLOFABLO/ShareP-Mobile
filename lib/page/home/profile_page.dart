@@ -135,12 +135,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(label: '프로필'),
+      appBar: const DefaultAppBar(label: '프로필'),
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 10),
-            ProfileCard(
+            const ProfileCard(
               name: '한지석',
               promptCount: 124,
               followerCount: 4,
@@ -168,10 +168,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   const SizedBox(height: 10),
 
-                  Stack(
+                  const Stack(
                     alignment: Alignment.bottomLeft,
                     children: [
-                      const Divider(
+                      Divider(
                         height: 3,
                         thickness: 2,
                         color: AppColor.primary,

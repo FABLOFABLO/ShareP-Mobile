@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/prompt_tag.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';

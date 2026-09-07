@@ -33,7 +33,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(label: '프롬프트 작성'),
+      appBar: const DefaultAppBar(label: '프롬프트 작성'),
       body: SafeArea(
         child: Column(
           children: [

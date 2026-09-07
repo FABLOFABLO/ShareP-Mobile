@@ -50,7 +50,7 @@ class _IdTextFieldState extends State<IdTextField> {
             widget.text,
             style: widget.big
                 ? AppTextStyles.body1
-                : TextStyle(
+                : const TextStyle(
                     color: AppColor.gray100,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class _IdTextFieldState extends State<IdTextField> {
               onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
                 hintText: widget.hintText,
-                hintStyle: TextStyle(color: AppColor.gray40, fontSize: 14),
+                hintStyle: const TextStyle(color: AppColor.gray40, fontSize: 14),
                 filled: true,
                 fillColor: AppColor.white,
                 contentPadding: const EdgeInsets.symmetric(
@@ -90,7 +90,7 @@ class _IdTextFieldState extends State<IdTextField> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
+                  borderSide: const BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
                 ),
                 suffixIcon: widget.hasIcon
                     ? IconButton(
@@ -103,7 +103,7 @@ class _IdTextFieldState extends State<IdTextField> {
                           _obscureText
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: Color(0xFF818C98),
+                          color: const Color(0xFF818C98),
                         ),
                       )
                     : null,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
-import 'package:share_prompt/components/prompt_tag.dart';
 import 'package:share_prompt/page/home/widget/prompt_context.dart';
 
 import '../../constants/app_color.dart';
@@ -21,7 +20,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(),
+      appBar: const DefaultAppBar(),
       body: SafeArea(
         child: Column(
           children: [
@@ -42,7 +41,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                   color: AppColor.gray100,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -82,7 +81,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                 child: Container(
                                   child: Row(
                                     children: [
-                                      CircleAvatar(
+                                      const CircleAvatar(
                                         radius: 13,
                                         backgroundColor: AppColor.gray50,
                                         child: Icon(
@@ -103,7 +102,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                 ),
                               ),
 
-                              Spacer(),
+                              const Spacer(),
 
                               GestureDetector(
                                 onTap: () {
@@ -147,7 +146,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                             ),
                           ),
                           const SizedBox(height: 34),
-                          PromptContext(),
+                          const PromptContext(),
                         ],
                       ),
                     ),

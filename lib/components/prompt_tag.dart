@@ -8,7 +8,7 @@ class PromptTag extends StatelessWidget {
   final VoidCallback onTap;
   final bool hasTap;
 
-  PromptTag({super.key, required this.tag, this.inPrompt = false, required this.onTap, this.hasTap = false});
+  const PromptTag({super.key, required this.tag, this.inPrompt = false, required this.onTap, this.hasTap = false});
 
   @override
   Widget build(BuildContext context) {

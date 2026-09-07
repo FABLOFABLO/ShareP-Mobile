@@ -9,9 +9,9 @@ class ProfileCard extends StatefulWidget {
   final int followerCount;
   final int followingCount;
   final bool isProfile;
-  bool isFollow;
+  final bool isFollow;
 
-  ProfileCard({
+  const ProfileCard({
     super.key,
     required this.name,
     required this.promptCount,
@@ -26,13 +26,21 @@ class ProfileCard extends StatefulWidget {
 }
 
 class _ProflieCardState extends State<ProfileCard> {
+  late bool _isFollow = widget.isFollow;
+
+  @override
+  void didUpdateWidget(covariant ProfileCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _isFollow = widget.isFollow;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35),
       child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 40,
             backgroundColor: AppColor.gray50,
             child: Icon(Icons.person, size: 70, color: AppColor.white),
@@ -45,16 +53,24 @@ class _ProflieCardState extends State<ProfileCard> {
                 children: widget.isProfile
                     ? [
                         Text(widget.name, style: AppTextStyles.title3),
-                        SizedBox(width: 15,),
+                        const SizedBox(width: 15,),
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              widget.isFollow = !widget.isFollow;
+                              _isFollow = !_isFollow;
                             });
                           },
                           child: Container(
+                            width: 51,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: _isFollow
+                                  ? AppColor.primary
+                                  : AppColor.secondary,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
                             child: Center(
-                              child: widget.isFollow
+                              child: _isFollow
                                   ? Text(
                                       '팔로우',
                                       style: AppTextStyles.body5.copyWith(
@@ -68,14 +84,6 @@ class _ProflieCardState extends State<ProfileCard> {
                                       ),
                                     ),
                             ),
-                            width: 51,
-                            height: 24,
-                            decoration: BoxDecoration(
-                              color: widget.isFollow
-                                  ? AppColor.primary
-                                  : AppColor.secondary,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
                           ),
                         ),
                       ]
@@ -88,7 +96,7 @@ class _ProflieCardState extends State<ProfileCard> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('프롬프트', style: AppTextStyles.body5),
+                      const Text('프롬프트', style: AppTextStyles.body5),
                       Text(
                         '${widget.promptCount}개',
                         style: AppTextStyles.body3Bold,
@@ -100,7 +108,7 @@ class _ProflieCardState extends State<ProfileCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('팔로워', style: AppTextStyles.body5),
+                        const Text('팔로워', style: AppTextStyles.body5),
                         Text(
                           '${widget.followerCount}명',
                           style: AppTextStyles.body3Bold,
@@ -114,7 +122,7 @@ class _ProflieCardState extends State<ProfileCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('팔로잉', style: AppTextStyles.body5),
+                        const Text('팔로잉', style: AppTextStyles.body5),
                         Text(
                           '${widget.followingCount}명',
                           style: AppTextStyles.body3Bold,

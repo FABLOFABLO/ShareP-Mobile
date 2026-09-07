@@ -46,7 +46,7 @@ class _UserFollowingState extends State<UserFollowing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(label: '팔로잉'),
+      appBar: const DefaultAppBar(label: '팔로잉'),
       body: SafeArea(
         child:
             ListView.builder(

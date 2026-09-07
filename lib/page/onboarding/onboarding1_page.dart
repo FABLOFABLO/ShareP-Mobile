@@ -13,10 +13,10 @@ class OnBoarding1Page extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 240),
+            const SizedBox(height: 240),
             Center(child: Image.asset('assets/on_bording_logo.png')),
-            SizedBox(height: 31),
-            Text(
+            const SizedBox(height: 31),
+            const Text(
               '좋은 프롬프트를 나누고,\nAI와 함께 더 멋진 결과물을 만들어요.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -25,8 +25,8 @@ class OnBoarding1Page extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Spacer(),
-            Row(
+            const Spacer(),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 6,
               children: [
@@ -48,7 +48,7 @@ class OnBoarding1Page extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
 
             BottomButton(
               text: '다음',
@@ -56,7 +56,7 @@ class OnBoarding1Page extends StatelessWidget {
               onTap: () => context.go('/onboarding/2'),
             ),
 
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
           ],
         ),
       ),

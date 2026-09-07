@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class AppAssets {
   static const String background1 = 'assets/background1.png';

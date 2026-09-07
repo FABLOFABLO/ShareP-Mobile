@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
       ),
     ];
     return Scaffold(
-      appBar: HomeAppBar(),
+      appBar: const HomeAppBar(),
       body: SafeArea(
         child: ListView.builder(
           itemCount: _promptCards.length,
@@ -148,10 +148,10 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         shape: const CircleBorder(),
-        child: Icon(Icons.add, size: 30),
         backgroundColor: AppColor.primary,
         foregroundColor: AppColor.white,
         onPressed: () => context.push('/post'),
+        child: const Icon(Icons.add, size: 30),
       ),
     );
   }

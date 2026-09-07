@@ -88,7 +88,7 @@ class _PromptSortButtonState extends State<PromptSortButton> {
               now,
               style: AppTextStyles.body5.copyWith(color: AppColor.primary),
             ),
-            Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.primary),
+            const Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.primary),
           ],
         ),
       ),

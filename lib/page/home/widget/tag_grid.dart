@@ -46,7 +46,7 @@ class _TagGridState extends State<TagGrid> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             '태그',
             style: AppTextStyles.body1,
           ),

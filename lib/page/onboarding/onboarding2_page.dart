@@ -43,14 +43,14 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.keyboard_arrow_down_rounded,
                         color: AppColor.primary,
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Image.asset(AppAssets.star),
               ],
             ),
@@ -94,9 +94,9 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
             textAlign: TextAlign.center,
           ),
 
-          Spacer(),
+          const Spacer(),
 
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 6,
             children: [
@@ -109,7 +109,7 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
               Text('⦁', style: TextStyle(color: AppColor.gray30, fontSize: 28)),
             ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
 
           BottomButton(
             text: '다음',
@@ -117,7 +117,7 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
             onTap: () => context.go('/onboarding/3'),
           ),
 
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
         ],
       ),
     );

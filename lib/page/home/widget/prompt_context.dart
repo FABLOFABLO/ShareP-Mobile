@@ -32,7 +32,7 @@ class _PromptContextState extends State<PromptContext> {
               child: Center(
                 child: Row(
                   children: [
-                    Icon(Icons.check, size: 26, color: AppColor.white),
+                    const Icon(Icons.check, size: 26, color: AppColor.white),
                     const SizedBox(width: 15),
                     Text(
                       '복사되었습니다.',
@@ -40,12 +40,12 @@ class _PromptContextState extends State<PromptContext> {
                         color: AppColor.white,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       onPressed: () {
                         fToast.removeCustomToast();
                       },
-                      icon: Icon(Icons.cancel, size: 20, color: AppColor.white),
+                      icon: const Icon(Icons.cancel, size: 20, color: AppColor.white),
                     ),
                   ],
                 ),
@@ -71,7 +71,7 @@ class _PromptContextState extends State<PromptContext> {
 
   @override
   Widget build(BuildContext context) {
-    final String promptContext =
+    const String promptContext =
         '당신은 친절한 프로그래밍 선생님입니다.\n고등학교 1학년 학생에게 Spring Boot의 동작 원리를 설명해주세요. 어려운 용어를 사용할 때는 반드시 쉬운 뜻과 예시를 함께 제시하고, 설명이 끝나면 이해도를 확인할 수 있는 간단한 문제 3개를 출제해주세요.';
     return Container(
       width: double.infinity,
@@ -84,11 +84,11 @@ class _PromptContextState extends State<PromptContext> {
                 '프롬프트',
                 style: AppTextStyles.body1.copyWith(color: AppColor.gray100),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   showToast();
-                  Clipboard.setData(ClipboardData(text: promptContext));
+                  Clipboard.setData(const ClipboardData(text: promptContext));
                 },
                 child: SvgPicture.asset(AppAssets.copy),
               ),
@@ -103,8 +103,8 @@ class _PromptContextState extends State<PromptContext> {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: AppColor.gray40, width: 1.5),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
+            child: const Padding(
+              padding: EdgeInsets.all(15.0),
               child: Text(promptContext, style: AppTextStyles.body4),
             ),
           ),

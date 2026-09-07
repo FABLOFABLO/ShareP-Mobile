@@ -17,7 +17,7 @@ class OnBoarding4Page extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 150),
-            ProfileCard(
+            const ProfileCard(
               name: '한지석',
               promptCount: 124,
               followerCount: 4,
@@ -99,8 +99,8 @@ class OnBoarding4Page extends StatelessWidget {
               style: AppTextStyles.body3.copyWith(color: AppColor.gray70),
               textAlign: TextAlign.center,
             ),
-            Spacer(),
-            Row(
+            const Spacer(),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 6,
               children: [
@@ -122,7 +122,7 @@ class OnBoarding4Page extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
 
             BottomButton(
               text: '시작하기',
@@ -130,7 +130,7 @@ class OnBoarding4Page extends StatelessWidget {
               onTap: () => context.go('/login'),
             ),
 
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
           ],
         ),
       ),
