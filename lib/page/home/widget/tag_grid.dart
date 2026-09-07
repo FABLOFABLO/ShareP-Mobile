@@ -28,9 +28,14 @@ class _TagGridState extends State<TagGrid> {
     setState(() {
       if (selectedTags.contains(index)) {
         selectedTags.remove(index);
-      } else {
-        selectedTags.add(index);
+        return;
       }
+      for (int i = 0; i < tagList.length; i++) {
+        if (selectedTags.contains(i)) {
+          selectedTags.remove(i);
+        }
+      }
+        selectedTags.add(index);
     });
   }
 
