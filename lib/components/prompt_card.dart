@@ -71,7 +71,7 @@ class _PromptCardState extends State<PromptCard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         spacing: 5,
-                        children: [PromptTag(tag: widget.tag, inPrompt: true)],
+                        children: [PromptTag(tag: widget.tag, inPrompt: true, onTap: () {}, hasTap: false,)],
                       ),
                     ],
                   ),

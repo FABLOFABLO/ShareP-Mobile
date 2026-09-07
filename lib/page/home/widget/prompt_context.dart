@@ -112,7 +112,7 @@ class _PromptContextState extends State<PromptContext> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              PromptTag(tag: '로고'),
+              PromptTag(tag: '로고', onTap: () {},),
             ],
           )
         ],

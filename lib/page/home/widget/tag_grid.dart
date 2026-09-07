@@ -22,8 +22,17 @@ class _TagGridState extends State<TagGrid> {
     '일러스트',
   ];
 
-  int selectedRow = 0;
-  int selectedColumn = 0;
+  final Set<int> selectedTags = {};
+
+  void toggleTag(int index) {
+    setState(() {
+      if (selectedTags.contains(index)) {
+        selectedTags.remove(index);
+      } else {
+        selectedTags.add(index);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,34 +41,79 @@ class _TagGridState extends State<TagGrid> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('태그', style: AppTextStyles.body1),
+          Text(
+            '태그',
+            style: AppTextStyles.body1,
+          ),
           const SizedBox(height: 10),
+
           Row(
             spacing: 10,
             children: [
-              PromptTag(tag: tagList[0]),
-              PromptTag(tag: tagList[1]),
-              PromptTag(tag: tagList[2]),
+              PromptTag(
+                tag: tagList[0],
+                hasTap: selectedTags.contains(0),
+                onTap: () => toggleTag(0),
+              ),
+              PromptTag(
+                tag: tagList[1],
+                hasTap: selectedTags.contains(1),
+                onTap: () => toggleTag(1),
+              ),
+              PromptTag(
+                tag: tagList[2],
+                hasTap: selectedTags.contains(2),
+                onTap: () => toggleTag(2),
+              ),
             ],
           ),
+
           const SizedBox(height: 5),
+
           Row(
             spacing: 10,
             children: [
-              PromptTag(tag: tagList[3]),
-              PromptTag(tag: tagList[4]),
-              PromptTag(tag: tagList[5]),
+              PromptTag(
+                tag: tagList[3],
+                hasTap: selectedTags.contains(3),
+                onTap: () => toggleTag(3),
+              ),
+              PromptTag(
+                tag: tagList[4],
+                hasTap: selectedTags.contains(4),
+                onTap: () => toggleTag(4),
+              ),
+              PromptTag(
+                tag: tagList[5],
+                hasTap: selectedTags.contains(5),
+                onTap: () => toggleTag(5),
+              ),
             ],
           ),
+
           const SizedBox(height: 5),
+
           Row(
             spacing: 10,
             children: [
-              PromptTag(tag: tagList[6]),
-              PromptTag(tag: tagList[7]),
-              PromptTag(tag: tagList[8]),
+              PromptTag(
+                tag: tagList[6],
+                hasTap: selectedTags.contains(6),
+                onTap: () => toggleTag(6),
+              ),
+              PromptTag(
+                tag: tagList[7],
+                hasTap: selectedTags.contains(7),
+                onTap: () => toggleTag(7),
+              ),
+              PromptTag(
+                tag: tagList[8],
+                hasTap: selectedTags.contains(8),
+                onTap: () => toggleTag(8),
+              ),
             ],
           ),
+
           const SizedBox(height: 40),
         ],
       ),
