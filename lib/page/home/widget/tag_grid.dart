@@ -35,7 +35,7 @@ class _TagGridState extends State<TagGrid> {
           selectedTags.remove(i);
         }
       }
-        selectedTags.add(index);
+      selectedTags.add(index);
     });
   }
 
@@ -46,12 +46,8 @@ class _TagGridState extends State<TagGrid> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '태그',
-            style: AppTextStyles.body1,
-          ),
+          const Text('태그', style: AppTextStyles.body1),
           const SizedBox(height: 10),
-
           Row(
             spacing: 10,
             children: [
@@ -72,9 +68,7 @@ class _TagGridState extends State<TagGrid> {
               ),
             ],
           ),
-
           const SizedBox(height: 5),
-
           Row(
             spacing: 10,
             children: [
@@ -95,9 +89,7 @@ class _TagGridState extends State<TagGrid> {
               ),
             ],
           ),
-
           const SizedBox(height: 5),
-
           Row(
             spacing: 10,
             children: [
@@ -118,7 +110,6 @@ class _TagGridState extends State<TagGrid> {
               ),
             ],
           ),
-
           const SizedBox(height: 40),
         ],
       ),

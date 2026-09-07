@@ -45,7 +45,7 @@ class _UserFollowerState extends State<UserFollower> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(label: '팔로잉'),
+      appBar: const DefaultAppBar(label: '팔로워'),
       body: SafeArea(
         child:
             ListView.builder(
