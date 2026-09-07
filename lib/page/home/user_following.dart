@@ -15,7 +15,7 @@ class _UserFollowingState extends State<UserFollowing> {
   final List<FollowBoxModel> boxes = [
     FollowBoxModel(
       userName: '최고의 디자이너 한지석',
-      hasFollowing: true,
+      hasFollowing: false,
     ),
     FollowBoxModel(
       userName: '김지우',
@@ -31,7 +31,7 @@ class _UserFollowingState extends State<UserFollowing> {
     ),
     FollowBoxModel(
       userName: '이지아',
-      hasFollowing: true,
+      hasFollowing: false,
     ),
     FollowBoxModel(
       userName: '권수현',
@@ -39,7 +39,7 @@ class _UserFollowingState extends State<UserFollowing> {
     ),
     FollowBoxModel(
       userName: '김수인',
-      hasFollowing: true,
+      hasFollowing: false,
     ),
   ];
 
