@@ -7,6 +7,8 @@ import 'package:share_prompt/page/home/home_page.dart';
 import 'package:share_prompt/page/home/profile_page.dart';
 import 'package:share_prompt/page/home/prompt_detail_page.dart';
 import 'package:share_prompt/page/home/prompt_post_page.dart';
+import 'package:share_prompt/page/home/user_follower.dart';
+import 'package:share_prompt/page/home/user_following.dart';
 import 'package:share_prompt/page/main/main_shell_page.dart';
 import 'package:share_prompt/page/my/my_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding1_page.dart';
@@ -78,6 +80,20 @@ final GoRouter router = GoRouter(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) {
         return const ProfilePage();
+      },
+    ),
+
+    GoRoute(
+      path: '/follower',
+      builder: (BuildContext context, GoRouterState state) {
+        return const UserFollower();
+      },
+    ),
+
+    GoRoute(
+      path: '/following',
+      builder: (BuildContext context, GoRouterState state) {
+        return const UserFollowing();
       },
     ),
 

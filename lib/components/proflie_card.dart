@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
 
@@ -94,26 +95,34 @@ class _ProflieCardState extends State<ProfileCard> {
                       ),
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('팔로워', style: AppTextStyles.body5),
-                      Text(
-                        '${widget.followerCount}명',
-                        style: AppTextStyles.body3Bold,
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () => context.push('/follower'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('팔로워', style: AppTextStyles.body5),
+                        Text(
+                          '${widget.followerCount}명',
+                          style: AppTextStyles.body3Bold,
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('팔로잉', style: AppTextStyles.body5),
-                      Text(
-                        '${widget.followingCount}명',
-                        style: AppTextStyles.body3Bold,
-                      ),
-                    ],
-                  ),
+
+                  GestureDetector(
+                    onTap: () => context.push('/following'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('팔로잉', style: AppTextStyles.body5),
+                        Text(
+                          '${widget.followingCount}명',
+                          style: AppTextStyles.body3Bold,
+                        ),
+                      ],
+                    ),
+                  )
+
                 ],
               ),
             ],
