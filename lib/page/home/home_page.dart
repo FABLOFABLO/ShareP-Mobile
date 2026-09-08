@@ -6,17 +6,11 @@ import 'package:share_prompt/components/prompt_card.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final promptCards = ref.watch(promptsProvider);
     return Scaffold(
       appBar: const HomeAppBar(),

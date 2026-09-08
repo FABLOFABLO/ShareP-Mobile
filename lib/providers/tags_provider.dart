@@ -13,7 +13,7 @@ final List<String> tagList = [
 ];
 
 final tagsProvider = StateNotifierProvider<TagsNotifier, List<String>>(
-      (ref) => TagsNotifier(),
+  (ref) => TagsNotifier(),
 );
 
 class TagsNotifier extends StateNotifier<List<String>> {

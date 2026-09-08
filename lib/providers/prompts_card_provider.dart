@@ -116,9 +116,10 @@ final List<PromptCardModel> promptCards = [
   ),
 ];
 
-final promptsProvider = StateNotifierProvider<PromptsNotifier, List<PromptCardModel>>(
+final promptsProvider =
+    StateNotifierProvider<PromptsNotifier, List<PromptCardModel>>(
       (ref) => PromptsNotifier(),
-);
+    );
 
 class PromptsNotifier extends StateNotifier<List<PromptCardModel>> {
   PromptsNotifier() : super(promptCards);

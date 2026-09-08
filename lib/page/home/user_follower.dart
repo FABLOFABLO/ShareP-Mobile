@@ -12,7 +12,6 @@ class UserFollower extends ConsumerStatefulWidget {
 }
 
 class _UserFollowerState extends ConsumerState<UserFollower> {
-
   @override
   Widget build(BuildContext context) {
     final boxes = ref.watch(followProvider);
@@ -20,24 +19,22 @@ class _UserFollowerState extends ConsumerState<UserFollower> {
     return Scaffold(
       appBar: const DefaultAppBar(label: '팔로워'),
       body: SafeArea(
-        child:
-            ListView.builder(
-              itemCount: boxes.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) {
-                final box = boxes[index];
+        child: ListView.builder(
+          itemCount: boxes.length,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            final box = boxes[index];
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
-                  child: FollowBox(
-                    userName: box.userName,
-                    hasFollowing: box.hasFollowing,
-                  )
-                );
-              },
-            ),
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
+              child: FollowBox(
+                userName: box.userName,
+                hasFollowing: box.hasFollowing,
+              ),
+            );
+          },
         ),
+      ),
     );
   }
 }
-
