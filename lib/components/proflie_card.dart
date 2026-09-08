@@ -104,6 +104,7 @@ class _ProflieCardState extends State<ProfileCard> {
                     ],
                   ),
                   GestureDetector(
+                    // TODO : 팔로워 목록 조회 API 연동하기
                     onTap: () => context.push('/follower'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +119,8 @@ class _ProflieCardState extends State<ProfileCard> {
                   ),
 
                   GestureDetector(
-                    onTap: () => context.push('/following'),
+                    // TODO : 팔로잉한 유저 목록 조회 API 연동하기
+                  onTap: () => context.push('/following'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

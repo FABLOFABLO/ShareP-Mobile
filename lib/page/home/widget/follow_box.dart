@@ -34,6 +34,7 @@ class _FollowBoxState extends State<FollowBox> {
               Text(widget.userName, style: AppTextStyles.body3,),
               const Spacer(),
               GestureDetector(
+                // TODO : 팔로우 API 연동하기
                 onTap: () {
                   setState(() {
                     widget.hasFollowing = !widget.hasFollowing;

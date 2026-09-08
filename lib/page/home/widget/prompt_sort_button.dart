@@ -22,6 +22,7 @@ class _PromptSortButtonState extends State<PromptSortButton> {
             top: 100,
             left: 27,
             child: GestureDetector(
+              // TODO : 프롬프트 정렬 API 연동하기
               onTap: () {
                 setState(() {
                   now = otherOption;

@@ -9,7 +9,7 @@ class PromptCard extends StatefulWidget {
     required this.title,
     required this.description,
     required this.tag,
-    required this.author,
+    required this.time,
     required this.like,
     required this.onTap,
   });
@@ -17,7 +17,7 @@ class PromptCard extends StatefulWidget {
   final String title;
   final String description;
   final String tag;
-  final String author;
+  final String time;
   final int like;
   final VoidCallback onTap;
 
@@ -83,13 +83,14 @@ class _PromptCardState extends State<PromptCard> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      widget.author,
+                      widget.time,
                       style: AppTextStyles.body5.copyWith(
                         color: AppColor.gray70,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     const Spacer(),
+                    // TODO : 좋아요 API 연동하기
                     GestureDetector(
                       onTap: () {
                         setState(() {

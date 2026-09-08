@@ -150,6 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           BottomButton(
                             text: '회원가입하기',
                             color: AppColor.primary,
+                            // TODO : 회원가입 API 연동하기
                             onTap: () {},
                           ),
                           const SizedBox(height: 20),

@@ -82,7 +82,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
                 ),
               ),
             ),
-
+            // TODO : 프롬프트 게시 API 연동하기
             BottomButton(text: '게시하기', color: AppColor.primary, onTap: () {}),
 
             const SizedBox(height: 20),

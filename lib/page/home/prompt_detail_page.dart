@@ -48,27 +48,25 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                     isLiked = !isLiked;
                                   });
                                 },
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        isLiked
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: isLiked
-                                            ? AppColor.primary
-                                            : AppColor.primary,
-                                        size: 25,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      isLiked
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: isLiked
+                                          ? AppColor.primary
+                                          : AppColor.primary,
+                                      size: 25,
+                                    ),
+                                    const SizedBox(width: 3),
+                                    Text(
+                                      '86',
+                                      style: AppTextStyles.body4Bold.copyWith(
+                                        color: AppColor.primary,
                                       ),
-                                      const SizedBox(width: 3),
-                                      Text(
-                                        '86',
-                                        style: AppTextStyles.body4Bold.copyWith(
-                                          color: AppColor.primary,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -77,33 +75,30 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                           Row(
                             children: [
                               GestureDetector(
+                                // TODO : 유저 프로필 조회 API 연동하기
                                 onTap: () => context.push('/profile'),
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      const CircleAvatar(
-                                        radius: 13,
-                                        backgroundColor: AppColor.gray50,
-                                        child: Icon(
-                                          Icons.person,
-                                          color: AppColor.white,
-                                          size: 20,
-                                        ),
+                                child: Row(
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 13,
+                                      backgroundColor: AppColor.gray50,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: AppColor.white,
+                                        size: 20,
                                       ),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        '한지석',
-                                        style: AppTextStyles.body1.copyWith(
-                                          color: AppColor.gray100,
-                                        ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      '한지석',
+                                      style: AppTextStyles.body1.copyWith(
+                                        color: AppColor.gray100,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-
                               const Spacer(),
-
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -111,6 +106,14 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                   });
                                 },
                                 child: Container(
+                                  width: 53,
+                                  height: 26,
+                                  decoration: BoxDecoration(
+                                    color: isFollow
+                                        ? AppColor.primary
+                                        : AppColor.secondary,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
                                   child: Center(
                                     child: isFollow
                                         ? Text(
@@ -125,14 +128,6 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                               color: AppColor.primary,
                                             ),
                                           ),
-                                  ),
-                                  width: 53,
-                                  height: 26,
-                                  decoration: BoxDecoration(
-                                    color: isFollow
-                                        ? AppColor.primary
-                                        : AppColor.secondary,
-                                    borderRadius: BorderRadius.circular(100),
                                   ),
                                 ),
                               ),

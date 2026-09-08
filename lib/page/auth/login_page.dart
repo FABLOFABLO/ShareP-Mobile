@@ -103,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                           BottomButton(
                             text: '로그인하기',
                             color: AppColor.primary,
+                            // TODO : 로그인 API 연동하기
                             onTap: () => context.go('/home'),
                           ),
                           const SizedBox(height: 20),
