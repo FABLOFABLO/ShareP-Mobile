@@ -2,12 +2,12 @@ import 'package:flutter_riverpod/legacy.dart';
 
 final List<String> tagList = [
   '그림',
-  '영상',
+  '웹사이트',
   '글',
   '음악',
   'PPT',
   '앱',
-  '웹사이트',
+  '영상',
   '디자인',
   '기타',
 ];
