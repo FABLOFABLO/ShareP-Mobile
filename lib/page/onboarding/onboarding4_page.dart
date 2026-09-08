@@ -17,7 +17,7 @@ class OnBoarding4Page extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 150),
-            ProflieCard(
+            const ProfileCard(
               name: '한지석',
               promptCount: 124,
               followerCount: 4,
@@ -79,10 +79,11 @@ class OnBoarding4Page extends StatelessWidget {
 
             PromptCard(
               title: '브랜드 로고 디자인 프롬프트',
-              main: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-              tagCount: 2,
-              userName: '한지석',
-              likeCount: 12,
+              description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
+              tag: '로고',
+              time: '3시간 전',
+              like: 12,
+              onTap: () {},
             ),
             const SizedBox(height: 30),
             Text(
@@ -98,8 +99,8 @@ class OnBoarding4Page extends StatelessWidget {
               style: AppTextStyles.body3.copyWith(color: AppColor.gray70),
               textAlign: TextAlign.center,
             ),
-            Spacer(),
-            Row(
+            const Spacer(),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 6,
               children: [
@@ -121,7 +122,7 @@ class OnBoarding4Page extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
 
             BottomButton(
               text: '시작하기',
@@ -129,7 +130,7 @@ class OnBoarding4Page extends StatelessWidget {
               onTap: () => context.go('/login'),
             ),
 
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
           ],
         ),
       ),

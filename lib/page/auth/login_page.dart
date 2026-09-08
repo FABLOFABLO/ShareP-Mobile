@@ -36,7 +36,8 @@ class _LoginPageState extends State<LoginPage> {
           child: LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
@@ -56,8 +57,9 @@ class _LoginPageState extends State<LoginPage> {
                             onSubmitted: (_) {
                               _passwordFocusNode.requestFocus();
                             },
+                            minline: 1,
+                            big: false,
                           ),
-
 
                           IdTextField(
                             text: '비밀번호',
@@ -67,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                             focusNode: _passwordFocusNode,
                             textInputAction: TextInputAction.next,
                             onSubmitted: (_) => TextInputAction.done,
+                            minline: 1,
+                            big: false,
                           ),
 
                           const Spacer(),
@@ -96,7 +100,12 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
 
-                          BottomButton(text: '로그인하기', color: AppColor.primary, onTap: () {}),
+                          BottomButton(
+                            text: '로그인하기',
+                            color: AppColor.primary,
+                            // TODO : 로그인 API 연동하기
+                            onTap: () => context.go('/home'),
+                          ),
                           const SizedBox(height: 20),
                         ],
                       ),
@@ -107,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
         ),
-      )
+      ),
     );
   }
 }

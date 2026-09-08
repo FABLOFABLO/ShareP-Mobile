@@ -4,19 +4,54 @@ import 'package:share_prompt/constants/app_text_style.dart';
 
 class PromptTag extends StatelessWidget {
   final String tag;
+  final bool inPrompt;
+  final VoidCallback onTap;
+  final bool hasTap;
 
-  const PromptTag({super.key, required this.tag});
+  const PromptTag({super.key, required this.tag, this.inPrompt = false, required this.onTap, this.hasTap = false});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 25,
-      width: 55,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: AppColor.gray50
-      ),
-      child: Center(child: Text(tag, style: AppTextStyles.body5.copyWith(color: AppColor.white))),
-    );
+    return inPrompt
+        ? GestureDetector(
+            onTap: onTap,
+            child: Container(
+              height: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 21),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: hasTap
+                    ? AppColor.primary
+                    : AppColor.gray50,
+              ),
+              child: Text(
+                tag,
+                style: AppTextStyles.body5.copyWith(
+                  color: AppColor.white,
+                ),
+              ),
+            )
+          )
+        : GestureDetector(
+            onTap: onTap,
+            child: Container(
+              height: 34,
+              padding: const EdgeInsets.symmetric(horizontal: 21),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: hasTap
+                    ? AppColor.primary
+                    : AppColor.gray50,
+              ),
+              child: Text(
+                tag,
+                style: AppTextStyles.body3.copyWith(
+                  color: AppColor.white,
+                ),
+              ),
+            )
+          );
   }
 }

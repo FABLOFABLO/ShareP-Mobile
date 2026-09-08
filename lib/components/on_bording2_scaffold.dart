@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:share_prompt/constants/app_assets.dart';
 
 class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({
-    super.key,
-    required this.body,
-  });
+  const CustomScaffold({super.key, required this.body});
 
   final Widget body;
 
@@ -26,21 +23,15 @@ class CustomScaffold extends StatelessWidget {
                 top: height * 0.14,
                 left: 0,
                 width: width * 0.75,
-                child: const _BackgroundAsset(
-                  path: AppAssets.background2
-                ),
+                child: const _BackgroundAsset(path: AppAssets.background2),
               ),
               Positioned(
                 top: height * 0.075,
                 right: -width * 0.04,
                 width: width * 0.72,
-                child: const _BackgroundAsset(
-                  path: AppAssets.background1
-                ),
+                child: const _BackgroundAsset(path: AppAssets.background1),
               ),
-              Positioned.fill(
-                child: SafeArea(child: body),
-              ),
+              Positioned.fill(child: SafeArea(child: body)),
             ],
           );
         },
@@ -57,9 +48,7 @@ class _BackgroundAsset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      child: ExcludeSemantics(
-        child: Image.asset(path, fit: BoxFit.contain),
-      ),
+      child: ExcludeSemantics(child: Image.asset(path, fit: BoxFit.contain)),
     );
   }
 }

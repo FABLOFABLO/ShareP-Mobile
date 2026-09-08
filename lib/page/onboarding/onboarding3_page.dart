@@ -14,7 +14,7 @@ class OnBoarding3Page extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 190),
+            const SizedBox(height: 190),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: Container(
@@ -47,7 +47,7 @@ class OnBoarding3Page extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Row(
                             children: [
-                              Icon(Icons.search, color: AppColor.gray50),
+                              const Icon(Icons.search, color: AppColor.gray50),
                               const SizedBox(width: 10),
                               Text(
                                 '프롬프트, 태그, 계정 검색',
@@ -62,7 +62,7 @@ class OnBoarding3Page extends StatelessWidget {
                       ),
                     ),
 
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ),
@@ -82,8 +82,8 @@ class OnBoarding3Page extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
 
-            Spacer(),
-            Row(
+            const Spacer(),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 6,
               children: [
@@ -105,7 +105,7 @@ class OnBoarding3Page extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
 
             BottomButton(
               text: '다음',
@@ -113,7 +113,7 @@ class OnBoarding3Page extends StatelessWidget {
               onTap: () => context.go('/onboarding/4'),
             ),
 
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
           ],
         ),
       ),

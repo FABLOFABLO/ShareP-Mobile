@@ -46,7 +46,7 @@ class _PwTextFieldState extends State<PwTextField> {
         children: [
           Text(
             widget.text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF484555),
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -69,17 +69,17 @@ class _PwTextFieldState extends State<PwTextField> {
               onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
                 hintText: widget.hintText,
-                hintStyle: TextStyle(color: Color(0xFFBEC4CA), fontSize: 14),
+                hintStyle: const TextStyle(color: Color(0xFFBEC4CA), fontSize: 14),
                 filled: true,
                 fillColor: const Color(0xFFF8F9FA),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
+                  borderSide: const BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
+                  borderSide: const BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
                 ),
                 suffixIcon: widget.hasIcon
                     ? IconButton(
@@ -92,7 +92,7 @@ class _PwTextFieldState extends State<PwTextField> {
                           _obscureText
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: Color(0xFF818C98),
+                          color: const Color(0xFF818C98),
                         ),
                       )
                     : null,
@@ -109,7 +109,7 @@ class _PwTextFieldState extends State<PwTextField> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.error, color: AppColor.error, size: 13),
+                      const Icon(Icons.error, color: AppColor.error, size: 13),
                       const SizedBox(width: 2),
                       Text(
                         '비밀번호가 일치하지 않습니다.',
