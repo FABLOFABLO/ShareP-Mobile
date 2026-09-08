@@ -17,7 +17,7 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
     final boxes = ref.watch(followProvider);
 
     return Scaffold(
-      appBar: const DefaultAppBar(label: '팔로잉'),
+      appBar: const DefaultAppBar(title: '팔로잉', hasBack: true,),
       body: SafeArea(
         child: ListView.builder(
           itemCount: boxes.length,

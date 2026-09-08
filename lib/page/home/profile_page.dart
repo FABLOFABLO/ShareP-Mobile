@@ -135,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(label: '프로필'),
+      appBar: const DefaultAppBar(title: '프로필', hasBack: true,),
       body: SafeArea(
         child: Column(
           children: [
