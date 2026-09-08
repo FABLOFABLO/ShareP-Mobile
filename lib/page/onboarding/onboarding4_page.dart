@@ -81,7 +81,7 @@ class OnBoarding4Page extends StatelessWidget {
               title: '브랜드 로고 디자인 프롬프트',
               description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
               tag: '로고',
-              author: '한지석',
+              time: '3시간 전',
               like: 12,
               onTap: () {},
             ),

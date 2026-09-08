@@ -3,7 +3,7 @@ class PromptCardModel {
   final String title;
   final String description;
   final String tag;
-  final String author;
+  final String time;
   final int like;
 
   PromptCardModel({
@@ -11,7 +11,7 @@ class PromptCardModel {
     required this.title,
     required this.description,
     required this.tag,
-    required this.author,
+    required this.time,
     required this.like,
   });
 }
