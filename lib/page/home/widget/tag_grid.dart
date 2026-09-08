@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_prompt/components/prompt_tag.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
+import 'package:share_prompt/providers/tags_provider.dart';
 
-class TagGrid extends StatefulWidget {
+class TagGrid extends ConsumerStatefulWidget {
   const TagGrid({super.key});
 
   @override
-  State<TagGrid> createState() => _TagGridState();
+  ConsumerState<TagGrid> createState() => _TagGridState();
 }
 
-class _TagGridState extends State<TagGrid> {
-  static const List<String> tagList = [
-    '로고',
-    '브랜딩',
-    '일러스트',
-    '브랜딩',
-    '일러스트',
-    '로고',
-    '로고',
-    '일러스트',
-    '일러스트',
-  ];
+class _TagGridState extends ConsumerState<TagGrid> {
+
 
   final Set<int> selectedTags = {};
 
@@ -41,6 +33,8 @@ class _TagGridState extends State<TagGrid> {
 
   @override
   Widget build(BuildContext context) {
+    final tagList = ref.watch(tagsProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
