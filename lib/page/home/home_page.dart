@@ -1,144 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/home_app_bar.dart';
 import 'package:share_prompt/components/prompt_card.dart';
 import 'package:share_prompt/constants/app_color.dart';
-import 'package:share_prompt/model/prompt_card_model.dart';
+import 'package:share_prompt/providers/prompts_card_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+
+  @override
   Widget build(BuildContext context) {
-    final List<PromptCardModel> _promptCards = [
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 19,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 20,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 21,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 22,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 23,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 24,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 25,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 26,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 27,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 28,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 29,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 30,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 31,
-      ),
-      PromptCardModel(
-        title: '브랜드 로고 디자인 프롬프트',
-        description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-        tag: '로고',
-        author: '한지석',
-        like: 12,
-        id: 32,
-      ),
-    ];
+    final promptCards = ref.watch(promptsProvider);
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SafeArea(
         child: ListView.builder(
-          itemCount: _promptCards.length,
+          itemCount: promptCards.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context, int index) {
+            final promptCard = promptCards[index];
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
               child: PromptCard(
-                title: _promptCards[index].title,
-                description: _promptCards[index].description,
-                tag: _promptCards[index].tag,
-                author: _promptCards[index].author,
-                like: _promptCards[index].like,
+                title: promptCard.title,
+                description: promptCard.description,
+                tag: promptCard.tag,
+                time: promptCard.time,
+                like: promptCard.like,
+                // TODO : 프롬프트 상세조회 API 연동하기
                 onTap: () => context.push('/detail'),
               ),
             );
