@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/page/my/widget/setting_box.dart';
@@ -27,9 +28,9 @@ class SettingPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 38),
                   child: Column(
                     children: [
-                      SettingBox(label: '아이디 변경', onTap: () {}),
-                      SettingBox(label: '닉네임 변경', onTap: () {}),
-                      SettingBox(label: '비밀번호 변경', onTap: () {}),
+                      SettingBox(label: '아이디 변경', onTap: () => context.push('/id')),
+                      SettingBox(label: '닉네임 변경', onTap: () => context.push('/nickname')),
+                      SettingBox(label: '비밀번호 변경', onTap: () => context.push('/password')),
                       SettingBox(label: '로그아웃', onTap: () {}),
                       SettingBox(label: '회원탈퇴', onTap: () {}),
                     ],

@@ -50,11 +50,7 @@ class _IdTextFieldState extends State<IdTextField> {
             widget.text,
             style: widget.big
                 ? AppTextStyles.body1
-                : const TextStyle(
-                    color: AppColor.gray100,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
+                : AppTextStyles.body4
           ),
           const SizedBox(height: 7),
           SizedBox(

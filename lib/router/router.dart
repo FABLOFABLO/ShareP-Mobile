@@ -10,6 +10,9 @@ import 'package:share_prompt/page/home/prompt_post_page.dart';
 import 'package:share_prompt/page/home/user_follower.dart';
 import 'package:share_prompt/page/home/user_following.dart';
 import 'package:share_prompt/page/main/main_shell_page.dart';
+import 'package:share_prompt/page/my/change/id_page.dart';
+import 'package:share_prompt/page/my/change/nickname_page.dart';
+import 'package:share_prompt/page/my/change/password_page.dart';
 import 'package:share_prompt/page/my/my_page.dart';
 import 'package:share_prompt/page/my/setting_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding1_page.dart';
@@ -104,6 +107,29 @@ final GoRouter router = GoRouter(
         return const SettingPage();
       },
     ),
+
+    GoRoute(
+      path: '/nickname',
+      builder: (BuildContext context, GoRouterState state) {
+        return const NicknamePage();
+      },
+    ),
+
+    GoRoute(
+      path: '/id',
+      builder: (BuildContext context, GoRouterState state) {
+        return const IdPage();
+      },
+    ),
+
+    GoRoute(
+      path: '/password',
+      builder: (BuildContext context, GoRouterState state) {
+        return const PasswordPage();
+      },
+    ),
+
+
 
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>
