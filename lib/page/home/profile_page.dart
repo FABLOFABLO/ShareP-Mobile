@@ -1,139 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
 import 'package:share_prompt/components/proflie_card.dart';
+import 'package:share_prompt/providers/prompts_card_provider.dart';
 
 import '../../components/prompt_card.dart';
 import '../../constants/app_color.dart';
 import '../../constants/app_text_style.dart';
 import '../../model/prompt_card_model.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  final List<PromptCardModel> _promptCards = [
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 19,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 20,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 21,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 22,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 23,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 24,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 25,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 26,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 27,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 28,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 29,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 30,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 31,
-    ),
-    PromptCardModel(
-      title: '브랜드 로고 디자인 프롬프트',
-      description: '로고만들때 사용해보세요.\n유용한 프롬프트입니다 :)',
-      tag: '로고',
-      time: '3시간 전',
-      like: 12,
-      id: 32,
-    ),
-  ];
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool isFollowed = false;
 
   @override
   Widget build(BuildContext context) {
+    final promptsCards = ref.watch(promptsProvider);
+
     return Scaffold(
       appBar: const DefaultAppBar(title: '프로필', hasBack: true,),
       body: SafeArea(
@@ -184,17 +74,19 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 25,),
             Expanded(
               child: ListView.builder(
-                itemCount: _promptCards.length,
+                itemCount: promptCards.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
+                  final promptsCard = promptsCards[index];
+
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
                     child: PromptCard(
-                      title: _promptCards[index].title,
-                      description: _promptCards[index].description,
-                      tag: _promptCards[index].tag,
-                      time: _promptCards[index].time,
-                      like: _promptCards[index].like,
+                      title: promptsCard.title,
+                      description: promptsCard.description,
+                      tag: promptsCard.tag,
+                      time: promptsCard.time,
+                      like: promptsCard.like,
                       // TODO : 프롬프트 상세 조회 API 연동하기
                       onTap: () => context.push('/detail'),
                     ),
