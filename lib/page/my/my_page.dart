@@ -47,27 +47,31 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
               isProfile: false,
             ),
             const SizedBox(height: 40),
-            TabBar(
-              labelStyle: AppTextStyles.body1Bold.copyWith(
-                color: AppColor.primary,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: TabBar(
+                labelPadding: EdgeInsets.zero,
+                labelStyle: AppTextStyles.body1Bold.copyWith(
+                  color: AppColor.primary,
+                ),
+                unselectedLabelStyle: AppTextStyles.body2.copyWith(
+                  color: AppColor.gray50,
+                ),
+                indicatorColor: AppColor.primary,
+                indicatorWeight: 2,
+                indicatorSize: TabBarIndicatorSize.tab,
+                overlayColor: WidgetStateProperty.resolveWith((states) {
+                  return Colors.transparent;
+                }),
+                splashFactory: NoSplash.splashFactory,
+                onTap: (int index) {},
+                isScrollable: false,
+                controller: _tabController,
+                tabs: const [
+                  Tab(text: '내 프롬프트'),
+                  Tab(text: '좋아요한 프롬프트'),
+                ],
               ),
-              unselectedLabelStyle: AppTextStyles.body2.copyWith(
-                color: AppColor.gray50,
-              ),
-              indicatorColor: AppColor.primary,
-              indicatorWeight: 2,
-              indicatorSize: TabBarIndicatorSize.tab,
-              overlayColor: WidgetStateProperty.resolveWith((states) {
-                return Colors.transparent;
-              }),
-              splashFactory: NoSplash.splashFactory,
-              onTap: (int index) {},
-              isScrollable: false,
-              controller: _tabController,
-              tabs: const [
-                Tab(text: '내 프롬프트'),
-                Tab(text: '좋아요한 프롬프트'),
-              ],
             ),
             const SizedBox(height: 20),
             Expanded(
