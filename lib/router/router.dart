@@ -11,6 +11,7 @@ import 'package:share_prompt/page/home/user_follower.dart';
 import 'package:share_prompt/page/home/user_following.dart';
 import 'package:share_prompt/page/main/main_shell_page.dart';
 import 'package:share_prompt/page/my/my_page.dart';
+import 'package:share_prompt/page/my/setting_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding1_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding2_page.dart';
 import 'package:share_prompt/page/onboarding/onboarding3_page.dart';
@@ -94,6 +95,13 @@ final GoRouter router = GoRouter(
       path: '/following',
       builder: (BuildContext context, GoRouterState state) {
         return const UserFollowing();
+      },
+    ),
+
+    GoRoute(
+      path: '/setting',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SettingPage();
       },
     ),
 

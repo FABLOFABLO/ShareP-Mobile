@@ -1,48 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/constants/app_color.dart';
-import 'package:share_prompt/constants/app_text_style.dart';
+import '../constants/app_text_style.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? label;
+  const DefaultAppBar({
+    super.key,
+    this.title,
+    this.leading,
+    this.actions,
+    this.height = 56,
+    this.hasBack = false,
+  });
 
-  const DefaultAppBar({super.key, this.label});
+  final String? title;
+  final Widget? leading;
+  final List<Widget>? actions;
+  final double height;
+  final bool hasBack;
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => Size.fromHeight(height);
 
   @override
   Widget build(BuildContext context) {
-    final appBarLabel = label;
+    final Widget? leadingWidget =
+    hasBack ? _buildBackButton(context) : leading;
 
-    return SizedBox(
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          if (appBarLabel != null)
-            Positioned(
-              bottom: 20,
-              child: Text(
-                appBarLabel,
-                style: AppTextStyles.title3,
-              ),
-            ),
+    return Material(
+      color: Colors.transparent,
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+          height: height,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (leadingWidget != null)
+                Positioned(
+                  left: 24,
+                  child: leadingWidget,
+                ),
 
-          Positioned(
-            left: 10,
-            bottom: 10,
-            child: IconButton(
-              onPressed: () {
-                context.pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColor.primary,
-              ),
-            ),
+              if (title != null)
+                Center(
+                  child: Text(
+                    title!,
+                    style: AppTextStyles.title3,
+                  ),
+                ),
+
+              if (actions != null)
+                Positioned(
+                  right: 12,
+                  child: Row(
+                    children: actions!,
+                  ),
+                ),
+            ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildBackButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.pop(),
+      child: const Icon(Icons.arrow_back_ios_new, color: AppColor.primary,),
     );
   }
 }
