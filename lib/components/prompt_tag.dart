@@ -8,7 +8,13 @@ class PromptTag extends StatelessWidget {
   final VoidCallback onTap;
   final bool hasTap;
 
-  const PromptTag({super.key, required this.tag, this.inPrompt = false, required this.onTap, this.hasTap = false});
+  const PromptTag({
+    super.key,
+    required this.tag,
+    this.inPrompt = false,
+    required this.onTap,
+    this.hasTap = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +27,13 @@ class PromptTag extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: hasTap
-                    ? AppColor.primary
-                    : AppColor.gray50,
+                color: hasTap ? AppColor.primary : AppColor.gray50,
               ),
               child: Text(
                 tag,
-                style: AppTextStyles.body5.copyWith(
-                  color: AppColor.white,
-                ),
+                style: AppTextStyles.body5.copyWith(color: AppColor.white),
               ),
-            )
+            ),
           )
         : GestureDetector(
             onTap: onTap,
@@ -41,17 +43,13 @@ class PromptTag extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: hasTap
-                    ? AppColor.primary
-                    : AppColor.gray50,
+                color: hasTap ? AppColor.primary : AppColor.gray50,
               ),
               child: Text(
                 tag,
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColor.white,
-                ),
+                style: AppTextStyles.body3.copyWith(color: AppColor.white),
               ),
-            )
+            ),
           );
   }
 }

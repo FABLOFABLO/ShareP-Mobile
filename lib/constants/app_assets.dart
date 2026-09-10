@@ -1,4 +1,3 @@
-
 class AppAssets {
   static const String background1 = 'assets/background1.png';
   static const String background2 = 'assets/background2.png';

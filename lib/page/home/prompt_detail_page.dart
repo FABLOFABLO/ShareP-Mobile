@@ -20,7 +20,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(hasBack: true,),
+      appBar: const DefaultAppBar(hasBack: true),
       body: SafeArea(
         child: Column(
           children: [

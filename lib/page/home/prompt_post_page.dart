@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
-import 'package:share_prompt/components/id_text_field.dart';
+import 'package:share_prompt/components/sharep_text_field.dart';
 import 'package:share_prompt/page/home/widget/tag_grid.dart';
 
 import '../../components/bottom_button.dart';
@@ -33,7 +33,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: '프롬프트 작성', hasBack: true,),
+      appBar: const DefaultAppBar(title: '프롬프트 작성', hasBack: true),
       body: SafeArea(
         child: Column(
           children: [
@@ -41,7 +41,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    IdTextField(
+                    SharepTextField(
                       text: '제목',
                       hintText: '제목을 작성해주세요',
                       hasIcon: false,
@@ -53,7 +53,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
                       big: true,
                     ),
                     const SizedBox(height: 20),
-                    IdTextField(
+                    SharepTextField(
                       text: '내용',
                       hintText: '내용을 작성해주세요',
                       hasIcon: false,
@@ -66,7 +66,7 @@ class _PromptPostPageState extends State<PromptPostPage> {
                       big: true,
                     ),
                     const SizedBox(height: 20),
-                    IdTextField(
+                    SharepTextField(
                       text: '프롬프트',
                       hintText: '프롬프트를 작성해주세요',
                       hasIcon: false,
@@ -84,7 +84,6 @@ class _PromptPostPageState extends State<PromptPostPage> {
             ),
             // TODO : 프롬프트 게시 API 연동하기
             BottomButton(text: '게시하기', color: AppColor.primary, onTap: () {}),
-
             const SizedBox(height: 20),
           ],
         ),

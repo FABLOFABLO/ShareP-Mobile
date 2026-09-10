@@ -25,7 +25,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final promptsCards = ref.watch(promptsProvider);
 
     return Scaffold(
-      appBar: const DefaultAppBar(title: '프로필', hasBack: true,),
+      appBar: const DefaultAppBar(title: '프로필', hasBack: true),
       body: SafeArea(
         child: Column(
           children: [
@@ -37,7 +37,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               followingCount: 560,
               isProfile: true,
             ),
-            const SizedBox(height: 40,),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
@@ -61,17 +61,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   const Stack(
                     alignment: Alignment.bottomLeft,
                     children: [
-                      Divider(
-                        height: 3,
-                        thickness: 2,
-                        color: AppColor.primary,
-                      ),
+                      Divider(height: 3, thickness: 2, color: AppColor.primary),
                     ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 25,),
+            const SizedBox(height: 25),
             Expanded(
               child: ListView.builder(
                 itemCount: promptCards.length,
@@ -80,7 +76,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   final promptsCard = promptsCards[index];
 
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 26,
+                      vertical: 6,
+                    ),
                     child: PromptCard(
                       title: promptsCard.title,
                       description: promptsCard.description,

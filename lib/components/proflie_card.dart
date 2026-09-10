@@ -53,7 +53,7 @@ class _ProflieCardState extends State<ProfileCard> {
                 children: widget.isProfile
                     ? [
                         Text(widget.name, style: AppTextStyles.title3),
-                        const SizedBox(width: 15,),
+                        const SizedBox(width: 15),
                         GestureDetector(
                           onTap: () {
                             setState(() {
@@ -120,7 +120,7 @@ class _ProflieCardState extends State<ProfileCard> {
 
                   GestureDetector(
                     // TODO : 팔로잉한 유저 목록 조회 API 연동하기
-                  onTap: () => context.push('/following'),
+                    onTap: () => context.push('/following'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -131,8 +131,7 @@ class _ProflieCardState extends State<ProfileCard> {
                         ),
                       ],
                     ),
-                  )
-
+                  ),
                 ],
               ),
             ],

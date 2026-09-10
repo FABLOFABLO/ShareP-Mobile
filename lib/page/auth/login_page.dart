@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/bottom_button.dart';
-import 'package:share_prompt/components/id_text_field.dart';
+import 'package:share_prompt/components/sharep_text_field.dart';
 import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 
@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                           Image.asset(AppAssets.logo),
                           const SizedBox(height: 50),
 
-                          IdTextField(
+                          SharepTextField(
                             text: '아이디',
                             hintText: '아이디를 입력하세요',
                             hasIcon: false,
@@ -60,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                             minline: 1,
                             big: false,
                           ),
-
-                          IdTextField(
+                          const SizedBox(height: 17),
+                          SharepTextField(
                             text: '비밀번호',
                             hintText: '비밀번호를 입력하세요',
                             hasIcon: true,
