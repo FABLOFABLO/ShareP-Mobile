@@ -133,9 +133,7 @@ class SettingPage extends StatelessWidget {
           actions: [
             CupertinoDialogAction(
               isDestructiveAction: true,
-              onPressed: () => Navigator.of(
-                context,
-              ).popUntil(ModalRoute.withName('/setting')),
+              onPressed: () => context.pop(),
               child: Text(
                 '예',
                 style: AppTextStyles.body2Bold.copyWith(
