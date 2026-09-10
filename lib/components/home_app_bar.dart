@@ -18,9 +18,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
       padding: EdgeInsets.only(left: 26.0, top: 60),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          PromptSortButton()
-        ],
+        children: [PromptSortButton()],
       ),
     );
   }

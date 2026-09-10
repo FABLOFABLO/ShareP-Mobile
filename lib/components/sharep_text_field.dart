@@ -76,12 +76,9 @@ class _SharepTextFieldState extends State<SharepTextField> {
                 hintStyle: AppTextStyles.body4.copyWith(color: AppColor.gray40),
                 filled: true,
                 fillColor: AppColor.gray10,
-                contentPadding: widget.hasIcon ? const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ) : const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
+                contentPadding: widget.hasIcon
+                    ? const EdgeInsets.symmetric(horizontal: 16)
+                    : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
@@ -120,21 +117,21 @@ class _SharepTextFieldState extends State<SharepTextField> {
           ),
           widget.hasError
               ? Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Icon(Icons.error, color: AppColor.error, size: 13),
-                const SizedBox(width: 2),
-                Text(
-                  '비밀번호가 일치하지 않습니다.',
-                  style: AppTextStyles.body5.copyWith(
-                    color: AppColor.error,
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.error, color: AppColor.error, size: 13),
+                      const SizedBox(width: 2),
+                      Text(
+                        '비밀번호가 일치하지 않습니다.',
+                        style: AppTextStyles.body5.copyWith(
+                          color: AppColor.error,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )
+                )
               : const SizedBox(),
         ],
       ),

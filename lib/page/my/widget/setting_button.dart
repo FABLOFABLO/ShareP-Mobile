@@ -9,7 +9,7 @@ class SettingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => context.push('/setting'),
-      icon: const Icon(Icons.settings, color: AppColor.gray60, size: 30,),
+      icon: const Icon(Icons.settings, color: AppColor.gray60, size: 30),
     );
   }
 }

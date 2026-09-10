@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                             minline: 1,
                             big: false,
                           ),
-                          const SizedBox(height: 17,),
+                          const SizedBox(height: 17),
                           SharepTextField(
                             text: '비밀번호',
                             hintText: '비밀번호를 입력하세요',
