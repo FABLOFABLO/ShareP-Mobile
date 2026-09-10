@@ -55,6 +55,7 @@ class _SharepTextFieldState extends State<SharepTextField> {
           const SizedBox(height: 6),
           SizedBox(
             width: double.infinity,
+            height: widget.minline == 1 ? 40 : null,
             child: TextField(
               minLines: widget.minline,
               maxLines: widget.minline,
@@ -75,7 +76,9 @@ class _SharepTextFieldState extends State<SharepTextField> {
                 hintStyle: AppTextStyles.body4.copyWith(color: AppColor.gray40),
                 filled: true,
                 fillColor: AppColor.gray10,
-                contentPadding: const EdgeInsets.symmetric(
+                contentPadding: widget.hasIcon ? const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ) : const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 8,
                 ),
@@ -109,8 +112,8 @@ class _SharepTextFieldState extends State<SharepTextField> {
                       )
                     : null,
                 suffixIconConstraints: const BoxConstraints(
-                  minWidth: 44,
-                  minHeight: 44,
+                  minWidth: 20,
+                  minHeight: 20,
                 ),
               ),
             ),
