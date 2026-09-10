@@ -129,8 +129,6 @@ final GoRouter router = GoRouter(
       },
     ),
 
-
-
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>
           MainShellPage(navigationShell: navigationShell),
@@ -141,14 +139,10 @@ final GoRouter router = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          routes: [
-            GoRoute(path: '/home', builder: (_, _) => const HomePage())
-          ],
+          routes: [GoRoute(path: '/home', builder: (_, _) => const HomePage())],
         ),
         StatefulShellBranch(
-          routes: [
-            GoRoute(path: '/my', builder: (_, _) => const MyPage())
-          ],
+          routes: [GoRoute(path: '/my', builder: (_, _) => const MyPage())],
         ),
       ],
     ),

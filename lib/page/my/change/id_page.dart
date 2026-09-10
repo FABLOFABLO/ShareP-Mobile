@@ -4,7 +4,6 @@ import '../../../components/bottom_button.dart';
 import '../../../components/id_text_field.dart';
 import '../../../constants/app_color.dart';
 
-
 class IdPage extends StatefulWidget {
   const IdPage({super.key});
 
@@ -28,27 +27,26 @@ class _IdPageState extends State<IdPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        child: Scaffold(
-          appBar: const DefaultAppBar(title: '아이디 변경', hasBack: true,),
-          body: SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  keyboardDismissBehavior:
-                  ScrollViewKeyboardDismissBehavior.onDrag,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                        minHeight: constraints.maxHeight),
-                    child: IntrinsicHeight(
-                      child: AutofillGroup(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 50,),
-                            IdTextField(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        appBar: const DefaultAppBar(title: '아이디 변경', hasBack: true),
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: AutofillGroup(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 50),
+                          IdTextField(
                             text: '현재 아이디',
                             hintText: '현재 아이디를 입력하세요',
                             hasIcon: false,
@@ -59,7 +57,7 @@ class _IdPageState extends State<IdPage> {
                             minline: 1,
                             big: false,
                           ),
-                          const SizedBox(height: 50,),
+                          const SizedBox(height: 50),
                           IdTextField(
                             text: '변경할 아이디',
                             hintText: '변경할 아이디를 입력하세요',
@@ -73,22 +71,22 @@ class _IdPageState extends State<IdPage> {
                           ),
                           const Spacer(),
                           BottomButton(
-                              text: '변경하기',
-                              color: AppColor.primary,
-                              // TODO : 아이디 변경 API 연동하기
-                              onTap: () {}
+                            text: '변경하기',
+                            color: AppColor.primary,
+                            // TODO : 아이디 변경 API 연동하기
+                            onTap: () {},
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                       ),
-                      const SizedBox(height: 20),
-                      ],
                     ),
                   ),
-                ),)
-                ,
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
-        )
+        ),
+      ),
     );
   }
 }
