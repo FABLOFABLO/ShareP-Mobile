@@ -48,17 +48,16 @@ class _IdTextFieldState extends State<IdTextField> {
         children: [
           Text(
             widget.text,
-            style: widget.big
-                ? AppTextStyles.body1
-                : AppTextStyles.body4
+            style: widget.big ? AppTextStyles.body1 : AppTextStyles.body4,
           ),
-          const SizedBox(height: 7),
+          const SizedBox(height: 6),
           SizedBox(
             width: double.infinity,
             child: TextField(
               minLines: widget.minline,
               maxLines: widget.minline,
-              cursorHeight: 15,
+              cursorHeight: 18,
+              cursorWidth: 1,
               cursorColor: AppColor.gray100,
               controller: widget.controller,
               focusNode: widget.focusNode,
@@ -69,24 +68,28 @@ class _IdTextFieldState extends State<IdTextField> {
               textInputAction: widget.textInputAction,
               onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
+                isDense: true,
                 hintText: widget.hintText,
-                hintStyle: const TextStyle(color: AppColor.gray40, fontSize: 14),
+                hintStyle: AppTextStyles.body4.copyWith(color: AppColor.gray40),
                 filled: true,
-                fillColor: AppColor.white,
+                fillColor: AppColor.gray10,
                 contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
+                  horizontal: 16,
+                  vertical: 8,
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
                     color: AppColor.gray40,
-                    width: 1.5,
+                    width: 1,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Color(0xFFC9C4D8), width: 1.5),
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColor.gray40,
+                    width: 1,
+                  ),
                 ),
                 suffixIcon: widget.hasIcon
                     ? IconButton(
