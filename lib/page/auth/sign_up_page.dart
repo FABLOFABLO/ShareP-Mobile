@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/bottom_button.dart';
-import 'package:share_prompt/components/id_text_field.dart';
-import 'package:share_prompt/components/pw_text_field.dart';
+import 'package:share_prompt/components/sharep_text_field.dart';
 import 'package:share_prompt/constants/app_assets.dart';
 import 'package:share_prompt/constants/app_color.dart';
 
@@ -81,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           Image.asset(AppAssets.logo),
                           const SizedBox(height: 50),
 
-                          IdTextField(
+                          SharepTextField(
                             text: '아이디',
                             hintText: '아이디를 입력하세요',
                             hasIcon: false,
@@ -92,8 +91,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             minline: 1,
                             big: false,
                           ),
-
-                          IdTextField(
+                          const SizedBox(height: 30),
+                          SharepTextField(
                             text: '비밀번호',
                             hintText: '비밀번호를 입력하세요',
                             hasIcon: true,
@@ -106,8 +105,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             minline: 1,
                             big: false,
                           ),
-
-                          PwTextField(
+                          const SizedBox(height: 30),
+                          SharepTextField(
                             text: '비밀번호 재확인',
                             hintText: '동일한 비밀번호를 입력하세요',
                             hasError: _hasPasswordCheckError,
@@ -118,6 +117,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             onSubmitted: (_) {
                               FocusScope.of(context).unfocus();
                             },
+                            minline: 1,
+                            big: false,
                           ),
 
                           const Spacer(),

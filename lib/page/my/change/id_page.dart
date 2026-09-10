@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
 import '../../../components/bottom_button.dart';
-import '../../../components/id_text_field.dart';
+import '../../../components/sharep_text_field.dart';
 import '../../../constants/app_color.dart';
 
 class IdPage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _IdPageState extends State<IdPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 47),
-                          IdTextField(
+                          SharepTextField(
                             text: '현재 아이디',
                             hintText: '현재 아이디를 입력하세요',
                             hasIcon: false,
@@ -58,7 +58,7 @@ class _IdPageState extends State<IdPage> {
                             big: false,
                           ),
                           const SizedBox(height: 45),
-                          IdTextField(
+                          SharepTextField(
                             text: '변경할 아이디',
                             hintText: '변경할 아이디를 입력하세요',
                             hasIcon: false,

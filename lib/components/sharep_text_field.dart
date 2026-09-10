@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
 
-class IdTextField extends StatefulWidget {
+class SharepTextField extends StatefulWidget {
   final String text;
   final String hintText;
   final bool hasIcon;
+  final bool hasError;
   final TextEditingController controller;
   final FocusNode? focusNode;
   final TextInputAction textInputAction;
@@ -13,7 +14,7 @@ class IdTextField extends StatefulWidget {
   final int minline;
   final bool big;
 
-  const IdTextField({
+  const SharepTextField({
     super.key,
     required this.text,
     required this.hintText,
@@ -24,13 +25,14 @@ class IdTextField extends StatefulWidget {
     this.onSubmitted,
     required this.minline,
     required this.big,
+    this.hasError = false,
   });
 
   @override
-  State<IdTextField> createState() => _IdTextFieldState();
+  State<SharepTextField> createState() => _SharepTextFieldState();
 }
 
-class _IdTextFieldState extends State<IdTextField> {
+class _SharepTextFieldState extends State<SharepTextField> {
   late bool _obscureText;
 
   @override
@@ -102,7 +104,7 @@ class _IdTextFieldState extends State<IdTextField> {
                           _obscureText
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: const Color(0xFF818C98),
+                          color: AppColor.gray60,
                         ),
                       )
                     : null,
@@ -113,7 +115,24 @@ class _IdTextFieldState extends State<IdTextField> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          widget.hasError
+              ? Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Icon(Icons.error, color: AppColor.error, size: 13),
+                const SizedBox(width: 2),
+                Text(
+                  '비밀번호가 일치하지 않습니다.',
+                  style: AppTextStyles.body5.copyWith(
+                    color: AppColor.error,
+                  ),
+                ),
+              ],
+            ),
+          )
+              : const SizedBox(),
         ],
       ),
     );

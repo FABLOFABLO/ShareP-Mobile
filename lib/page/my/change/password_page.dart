@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/bottom_button.dart';
 import '../../../components/default_app_bar.dart';
-import '../../../components/id_text_field.dart';
+import '../../../components/sharep_text_field.dart';
 import '../../../constants/app_color.dart';
 
 class PasswordPage extends StatefulWidget {
@@ -47,7 +47,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 47),
-                          IdTextField(
+                          SharepTextField(
                             text: '현재 비밀번호',
                             hintText: '현재 비밀번호를 입력하세요',
                             hasIcon: true,
@@ -59,7 +59,7 @@ class _PasswordPageState extends State<PasswordPage> {
                             big: false,
                           ),
                           const SizedBox(height: 45),
-                          IdTextField(
+                          SharepTextField(
                             text: '변경할 비밀번호',
                             hintText: '변경할 비밀번호를 입력하세요',
                             hasIcon: true,
