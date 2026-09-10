@@ -10,11 +10,11 @@ class SettingBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 33),
-      child: GestureDetector(
-        onTap: onTap,
-        child: SizedBox(
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 33),
+        child: Container(
           width: double.infinity,
           height: 60,
           child: Center(
@@ -26,20 +26,21 @@ class SettingBox extends StatelessWidget {
                       ? AppTextStyles.body2.copyWith(color: AppColor.gray50)
                       : (label == '회원탈퇴')
                       ? AppTextStyles.body2.copyWith(color: AppColor.error)
-                      : AppTextStyles.body2
-                      .copyWith(color: AppColor.gray100),
+                      : AppTextStyles.body2.copyWith(color: AppColor.gray100),
                 ),
                 const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColor.primary,
-                  size: 24,
-                ),
+                ?((label == '로그아웃') || (label == '회원탈퇴'))
+                    ? null
+                    : const Icon(
+                        Icons.arrow_forward_ios,
+                        color: AppColor.primary,
+                        size: 24,
+                      ),
               ],
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }
