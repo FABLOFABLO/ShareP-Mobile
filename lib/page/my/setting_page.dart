@@ -87,8 +87,10 @@ class SettingPage extends StatelessWidget {
                                 actions: [
                                   CupertinoDialogAction(
                                     isDestructiveAction: true,
-                                    onPressed: () =>
-                                        _showDeleteAccount(context),
+                                    onPressed: () {
+                                      context.pop();
+                                      _showDeleteAccount(context);
+                                    },
                                     child: Text(
                                       '예',
                                       style: AppTextStyles.body2Bold.copyWith(
@@ -131,7 +133,9 @@ class SettingPage extends StatelessWidget {
           actions: [
             CupertinoDialogAction(
               isDestructiveAction: true,
-              onPressed: () => Navigator.of(context).popUntil(ModalRoute.withName('/setting')),
+              onPressed: () => Navigator.of(
+                context,
+              ).popUntil(ModalRoute.withName('/setting')),
               child: Text(
                 '예',
                 style: AppTextStyles.body2Bold.copyWith(
@@ -140,7 +144,9 @@ class SettingPage extends StatelessWidget {
               ),
             ),
             CupertinoDialogAction(
-              onPressed: () => Navigator.of(context).popUntil(ModalRoute.withName('/setting')),
+              onPressed: () => Navigator.of(
+                context,
+              ).popUntil(ModalRoute.withName('/setting')),
               child: Text(
                 '아니오',
                 style: AppTextStyles.body2Bold.copyWith(
