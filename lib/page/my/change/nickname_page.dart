@@ -42,7 +42,7 @@ class _NicknamePageState extends State<NicknamePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 47),
                           IdTextField(
                             text: '변경할 닉네임',
                             hintText: '변경할 닉네임을 입력하세요',

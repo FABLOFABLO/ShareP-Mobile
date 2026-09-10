@@ -45,7 +45,7 @@ class _IdPageState extends State<IdPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 47),
                           IdTextField(
                             text: '현재 아이디',
                             hintText: '현재 아이디를 입력하세요',
@@ -57,7 +57,7 @@ class _IdPageState extends State<IdPage> {
                             minline: 1,
                             big: false,
                           ),
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 45),
                           IdTextField(
                             text: '변경할 아이디',
                             hintText: '변경할 아이디를 입력하세요',

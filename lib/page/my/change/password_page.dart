@@ -46,7 +46,7 @@ class _PasswordPageState extends State<PasswordPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 47),
                           IdTextField(
                             text: '현재 비밀번호',
                             hintText: '현재 비밀번호를 입력하세요',
@@ -58,7 +58,7 @@ class _PasswordPageState extends State<PasswordPage> {
                             minline: 1,
                             big: false,
                           ),
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 45),
                           IdTextField(
                             text: '변경할 비밀번호',
                             hintText: '변경할 비밀번호를 입력하세요',
