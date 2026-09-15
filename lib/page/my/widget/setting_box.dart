@@ -14,7 +14,7 @@ class SettingBox extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 33),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: 60,
           child: Center(
@@ -23,10 +23,8 @@ class SettingBox extends StatelessWidget {
                 Text(
                   label,
                   style: (label == '로그아웃')
-                      ? AppTextStyles.body2.copyWith(color: AppColor.gray50)
-                      : (label == '회원탈퇴')
                       ? AppTextStyles.body2.copyWith(color: AppColor.error)
-                      : AppTextStyles.body2.copyWith(color: AppColor.gray100),
+                      : AppTextStyles.body2
                 ),
                 const Spacer(),
                 ?((label == '로그아웃') || (label == '회원탈퇴'))

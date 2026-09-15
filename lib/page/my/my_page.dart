@@ -132,7 +132,6 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            const SizedBox(height: 25),
           ],
         ),
       ),
