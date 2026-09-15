@@ -15,8 +15,7 @@ class SearchPage extends ConsumerStatefulWidget {
   ConsumerState<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends ConsumerState<SearchPage>
-    with TickerProviderStateMixin {
+class _SearchPageState extends ConsumerState<SearchPage> {
   final Set<int> selectedTags = {};
   final List<String> divideList = ['제목', '태그', '설명'];
   final TextEditingController _textController = TextEditingController();
