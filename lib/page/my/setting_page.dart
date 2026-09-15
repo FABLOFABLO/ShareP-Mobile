@@ -20,7 +20,7 @@ class SettingPage extends StatelessWidget {
             children: [
               const SizedBox(height: 25),
               Container(
-                height: 392,
+                height: 330,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(width: 1.5, color: AppColor.gray30),
@@ -76,43 +76,6 @@ class SettingPage extends StatelessWidget {
                           );
                         },
                       ),
-                      SettingBox(
-                        label: '회원탈퇴',
-                        onTap: () {
-                          showCupertinoDialog(
-                            context: context,
-                            builder: (context) {
-                              return CupertinoAlertDialog(
-                                title: const Text('회원탈퇴를 하시겠습니까?'),
-                                actions: [
-                                  CupertinoDialogAction(
-                                    isDestructiveAction: true,
-                                    onPressed: () {
-                                      context.pop();
-                                      _showDeleteAccount(context);
-                                    },
-                                    child: Text(
-                                      '예',
-                                      style: AppTextStyles.body2Bold.copyWith(
-                                        color: AppColor.primary,
-                                      ),
-                                    ),
-                                  ),
-                                  CupertinoDialogAction(
-                                    onPressed: () => context.pop(),
-                                    child: Text(
-                                      '아니오',
-                                      style: AppTextStyles.body2Bold.copyWith(
-                                        color: AppColor.primary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      ),
                     ],
                   ),
                 ),
@@ -121,40 +84,6 @@ class SettingPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void _showDeleteAccount(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) {
-        return CupertinoAlertDialog(
-          title: const Text('정말로 회원탈퇴를 하시겠습니까?'),
-          actions: [
-            CupertinoDialogAction(
-              isDestructiveAction: true,
-              onPressed: () => context.pop(),
-              child: Text(
-                '예',
-                style: AppTextStyles.body2Bold.copyWith(
-                  color: AppColor.primary,
-                ),
-              ),
-            ),
-            CupertinoDialogAction(
-              onPressed: () => Navigator.of(
-                context,
-              ).popUntil(ModalRoute.withName('/setting')),
-              child: Text(
-                '아니오',
-                style: AppTextStyles.body2Bold.copyWith(
-                  color: AppColor.primary,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }
