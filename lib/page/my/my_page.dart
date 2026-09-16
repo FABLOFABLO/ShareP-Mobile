@@ -98,7 +98,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                             time: promptCard.time,
                             like: promptCard.like,
                             // TODO : 프롬프트 상세 조회 API 연동하기
-                            onTap: () => context.push('/detail'),
+                            onTap: () => context.push('/detail?isMine=true'),
                           ),
                         );
                       },
@@ -123,7 +123,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                             time: promptCard.time,
                             like: promptCard.like,
                             // TODO : 프롬프트 상세 조회 API 연동하기
-                            onTap: () => context.push('/detail?isMine=true'),
+                            onTap: () => context.push('/detail'),
                           ),
                         );
                       },

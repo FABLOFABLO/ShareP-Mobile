@@ -184,7 +184,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return const SharePalertdialog(title: '정말 해당 프롬프트를 삭제하시겠습니까?');
+        return const SharePalertdialog(title: '정말 해당 프롬프트를\n삭제하시겠습니까?');
       },
     );
   }
