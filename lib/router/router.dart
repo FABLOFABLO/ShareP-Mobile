@@ -7,8 +7,8 @@ import 'package:share_prompt/page/home/home_page.dart';
 import 'package:share_prompt/page/home/profile_page.dart';
 import 'package:share_prompt/page/home/prompt_detail_page.dart';
 import 'package:share_prompt/page/home/prompt_post_page.dart';
-import 'package:share_prompt/page/home/user_follower.dart';
-import 'package:share_prompt/page/home/user_following.dart';
+import 'package:share_prompt/page/my/user_follower.dart';
+import 'package:share_prompt/page/my/user_following.dart';
 import 'package:share_prompt/page/main/main_shell_page.dart';
 import 'package:share_prompt/page/my/change/id_page.dart';
 import 'package:share_prompt/page/my/change/nickname_page.dart';
@@ -76,7 +76,8 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/detail',
       builder: (BuildContext context, GoRouterState state) {
-        return const PromptDetailPage();
+        final isMine = state.uri.queryParameters['isMine'] == 'true';
+        return PromptDetailPage(isMine: isMine);
       },
     ),
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
@@ -7,7 +8,9 @@ import '../../constants/app_color.dart';
 import '../../constants/app_text_style.dart';
 
 class PromptDetailPage extends StatefulWidget {
-  const PromptDetailPage({super.key});
+  const PromptDetailPage({super.key, this.isMine = false});
+
+  final bool isMine;
 
   @override
   State<PromptDetailPage> createState() => _PromptDetailPageState();
@@ -20,7 +23,18 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(hasBack: true),
+      appBar: DefaultAppBar(
+        hasBack: true,
+        actions: widget.isMine ? [
+        TextButton(
+          onPressed: showDeletePrompt,
+          child: Text(
+            '삭제',
+            style: AppTextStyles.body2Bold.copyWith(color: AppColor.error),
+          ),
+        ),
+          ] : null
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -152,6 +166,41 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void showDeletePrompt() {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text(
+            '정말로 해당 프롬프트를\n삭제하시겠습니까?',
+            style: AppTextStyles.body2Bold.copyWith(color: AppColor.gray100),
+          ),
+          actions: [
+            CupertinoDialogAction(
+              isDestructiveAction: true,
+              onPressed: () => context.pop(),
+              child: Text(
+                '예',
+                style: AppTextStyles.body2Bold.copyWith(
+                  color: AppColor.primary,
+                ),
+              ),
+            ),
+            CupertinoDialogAction(
+              onPressed: () => context.pop(),
+              child: Text(
+                '아니오',
+                style: AppTextStyles.body2Bold.copyWith(
+                  color: AppColor.primary,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
