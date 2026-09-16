@@ -8,7 +8,12 @@ class SearchTag extends StatefulWidget {
   final VoidCallback onTap;
   final bool hasTap;
 
-  const SearchTag({super.key, required this.onTap, this.hasTap = false, required this.tag});
+  const SearchTag({
+    super.key,
+    required this.onTap,
+    this.hasTap = false,
+    required this.tag,
+  });
 
   @override
   State<SearchTag> createState() => _SearchTagState();

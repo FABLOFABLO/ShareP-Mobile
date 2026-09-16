@@ -24,7 +24,7 @@ class SettingBox extends StatelessWidget {
                   label,
                   style: (label == '로그아웃')
                       ? AppTextStyles.body2.copyWith(color: AppColor.error)
-                      : AppTextStyles.body2
+                      : AppTextStyles.body2,
                 ),
                 const Spacer(),
                 ?((label == '로그아웃') || (label == '회원탈퇴'))

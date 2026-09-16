@@ -25,15 +25,19 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
     return Scaffold(
       appBar: DefaultAppBar(
         hasBack: true,
-        actions: widget.isMine ? [
-        TextButton(
-          onPressed: showDeletePrompt,
-          child: Text(
-            '삭제',
-            style: AppTextStyles.body2Bold.copyWith(color: AppColor.error),
-          ),
-        ),
-          ] : null
+        actions: widget.isMine
+            ? [
+                TextButton(
+                  onPressed: showDeletePrompt,
+                  child: Text(
+                    '삭제',
+                    style: AppTextStyles.body2Bold.copyWith(
+                      color: AppColor.error,
+                    ),
+                  ),
+                ),
+              ]
+            : null,
       ),
       body: SafeArea(
         child: Column(
@@ -113,38 +117,44 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                 ),
                               ),
                               const Spacer(),
-                              ?widget.isMine ? null : GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isFollow = !isFollow;
-                                  });
-                                },
-                                child: Container(
-                                  width: 53,
-                                  height: 26,
-                                  decoration: BoxDecoration(
-                                    color: isFollow
-                                        ? AppColor.primary
-                                        : AppColor.secondary,
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: Center(
-                                    child: isFollow
-                                        ? Text(
-                                            '팔로우',
-                                            style: AppTextStyles.body5.copyWith(
-                                              color: AppColor.white,
-                                            ),
-                                          )
-                                        : Text(
-                                            '팔로잉',
-                                            style: AppTextStyles.body5.copyWith(
-                                              color: AppColor.primary,
-                                            ),
+                              ?widget.isMine
+                                  ? null
+                                  : GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isFollow = !isFollow;
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 53,
+                                        height: 26,
+                                        decoration: BoxDecoration(
+                                          color: isFollow
+                                              ? AppColor.primary
+                                              : AppColor.secondary,
+                                          borderRadius: BorderRadius.circular(
+                                            100,
                                           ),
-                                  ),
-                                ),
-                              ),
+                                        ),
+                                        child: Center(
+                                          child: isFollow
+                                              ? Text(
+                                                  '팔로우',
+                                                  style: AppTextStyles.body5
+                                                      .copyWith(
+                                                        color: AppColor.white,
+                                                      ),
+                                                )
+                                              : Text(
+                                                  '팔로잉',
+                                                  style: AppTextStyles.body5
+                                                      .copyWith(
+                                                        color: AppColor.primary,
+                                                      ),
+                                                ),
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                           const SizedBox(height: 34),

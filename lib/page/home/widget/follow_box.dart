@@ -19,11 +19,8 @@ class _FollowBoxState extends State<FollowBox> {
       width: 342,
       height: 62,
       decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColor.gray30,
-          width: 1.5
-        ),
-        borderRadius: BorderRadius.circular(16)
+        border: Border.all(color: AppColor.gray30, width: 1.5),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Center(
         child: Padding(
@@ -31,7 +28,7 @@ class _FollowBoxState extends State<FollowBox> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(widget.userName, style: AppTextStyles.body3,),
+              Text(widget.userName, style: AppTextStyles.body3),
               const Spacer(),
               GestureDetector(
                 // TODO : 팔로우 API 연동하기
@@ -44,17 +41,17 @@ class _FollowBoxState extends State<FollowBox> {
                   child: Center(
                     child: widget.hasFollowing
                         ? Text(
-                      '팔로우',
-                      style: AppTextStyles.body5.copyWith(
-                        color: AppColor.white,
-                      ),
-                    )
+                            '팔로우',
+                            style: AppTextStyles.body5.copyWith(
+                              color: AppColor.white,
+                            ),
+                          )
                         : Text(
-                      '팔로잉',
-                      style: AppTextStyles.body5.copyWith(
-                        color: AppColor.primary,
-                      ),
-                    ),
+                            '팔로잉',
+                            style: AppTextStyles.body5.copyWith(
+                              color: AppColor.primary,
+                            ),
+                          ),
                   ),
                   width: 51,
                   height: 24,

@@ -45,7 +45,11 @@ class _PromptContextState extends State<PromptContext> {
                       onPressed: () {
                         fToast.removeCustomToast();
                       },
-                      icon: const Icon(Icons.cancel, size: 20, color: AppColor.white),
+                      icon: const Icon(
+                        Icons.cancel,
+                        size: 20,
+                        color: AppColor.white,
+                      ),
                     ),
                   ],
                 ),
@@ -108,13 +112,11 @@ class _PromptContextState extends State<PromptContext> {
               child: Text(promptContext, style: AppTextStyles.body4),
             ),
           ),
-          const SizedBox(height: 8,),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              PromptTag(tag: '로고', onTap: () {},),
-            ],
-          )
+            children: [PromptTag(tag: '로고', onTap: () {})],
+          ),
         ],
       ),
     );
