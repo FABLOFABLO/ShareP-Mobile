@@ -4,11 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
 import 'package:share_prompt/components/proflie_card.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
-
 import '../../components/prompt_card.dart';
 import '../../constants/app_color.dart';
 import '../../constants/app_text_style.dart';
-import '../../model/prompt_card_model.dart';
+import '../../providers/profile_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -23,6 +22,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final promptsCards = ref.watch(promptsProvider);
+    final profileCard = ref.watch(profileProvider);
 
     return Scaffold(
       appBar: const DefaultAppBar(title: '프로필', hasBack: true),
@@ -30,11 +30,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const ProfileCard(
-              name: '한지석',
-              promptCount: 124,
-              followerCount: 4,
-              followingCount: 560,
+            ProfileCard(
+              name: profileCard.name,
+              promptCount: profileCard.promptCount,
+              followerCount: profileCard.followerCount,
+              followingCount: profileCard.followingCount,
               isProfile: true,
             ),
             const SizedBox(height: 40),

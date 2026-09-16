@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../constants/app_color.dart';
 import '../constants/app_text_style.dart';
 
 class SharePalertdialog extends StatelessWidget {

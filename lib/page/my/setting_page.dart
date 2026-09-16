@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
-import 'package:share_prompt/components/sharepalertdialog.dart';
+import 'package:share_prompt/components/sharep_alert_dialog.dart';
 import 'package:share_prompt/constants/app_color.dart';
-import 'package:share_prompt/constants/app_text_style.dart';
 import 'package:share_prompt/page/my/widget/setting_box.dart';
 
 class SettingPage extends StatelessWidget {

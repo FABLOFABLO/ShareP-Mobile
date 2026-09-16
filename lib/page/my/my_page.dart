@@ -5,6 +5,7 @@ import 'package:share_prompt/components/default_app_bar.dart';
 import 'package:share_prompt/constants/app_color.dart';
 import 'package:share_prompt/constants/app_text_style.dart';
 import 'package:share_prompt/page/my/widget/setting_button.dart';
+import 'package:share_prompt/providers/profile_provider.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
 import '../../components/proflie_card.dart';
 import '../../components/prompt_card.dart';
@@ -33,17 +34,20 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final promptsCards = ref.watch(promptsProvider);
+    final profileCard = ref.watch(profileProvider);
+
     return Scaffold(
       appBar: const DefaultAppBar(title: '마이페이지', actions: [SettingButton()]),
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const ProfileCard(
-              name: '한지석',
-              promptCount: 124,
-              followerCount: 4,
-              followingCount: 560,
+             ProfileCard(
+              name: profileCard.name,
+              promptCount: profileCard.promptCount,
+              followerCount: profileCard.followerCount,
+              followingCount: profileCard.followingCount,
               isProfile: false,
             ),
             const SizedBox(height: 40),
@@ -81,10 +85,10 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      itemCount: promptCards.length,
+                      itemCount: promptsCards.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
-                        final promptCard = promptCards[index];
+                        final promptCard = promptsCards[index];
 
                         return Padding(
                           padding: const EdgeInsets.symmetric(
