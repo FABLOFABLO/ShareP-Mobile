@@ -113,7 +113,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                 ),
                               ),
                               const Spacer(),
-                              GestureDetector(
+                              ?widget.isMine ? null : GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     isFollow = !isFollow;
