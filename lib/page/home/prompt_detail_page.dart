@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
+import 'package:share_prompt/components/sharepalertdialog.dart';
 import 'package:share_prompt/page/home/widget/prompt_context.dart';
 
 import '../../constants/app_color.dart';
@@ -183,33 +184,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text(
-            '정말로 해당 프롬프트를\n삭제하시겠습니까?',
-            style: AppTextStyles.body2Bold.copyWith(color: AppColor.gray100),
-          ),
-          actions: [
-            CupertinoDialogAction(
-              isDestructiveAction: true,
-              onPressed: () => context.pop(),
-              child: Text(
-                '예',
-                style: AppTextStyles.body2Bold.copyWith(
-                  color: AppColor.primary,
-                ),
-              ),
-            ),
-            CupertinoDialogAction(
-              onPressed: () => context.pop(),
-              child: Text(
-                '아니오',
-                style: AppTextStyles.body2Bold.copyWith(
-                  color: AppColor.primary,
-                ),
-              ),
-            ),
-          ],
-        );
+        return const SharePalertdialog(title: '정말 해당 프롬프트를 삭제하시겠습니까?');
       },
     );
   }
