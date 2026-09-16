@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_color.dart';
+
 class AppTextStyles {
   static const TextStyle title1 = TextStyle(
     fontSize: 24.0,
@@ -101,5 +103,9 @@ class AppTextStyles {
     fontSize: 12.0,
     fontFamily: '42dotSans',
     fontWeight: FontWeight.w400,
+  );
+
+  static final TextStyle dialog = AppTextStyles.body2Bold.copyWith(
+    color: AppColor.primary,
   );
 }

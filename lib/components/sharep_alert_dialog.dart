@@ -19,14 +19,14 @@ class SharePalertdialog extends StatelessWidget {
           onPressed: () => context.pop(),
           child: Text(
             '예',
-            style: AppTextStyles.body2Bold.copyWith(color: AppColor.primary),
+            style: AppTextStyles.dialog
           ),
         ),
         CupertinoDialogAction(
           onPressed: () => context.pop(),
           child: Text(
             '아니오',
-            style: AppTextStyles.body2Bold.copyWith(color: AppColor.primary),
+            style: AppTextStyles.dialog
           ),
         ),
       ],
