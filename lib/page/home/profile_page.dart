@@ -8,7 +8,6 @@ import 'package:share_prompt/providers/prompts_card_provider.dart';
 import '../../components/prompt_card.dart';
 import '../../constants/app_color.dart';
 import '../../constants/app_text_style.dart';
-import '../../model/prompt_card_model.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
