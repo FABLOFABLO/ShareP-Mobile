@@ -104,8 +104,4 @@ class AppTextStyles {
     fontFamily: '42dotSans',
     fontWeight: FontWeight.w400,
   );
-
-  static final TextStyle dialog = AppTextStyles.body2Bold.copyWith(
-    color: AppColor.primary,
-  );
 }

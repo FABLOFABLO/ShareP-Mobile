@@ -43,7 +43,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
         child: Column(
           children: [
             const SizedBox(height: 10),
-             ProfileCard(
+            ProfileCard(
               name: profileCard.name,
               promptCount: profileCard.promptCount,
               followerCount: profileCard.followerCount,
