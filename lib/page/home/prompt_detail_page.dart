@@ -1,13 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
+import 'package:share_prompt/components/sharep_alert_dialog.dart';
 import 'package:share_prompt/page/home/widget/prompt_context.dart';
 
 import '../../constants/app_color.dart';
 import '../../constants/app_text_style.dart';
 
 class PromptDetailPage extends StatefulWidget {
-  const PromptDetailPage({super.key});
+  const PromptDetailPage({super.key, this.isMine = false});
+
+  final bool isMine;
 
   @override
   State<PromptDetailPage> createState() => _PromptDetailPageState();
@@ -20,7 +24,22 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(hasBack: true),
+      appBar: DefaultAppBar(
+        hasBack: true,
+        actions: widget.isMine
+            ? [
+                TextButton(
+                  onPressed: showDeletePrompt,
+                  child: Text(
+                    '삭제',
+                    style: AppTextStyles.body2Bold.copyWith(
+                      color: AppColor.error,
+                    ),
+                  ),
+                ),
+              ]
+            : null,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -99,38 +118,44 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                 ),
                               ),
                               const Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isFollow = !isFollow;
-                                  });
-                                },
-                                child: Container(
-                                  width: 53,
-                                  height: 26,
-                                  decoration: BoxDecoration(
-                                    color: isFollow
-                                        ? AppColor.primary
-                                        : AppColor.secondary,
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: Center(
-                                    child: isFollow
-                                        ? Text(
-                                            '팔로우',
-                                            style: AppTextStyles.body5.copyWith(
-                                              color: AppColor.white,
-                                            ),
-                                          )
-                                        : Text(
-                                            '팔로잉',
-                                            style: AppTextStyles.body5.copyWith(
-                                              color: AppColor.primary,
-                                            ),
+                              ?widget.isMine
+                                  ? null
+                                  : GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isFollow = !isFollow;
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 53,
+                                        height: 26,
+                                        decoration: BoxDecoration(
+                                          color: isFollow
+                                              ? AppColor.primary
+                                              : AppColor.secondary,
+                                          borderRadius: BorderRadius.circular(
+                                            100,
                                           ),
-                                  ),
-                                ),
-                              ),
+                                        ),
+                                        child: Center(
+                                          child: isFollow
+                                              ? Text(
+                                                  '팔로우',
+                                                  style: AppTextStyles.body5
+                                                      .copyWith(
+                                                        color: AppColor.white,
+                                                      ),
+                                                )
+                                              : Text(
+                                                  '팔로잉',
+                                                  style: AppTextStyles.body5
+                                                      .copyWith(
+                                                        color: AppColor.primary,
+                                                      ),
+                                                ),
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                           const SizedBox(height: 34),
@@ -152,6 +177,15 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void showDeletePrompt() {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return const SharePalertdialog(title: '정말 해당 프롬프트를\n삭제하시겠습니까?');
+      },
     );
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/components/default_app_bar.dart';
+import 'package:share_prompt/components/sharep_alert_dialog.dart';
 import 'package:share_prompt/constants/app_color.dart';
-import 'package:share_prompt/constants/app_text_style.dart';
 import 'package:share_prompt/page/my/widget/setting_box.dart';
 
 class SettingPage extends StatelessWidget {
@@ -48,30 +48,7 @@ class SettingPage extends StatelessWidget {
                           showCupertinoDialog(
                             context: context,
                             builder: (context) {
-                              return CupertinoAlertDialog(
-                                title: const Text('로그아웃 하시겠습니까?'),
-                                actions: [
-                                  CupertinoDialogAction(
-                                    isDestructiveAction: true,
-                                    onPressed: () => context.pop(),
-                                    child: Text(
-                                      '예',
-                                      style: AppTextStyles.body2Bold.copyWith(
-                                        color: AppColor.primary,
-                                      ),
-                                    ),
-                                  ),
-                                  CupertinoDialogAction(
-                                    onPressed: () => context.pop(),
-                                    child: Text(
-                                      '아니오',
-                                      style: AppTextStyles.body2Bold.copyWith(
-                                        color: AppColor.primary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
+                              return const SharePalertdialog(title: '정말 로그아웃 하시겠습니까?');
                             },
                           );
                         },

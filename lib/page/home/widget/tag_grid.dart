@@ -12,8 +12,6 @@ class TagGrid extends ConsumerStatefulWidget {
 }
 
 class _TagGridState extends ConsumerState<TagGrid> {
-
-
   final Set<int> selectedTags = {};
 
   void toggleTag(int index) {

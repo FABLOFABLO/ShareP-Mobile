@@ -94,7 +94,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             border: InputBorder.none,
                           ),
                           style: AppTextStyles.body4,
-                          cursorColor: AppColor.gray100,
                           cursorWidth: 1,
                           cursorHeight: 15,
                         ),
