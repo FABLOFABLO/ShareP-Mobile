@@ -15,7 +15,7 @@ analyzer:
     prefer_const_constructors_in_immutables: error
     prefer_const_declarations: error
     prefer_const_literals_to_create_immutables: error
-
+    unused_import: error
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
@@ -32,6 +32,5 @@ linter:
     prefer_const_constructors_in_immutables: true
     prefer_const_declarations: true
     prefer_const_literals_to_create_immutables: true
-
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
