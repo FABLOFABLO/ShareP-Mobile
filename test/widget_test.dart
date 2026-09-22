@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' show Size;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_prompt/main.dart';
-import 'package:share_prompt/page/onboarding/onboarding1_page.dart';
-import 'package:share_prompt/page/onboarding/onboarding2_page.dart';
+import 'package:share_prompt/features/onboarding/view/pages/onboarding1_page.dart';
+import 'package:share_prompt/features/onboarding/view/pages/onboarding2_page.dart';
 
 void main() {
   testWidgets('다음 버튼을 누르면 두 번째 온보딩 화면으로 이동한다', (

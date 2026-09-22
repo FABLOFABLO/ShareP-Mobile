@@ -1,0 +1,66 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:share_prompt/core/widgets/default_app_bar.dart';
+import 'package:share_prompt/core/widgets/sharep_alert_dialog.dart';
+import 'package:share_prompt/core/constants/app_color.dart';
+import 'package:share_prompt/features/my/view/widgets/setting_box.dart';
+
+class SettingPage extends StatelessWidget {
+  const SettingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const DefaultAppBar(title: '설정', hasBack: true),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 26),
+          child: Column(
+            children: [
+              const SizedBox(height: 25),
+              Container(
+                height: 330,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1.5, color: AppColor.gray30),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 38),
+                  child: Column(
+                    children: [
+                      SettingBox(
+                        label: '아이디 변경',
+                        onTap: () => context.push('/id'),
+                      ),
+                      SettingBox(
+                        label: '닉네임 변경',
+                        onTap: () => context.push('/nickname'),
+                      ),
+                      SettingBox(
+                        label: '비밀번호 변경',
+                        onTap: () => context.push('/password'),
+                      ),
+                      SettingBox(
+                        label: '로그아웃',
+                        onTap: () {
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (context) {
+                              return const SharePalertdialog(title: '정말 로그아웃 하시겠습니까?');
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
