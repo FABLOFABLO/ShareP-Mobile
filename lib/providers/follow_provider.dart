@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import '../model/follow_box_model.dart';
+import '../services/models/follow_box_model.dart';
 
 final List<FollowBoxModel> boxes = [
   FollowBoxModel(userName: '최고의 디자이너 한지석', hasFollowing: false),

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:share_prompt/model/profile_card_model.dart';
+import '../services/models/profile_card_model.dart';
 
 final ProfileCardModel profileCard = ProfileCardModel(
   isProfile: true,
