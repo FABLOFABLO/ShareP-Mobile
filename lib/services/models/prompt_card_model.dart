@@ -1,17 +1,37 @@
 class PromptCardModel {
-  final int id;
+  final int promptId;
   final String title;
   final String description;
   final String tag;
-  final String time;
+  final String date;
   final int like;
 
   PromptCardModel({
-    required this.id,
+    required this.promptId,
     required this.title,
     required this.description,
     required this.tag,
-    required this.time,
+    required this.date,
     required this.like,
   });
+
+  factory PromptCardModel.fromJson(Map<String, dynamic> json) {
+    return PromptCardModel(
+        promptId: json['prompt-id'] as int,
+        title: json['title'] as String,
+        description: json['description'] as String,
+        tag: json['tag'] as String,
+        date: json['date'] as String,
+        like: json['like'] as int
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'prompt-id': promptId,
+    'title': title,
+    'description': description,
+    'tag': tag,
+    'date': date,
+    'like': like
+  };
 }
