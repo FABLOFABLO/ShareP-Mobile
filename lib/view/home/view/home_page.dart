@@ -11,7 +11,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final promptCards = ref.watch(promptsProvider);
+    final promptCards = ref.watch(promptCardProvider);
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SafeArea(
@@ -26,7 +26,7 @@ class HomePage extends ConsumerWidget {
                 title: promptCard.title,
                 description: promptCard.description,
                 tag: promptCard.tag,
-                time: promptCard.time,
+                time: promptCard.date,
                 like: promptCard.like,
                 // TODO : 프롬프트 상세조회 API 연동하기
                 onTap: () => context.push('/detail'),

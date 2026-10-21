@@ -154,7 +154,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               title: promptCard.title,
               description: promptCard.description,
               tag: promptCard.tag,
-              time: promptCard.time,
+              time: promptCard.date,
               like: promptCard.like,
               // TODO : 프롬프트 상세 조회 API 연동하기
               onTap: () => context.push('/detail'),

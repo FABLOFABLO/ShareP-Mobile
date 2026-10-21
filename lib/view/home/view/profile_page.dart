@@ -21,7 +21,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final promptsCards = ref.watch(promptsProvider);
+    final promptsCards = ref.watch(promptCardProvider);
     final profileCard = ref.watch(profileProvider);
 
     return Scaffold(
@@ -84,7 +84,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       title: promptsCard.title,
                       description: promptsCard.description,
                       tag: promptsCard.tag,
-                      time: promptsCard.time,
+                      time: promptsCard.date,
                       like: promptsCard.like,
                       // TODO : 프롬프트 상세 조회 API 연동하기
                       onTap: () => context.push('/detail'),
