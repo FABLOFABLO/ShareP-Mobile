@@ -1,27 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_prompt/providers/prompt_detail_provider.dart';
 import 'package:share_prompt/view/home/widget/prompt_context.dart';
 import '../../../common/components/default_app_bar.dart';
 import '../../../common/components/sharep_alert_dialog.dart';
 import '../../../common/constants/app_color.dart';
 import '../../../common/constants/app_text_style.dart';
 
-class PromptDetailPage extends StatefulWidget {
+class PromptDetailPage extends ConsumerStatefulWidget {
   const PromptDetailPage({super.key, this.isMine = false});
 
   final bool isMine;
 
   @override
-  State<PromptDetailPage> createState() => _PromptDetailPageState();
+  ConsumerState<PromptDetailPage> createState() => _PromptDetailPageState();
 }
 
-class _PromptDetailPageState extends State<PromptDetailPage> {
+class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
   bool isLiked = false;
   bool isFollow = false;
 
   @override
   Widget build(BuildContext context) {
+    final detail = ref.watch(promptDetailProvider);
     return Scaffold(
       appBar: DefaultAppBar(
         hasBack: true,
@@ -54,7 +57,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                           Row(
                             children: [
                               Text(
-                                '제품 사진 촬영 프롬프트',
+                                detail.title,
                                 style: AppTextStyles.title1.copyWith(
                                   color: AppColor.gray100,
                                 ),
@@ -79,7 +82,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                     ),
                                     const SizedBox(width: 3),
                                     Text(
-                                      '86',
+                                      '${detail.like}',
                                       style: AppTextStyles.body4Bold.copyWith(
                                         color: AppColor.primary,
                                       ),
@@ -108,7 +111,7 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
-                                      '한지석',
+                                      detail.author,
                                       style: AppTextStyles.body1.copyWith(
                                         color: AppColor.gray100,
                                       ),
@@ -159,13 +162,13 @@ class _PromptDetailPageState extends State<PromptDetailPage> {
                           ),
                           const SizedBox(height: 34),
                           Text(
-                            '안녕하세요 여러분 오늘은 제품 사진 촬영할 때\n쓰기 좋은 프롬프트를 공유하려고 합니다 ㅎㅎㅎㅎㅎ\n아 디자인 하기 싫다 어쨌든 많이 사용해주세용',
+                            detail.description,
                             style: AppTextStyles.body3.copyWith(
                               color: AppColor.gray100,
                             ),
                           ),
                           const SizedBox(height: 34),
-                          const PromptContext(),
+                          PromptContext(prompt: detail.prompt),
                         ],
                       ),
                     ),

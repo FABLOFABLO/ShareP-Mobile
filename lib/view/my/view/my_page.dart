@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_prompt/providers/profile_provider.dart';
-import 'package:share_prompt/providers/prompts_card_provider.dart';
 import 'package:share_prompt/view/my/widget/setting_button.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../../../common/components/default_app_bar.dart';
 import '../../../common/components/prompt_card.dart';
 import '../../../common/constants/app_color.dart';
 import '../../../common/constants/app_text_style.dart';
 import '../../../common/components/proflie_card.dart';
+import '../../../providers/my_profile_provider.dart';
 
 class MyPage extends ConsumerStatefulWidget {
   const MyPage({super.key});
@@ -34,8 +34,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final promptsCards = ref.watch(promptsProvider);
-    final profileCard = ref.watch(profileProvider);
+    final profileCard = ref.watch(myProfileProvider);
 
     return Scaffold(
       appBar: const DefaultAppBar(title: '마이페이지', actions: [SettingButton()]),
@@ -44,10 +43,10 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
           children: [
             const SizedBox(height: 10),
             ProfileCard(
-              name: profileCard.name,
-              promptCount: profileCard.promptCount,
-              followerCount: profileCard.followerCount,
-              followingCount: profileCard.followingCount,
+              name: profileCard.base.name,
+              promptCount: profileCard.base.promptCount,
+              followerCount: profileCard.base.followerCount,
+              followingCount: profileCard.base.followingCount,
               isProfile: false,
             ),
             const SizedBox(height: 40),
@@ -85,10 +84,10 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      itemCount: promptsCards.length,
+                      itemCount: profileCard.base.prompts.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
-                        final promptCard = promptsCards[index];
+                        final promptCard = profileCard.base.prompts[index];
 
                         return Padding(
                           padding: const EdgeInsets.symmetric(
@@ -99,7 +98,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                             title: promptCard.title,
                             description: promptCard.description,
                             tag: promptCard.tag,
-                            time: promptCard.time,
+                            time: timeago.format(promptCard.date, locale: 'ko'),
                             like: promptCard.like,
                             // TODO : 프롬프트 상세 조회 API 연동하기
                             onTap: () => context.push('/detail?isMine=true'),
@@ -110,10 +109,10 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: promptCards.length,
+                      itemCount: profileCard.liked.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
-                        final promptCard = promptCards[index];
+                        final promptCard = profileCard.liked[index];
 
                         return Padding(
                           padding: const EdgeInsets.symmetric(
@@ -124,7 +123,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                             title: promptCard.title,
                             description: promptCard.description,
                             tag: promptCard.tag,
-                            time: promptCard.time,
+                            time: timeago.format(promptCard.date, locale: 'ko'),
                             like: promptCard.like,
                             // TODO : 프롬프트 상세 조회 API 연동하기
                             onTap: () => context.push('/detail'),

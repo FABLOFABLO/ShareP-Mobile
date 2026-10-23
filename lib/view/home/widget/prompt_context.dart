@@ -9,7 +9,9 @@ import '../../../common/constants/app_color.dart';
 import '../../../common/constants/app_text_style.dart';
 
 class PromptContext extends StatefulWidget {
-  const PromptContext({super.key});
+  final String prompt;
+
+  const PromptContext({super.key, required this.prompt});
 
   @override
   State<PromptContext> createState() => _PromptContextState();
@@ -75,8 +77,6 @@ class _PromptContextState extends State<PromptContext> {
 
   @override
   Widget build(BuildContext context) {
-    const String promptContext =
-        '당신은 친절한 프로그래밍 선생님입니다.\n고등학교 1학년 학생에게 Spring Boot의 동작 원리를 설명해주세요. 어려운 용어를 사용할 때는 반드시 쉬운 뜻과 예시를 함께 제시하고, 설명이 끝나면 이해도를 확인할 수 있는 간단한 문제 3개를 출제해주세요.';
     return SizedBox(
       width: double.infinity,
       height: 310,
@@ -92,7 +92,7 @@ class _PromptContextState extends State<PromptContext> {
               GestureDetector(
                 onTap: () {
                   showToast();
-                  Clipboard.setData(const ClipboardData(text: promptContext));
+                  Clipboard.setData(ClipboardData(text: widget.prompt));
                 },
                 child: SvgPicture.asset(AppAssets.copy),
               ),
@@ -107,9 +107,9 @@ class _PromptContextState extends State<PromptContext> {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: AppColor.gray40, width: 1.5),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(promptContext, style: AppTextStyles.body4),
+            child:  Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(widget.prompt, style: AppTextStyles.body4),
             ),
           ),
           const SizedBox(height: 8),

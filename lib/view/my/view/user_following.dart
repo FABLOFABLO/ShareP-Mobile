@@ -29,7 +29,6 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
               padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
               child: FollowBox(
                 userName: box.userName,
-                hasFollowing: box.hasFollowing,
               ),
             );
           },

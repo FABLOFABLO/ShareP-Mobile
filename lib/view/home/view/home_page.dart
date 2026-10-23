@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/view/home/widget/home_app_bar.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../../../common/constants/app_color.dart';
 
 class HomePage extends ConsumerWidget {
@@ -11,7 +12,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final promptCards = ref.watch(promptsProvider);
+    final promptCards = ref.watch(promptCardProvider);
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SafeArea(
@@ -26,7 +27,7 @@ class HomePage extends ConsumerWidget {
                 title: promptCard.title,
                 description: promptCard.description,
                 tag: promptCard.tag,
-                time: promptCard.time,
+                time: timeago.format(promptCard.date, locale: 'ko'),
                 like: promptCard.like,
                 // TODO : 프롬프트 상세조회 API 연동하기
                 onTap: () => context.push('/detail'),
