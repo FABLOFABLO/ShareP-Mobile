@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../../../common/components/default_app_bar.dart';
 import '../../../common/constants/app_color.dart';
 import '../../../common/constants/app_text_style.dart';
@@ -82,7 +83,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       title: promptsCard.title,
                       description: promptsCard.description,
                       tag: promptsCard.tag,
-                      time: promptsCard.date,
+                      time: timeago.format(promptsCard.date, locale: 'ko'),
                       like: promptsCard.like,
                       // TODO : 프롬프트 상세 조회 API 연동하기
                       onTap: () => context.push('/detail'),

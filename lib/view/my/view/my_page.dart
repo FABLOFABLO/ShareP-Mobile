@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/view/my/widget/setting_button.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../../../common/components/default_app_bar.dart';
 import '../../../common/components/prompt_card.dart';
 import '../../../common/constants/app_color.dart';
@@ -97,7 +98,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                             title: promptCard.title,
                             description: promptCard.description,
                             tag: promptCard.tag,
-                            time: promptCard.date,
+                            time: timeago.format(promptCard.date, locale: 'ko'),
                             like: promptCard.like,
                             // TODO : 프롬프트 상세 조회 API 연동하기
                             onTap: () => context.push('/detail?isMine=true'),
@@ -122,7 +123,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                             title: promptCard.title,
                             description: promptCard.description,
                             tag: promptCard.tag,
-                            time: promptCard.date,
+                            time: timeago.format(promptCard.date, locale: 'ko'),
                             like: promptCard.like,
                             // TODO : 프롬프트 상세 조회 API 연동하기
                             onTap: () => context.push('/detail'),

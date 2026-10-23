@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
 import 'package:share_prompt/view/search/widgets/search_tag.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../../../common/constants/app_color.dart';
 import '../../../common/constants/app_text_style.dart';
 import '../../../common/components/prompt_card.dart';
@@ -154,7 +155,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               title: promptCard.title,
               description: promptCard.description,
               tag: promptCard.tag,
-              time: promptCard.date,
+              time: timeago.format(promptCard.date, locale: 'ko'),
               like: promptCard.like,
               // TODO : 프롬프트 상세 조회 API 연동하기
               onTap: () => context.push('/detail'),

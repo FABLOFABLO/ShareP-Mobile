@@ -3,7 +3,7 @@ class PromptCardModel {
   final String title;
   final String description;
   final String tag;
-  final String date;
+  final DateTime date;
   final int like;
 
   PromptCardModel({
@@ -17,21 +17,19 @@ class PromptCardModel {
 
   factory PromptCardModel.fromJson(Map<String, dynamic> json) {
     return PromptCardModel(
-        promptId: json['prompt-id'] as int,
-        title: json['title'] as String,
-        description: json['description'] as String,
-        tag: json['tag'] as String,
-        date: json['date'] as String,
-        like: json['like'] as int
+      promptId: json['prompt-id'] as int,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      tag: json['tag'] as String,
+      date: DateTime.parse(json['date'] as String).toLocal(),
+      like: json['like'] as int,
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'prompt-id': promptId,
     'title': title,
     'description': description,
     'tag': tag,
-    'date': date,
-    'like': like
+    'like': like,
   };
 }
