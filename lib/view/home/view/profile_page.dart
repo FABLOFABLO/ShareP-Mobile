@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
-import 'package:share_prompt/providers/prompts_card_provider.dart';
 import '../../../common/components/default_app_bar.dart';
 import '../../../common/constants/app_color.dart';
 import '../../../common/constants/app_text_style.dart';
 import '../../../common/components/prompt_card.dart';
-import '../../../providers/profile_provider.dart';
+import '../../../providers/user_profile_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -21,8 +20,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final promptsCards = ref.watch(promptCardProvider);
-    final profileCard = ref.watch(profileProvider);
+    final profileCard = ref.watch(userProfileProvider);
 
     return Scaffold(
       appBar: const DefaultAppBar(title: '프로필', hasBack: true),
@@ -31,11 +29,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           children: [
             const SizedBox(height: 10),
             ProfileCard(
-              name: profileCard.name,
-              promptCount: profileCard.promptCount,
-              followerCount: profileCard.followerCount,
-              followingCount: profileCard.followingCount,
-              isProfile: true,
+              name: profileCard.base.name,
+              promptCount: profileCard.base.promptCount,
+              followerCount: profileCard.base.followerCount,
+              followingCount: profileCard.base.followingCount,
+              isProfile: profileCard.isFollowing,
             ),
             const SizedBox(height: 40),
             Padding(
@@ -70,10 +68,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             const SizedBox(height: 25),
             Expanded(
               child: ListView.builder(
-                itemCount: promptCards.length,
+                itemCount: profileCard.base.prompts.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
-                  final promptsCard = promptsCards[index];
+                  final promptsCard = profileCard.base.prompts[index];
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(
