@@ -14,7 +14,7 @@ final MyProfileModel myProfile = MyProfileModel(
       PromptCardModel(
         promptId: 1,
         title: "앨범 커버 프롬프트 뿌림",
-        date: "3시간 전",
+        date: "2026-07-12 10:13:37",
         description: "AI가 몽환적인 인디 앨범 커버 만들어주는 프롬프트 뿌림",
         tag: "이미지",
         like: 16,
