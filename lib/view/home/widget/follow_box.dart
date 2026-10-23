@@ -4,15 +4,16 @@ import '../../../common/constants/app_text_style.dart';
 
 class FollowBox extends StatefulWidget {
   final String userName;
-  bool hasFollowing;
 
-  FollowBox({super.key, this.hasFollowing = true, required this.userName});
+  const FollowBox({super.key, required this.userName});
 
   @override
   State<FollowBox> createState() => _FollowBoxState();
 }
 
 class _FollowBoxState extends State<FollowBox> {
+  bool hasFollowing = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,12 +35,18 @@ class _FollowBoxState extends State<FollowBox> {
                 // TODO : 팔로우 API 연동하기
                 onTap: () {
                   setState(() {
-                    widget.hasFollowing = !widget.hasFollowing;
+                    hasFollowing = !hasFollowing;
                   });
                 },
                 child: Container(
+                  width: 51,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    color: hasFollowing ? AppColor.primary : AppColor.secondary,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   child: Center(
-                    child: widget.hasFollowing
+                    child: hasFollowing
                         ? Text(
                             '팔로우',
                             style: AppTextStyles.body5.copyWith(
@@ -52,14 +59,6 @@ class _FollowBoxState extends State<FollowBox> {
                               color: AppColor.primary,
                             ),
                           ),
-                  ),
-                  width: 51,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    color: widget.hasFollowing
-                        ? AppColor.primary
-                        : AppColor.secondary,
-                    borderRadius: BorderRadius.circular(100),
                   ),
                 ),
               ),

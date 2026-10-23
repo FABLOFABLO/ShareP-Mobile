@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/legacy.dart';
 import '../services/models/common_profile_model.dart';
-import '../services/models/My_profile_model.dart';
+import '../services/models/my_profile_model.dart';
 import '../services/models/prompt_card_model.dart';
 
 final MyProfileModel myProfile = MyProfileModel(

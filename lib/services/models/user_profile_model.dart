@@ -4,15 +4,12 @@ class UserProfileModel {
   final CommonProfileModel base;
   final bool isFollowing;
 
-  UserProfileModel({
-    required this.base,
-    required this.isFollowing,
-  });
+  UserProfileModel({required this.base, required this.isFollowing});
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
       base: CommonProfileModel.fromJson(json),
-      isFollowing: json['is-following'] as bool
+      isFollowing: json['is-following'] as bool,
     );
   }
 }
