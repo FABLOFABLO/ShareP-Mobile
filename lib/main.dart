@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'common/router/router.dart';
 
-void main() {
-  runApp(const ProviderScope(child: MyApp()));
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  timeago.setLocaleMessages('ko', timeago.KoMessages());
+  await dotenv.load(fileName: ".env");
+  runApp(const ProviderScope(child: MyApp()));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  timeago.setLocaleMessages('ko', timeago.KoMessages());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +23,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
         scaffoldBackgroundColor: Colors.white,
