@@ -1,21 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../common/components/bottom_button.dart';
 import '../../../common/components/sharep_text_field.dart';
 import '../../../common/constants/app_assets.dart';
 import '../../../common/constants/app_color.dart';
+import '../../../providers/auth_provider.dart';
 
-class LoginPage extends StatefulWidget {
+
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
+
+  Future<void> _handleLogin() async {
+    if (ref.read(authProvider)) return;
+
+    final id = _idController.text.trim();
+    final password = _passwordController.text;
+
+    if (id.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('아이디와 비밀번호를 입력해주세요.')),
+      );
+      return;
+    }
+
+    try {
+      await ref.read(authProvider.notifier).login(
+        id: id,
+        password: password,
+      );
+
+      if (!mounted) return;
+      context.go('/home');
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('로그인에 실패했습니다. 다시 확인해주세요.')),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -27,6 +59,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(authProvider);
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -37,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context, constraints) {
               return SingleChildScrollView(
                 keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
+                ScrollViewKeyboardDismissBehavior.onDrag,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
@@ -81,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                               const Text(
                                 '계정이 없으신가요?',
                                 style: TextStyle(
-                                  color: Color(0xFF484555),
+                                  color: AppColor.gray100,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),
@@ -101,10 +135,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
 
                           BottomButton(
-                            text: '로그인하기',
+                            text: isLoading ? '로그인 중...' : '로그인하기',
                             color: AppColor.primary,
-                            // TODO : 로그인 API 연동하기
-                            onTap: () => context.go('/home'),
+                            onTap: _handleLogin
                           ),
                           const SizedBox(height: 20),
                         ],
