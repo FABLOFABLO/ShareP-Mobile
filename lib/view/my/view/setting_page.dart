@@ -73,7 +73,7 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                           showCupertinoDialog(
                             context: context,
                             builder: (context) {
-                              return SharePalertdialog(title: '정말 로그아웃 하시겠습니까?', tapYes: handleLogout,);
+                              return SharePalertdialog(title: '정말 로그아웃 하시겠습니까?', onTap: handleLogout,);
                             },
                           );
                         },

@@ -4,10 +4,10 @@ import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class SharePalertdialog extends StatelessWidget {
-  const SharePalertdialog({super.key, required this.title, required this.tapYes});
+  const SharePalertdialog({super.key, required this.title, required this.onTap});
 
   final String title;
-  final VoidCallback tapYes;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SharePalertdialog extends StatelessWidget {
       actions: [
         CupertinoDialogAction(
           isDestructiveAction: true,
-          onPressed: tapYes,
+          onPressed: onTap,
           child: Text('예', style: dialog),
         ),
         CupertinoDialogAction(

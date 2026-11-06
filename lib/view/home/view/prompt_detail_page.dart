@@ -186,7 +186,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return SharePalertdialog(title: '정말 해당 프롬프트를\n삭제하시겠습니까?', tapYes: () => context.pop(),);
+        return SharePalertdialog(title: '정말 해당 프롬프트를\n삭제하시겠습니까?', onTap: () => context.pop(),);
       },
     );
   }
