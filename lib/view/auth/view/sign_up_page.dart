@@ -110,7 +110,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
                           SharepTextField(
                             text: '아이디',
-                            hintText: '아이디를 입력하세요',
+                            hintText: '아이디를 입력하세요 (영숫자 5~30자)',
                             hasIcon: false,
                             controller: _idController,
                             onSubmitted: (_) {
@@ -122,7 +122,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           const SizedBox(height: 30),
                           SharepTextField(
                             text: '비밀번호',
-                            hintText: '비밀번호를 입력하세요',
+                            hintText: '비밀번호를 입력하세요 (영숫자 8~30자)',
                             hasIcon: true,
                             controller: _passwordController,
                             focusNode: _passwordFocusNode,
@@ -179,7 +179,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           BottomButton(
                             text: '회원가입하기',
                             color: AppColor.primary,
-                            onTap: _handleSignUp
+                            onTap: _handleSignUp,
                           ),
                           const SizedBox(height: 20),
                         ],
