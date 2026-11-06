@@ -57,6 +57,10 @@ Future<void> login({required String id, required String password}) async {
     _loginFuture = null;
   });
 }
+
+Future<void> reissue({required String refreshToken}) async {
+  if (_reissueFuture != null) {
+    return _reissueFuture;
   }
 
   _reissueFuture = () async {
@@ -105,5 +109,56 @@ Future<void> logout() async {
 
   return _logoutFuture!.whenComplete(() {
     _logoutFuture = null;
+  });
+}
+
+Future<void> changeNickName({required String nickName}) async {
+  if (_changeNickNameFuture != null) {
+    return _changeNickNameFuture;
+  }
+
+  _changeNickNameFuture = () async {
+    await dio.patch<void>('/user/nickname', data: {'nickname': nickName});
+  }();
+
+  return _changeNickNameFuture!.whenComplete(() {
+    _changeNickNameFuture = null;
+  });
+}
+
+Future<void> changeId({required String newId, required String password}) async {
+  if (_changeIdFuture != null) {
+    return _changeIdFuture;
+  }
+
+  _changeIdFuture = () async {
+    await dio.patch<void>(
+      '/user/id',
+      data: {'password': password, 'new_id': newId},
+    );
+  }();
+
+  return _changeIdFuture!.whenComplete(() {
+    _changeIdFuture = null;
+  });
+}
+
+Future<void> changePassword({
+  required String currentPassword,
+  required String newPassword,
+}) async {
+  if (_changePasswordFuture != null) {
+    return _changePasswordFuture;
+  }
+
+  _changePasswordFuture = () async {
+    await dio.patch<void>(
+      '/user/password',
+      data: {'current_password': currentPassword, 'new_password': newPassword},
+    );
+  }();
+
+  return _changePasswordFuture!.whenComplete(() {
+    _changePasswordFuture = null;
   });
 }
