@@ -31,7 +31,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             const SizedBox(height: 10),
             ProfileCard(
               name: profileCard.base.name,
-              promptCount: profileCard.base.promptCount,
+              promptCount: profileCard.base.promptsCount,
               followerCount: profileCard.base.followerCount,
               followingCount: profileCard.base.followingCount,
               isProfile: profileCard.isFollowing,

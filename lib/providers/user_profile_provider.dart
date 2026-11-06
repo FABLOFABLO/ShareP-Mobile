@@ -7,7 +7,6 @@ final UserProfileModel userProfile = UserProfileModel(
   base: CommonProfileModel(
     userId: 1,
     name: '한지석',
-    promptCount: 1,
     followerCount: 12,
     followingCount: 5,
     prompts: [
@@ -18,8 +17,10 @@ final UserProfileModel userProfile = UserProfileModel(
         description: "AI가 몽환적인 인디 앨범 커버 만들어주는 프롬프트 뿌림",
         tag: "이미지",
         like: 16,
+        liked: false,
       ),
     ],
+    promptsCount: 2,
   ),
   isFollowing: false,
 );

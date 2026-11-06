@@ -5,6 +5,7 @@ class PromptCardModel {
   final String tag;
   final DateTime date;
   final int like;
+  final bool liked;
 
   PromptCardModel({
     required this.promptId,
@@ -13,16 +14,18 @@ class PromptCardModel {
     required this.tag,
     required this.date,
     required this.like,
+    required this.liked,
   });
 
   factory PromptCardModel.fromJson(Map<String, dynamic> json) {
     return PromptCardModel(
-      promptId: json['prompt-id'] as int,
+      promptId: json['id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
       tag: json['tag'] as String,
-      date: DateTime.parse(json['date'] as String).toLocal(),
-      like: json['like'] as int,
+      date: DateTime.parse(json['create_at'] as String).toLocal(),
+      like: json['like_count'] as int,
+      liked: json['liked'] as bool,
     );
   }
 

@@ -10,7 +10,7 @@ class MyProfileModel {
   factory MyProfileModel.fromJson(Map<String, dynamic> json) {
     return MyProfileModel(
       base: CommonProfileModel.fromJson(json),
-      liked: (json['liked'] as List<dynamic>)
+      liked: (json['liked_prompts'] as List<dynamic>)
           .map((item) => PromptCardModel.fromJson(item as Map<String, dynamic>))
           .toList(),
     );
