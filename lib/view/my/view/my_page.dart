@@ -20,10 +20,31 @@ class MyPage extends ConsumerStatefulWidget {
 class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
+  String? _errorMessage;
+
+  Future<void> _loadProfile() async {
+    setState(() {
+      _errorMessage = null;
+    });
+
+    try {
+      await ref.read(myProfileProvider.notifier).getMyProfile();
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = '마이페이지를 불러오지 못했습니다.';
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _loadProfile();
+    });
   }
 
   @override
@@ -36,6 +57,21 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final profileCard = ref.watch(myProfileProvider);
 
+    if (_errorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text(_errorMessage!)],
+          ),
+        ),
+      );
+    }
+
+    if (profileCard == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       appBar: const DefaultAppBar(title: '마이페이지', actions: [SettingButton()]),
       body: SafeArea(
@@ -44,7 +80,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
             const SizedBox(height: 10),
             ProfileCard(
               name: profileCard.base.name,
-              promptCount: profileCard.base.promptCount,
+              promptCount: profileCard.base.promptsCount,
               followerCount: profileCard.base.followerCount,
               followingCount: profileCard.base.followingCount,
               isProfile: false,
@@ -82,55 +118,51 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                 controller: _tabController,
                 physics: const ClampingScrollPhysics(),
                 children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: profileCard.base.prompts.length,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (BuildContext context, int index) {
-                        final promptCard = profileCard.base.prompts[index];
+                  ListView.builder(
+                    itemCount: profileCard.base.prompts.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (BuildContext context, int index) {
+                      final promptCard = profileCard.base.prompts[index];
 
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 26,
-                            vertical: 6,
-                          ),
-                          child: PromptCard(
-                            title: promptCard.title,
-                            description: promptCard.description,
-                            tag: promptCard.tag,
-                            time: timeago.format(promptCard.date, locale: 'ko'),
-                            like: promptCard.like,
-                            // TODO : 프롬프트 상세 조회 API 연동하기
-                            onTap: () => context.push('/detail?isMine=true'),
-                          ),
-                        );
-                      },
-                    ),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 26,
+                          vertical: 6,
+                        ),
+                        child: PromptCard(
+                          title: promptCard.title,
+                          description: promptCard.description,
+                          tag: promptCard.tag,
+                          time: timeago.format(promptCard.date, locale: 'ko'),
+                          like: promptCard.like,
+                          // TODO : 프롬프트 상세 조회 API 연동하기
+                          onTap: () => context.push('/detail?isMine=true'),
+                        ),
+                      );
+                    },
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: profileCard.liked.length,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (BuildContext context, int index) {
-                        final promptCard = profileCard.liked[index];
+                  ListView.builder(
+                    itemCount: profileCard.liked.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (BuildContext context, int index) {
+                      final promptCard = profileCard.liked[index];
 
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 26,
-                            vertical: 6,
-                          ),
-                          child: PromptCard(
-                            title: promptCard.title,
-                            description: promptCard.description,
-                            tag: promptCard.tag,
-                            time: timeago.format(promptCard.date, locale: 'ko'),
-                            like: promptCard.like,
-                            // TODO : 프롬프트 상세 조회 API 연동하기
-                            onTap: () => context.push('/detail'),
-                          ),
-                        );
-                      },
-                    ),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 26,
+                          vertical: 6,
+                        ),
+                        child: PromptCard(
+                          title: promptCard.title,
+                          description: promptCard.description,
+                          tag: promptCard.tag,
+                          time: timeago.format(promptCard.date, locale: 'ko'),
+                          like: promptCard.like,
+                          // TODO : 프롬프트 상세 조회 API 연동하기
+                          onTap: () => context.push('/detail'),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
