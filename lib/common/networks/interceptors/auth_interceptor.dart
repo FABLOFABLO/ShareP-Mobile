@@ -37,41 +37,46 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final path = err.requestOptions.path;
-    final status = err.response?.statusCode;
 
     if (path.endsWith('/user/login') ||
         path.endsWith('/user/signup') ||
         path.endsWith('/user/reissue')) {
-      return handler.next(err);
-    }
-
-    try {
-      if (status == 401) {
-        final refreshToken = await TokenStorage.getRefreshToken();
-
-        if (refreshToken != null && refreshToken.isNotEmpty) {
-          await reissue(refreshToken: refreshToken);
-
-          final accessToken = await TokenStorage.getAccessToken();
-
-          if (accessToken == null || accessToken.isEmpty) {
-            handler.next(err);
-            return;
-          }
-
-          final request = err.requestOptions;
-          request.headers['Authorization'] = 'Bearer $accessToken';
-
-          final response = await dio.fetch<dynamic>(request);
-
-          handler.resolve(response);
-          return;
-        }
-      }
-    } catch (_) {
       handler.next(err);
       return;
     }
-    handler.next(err);
+
+    final request = err.requestOptions;
+    final retryCount = (request.extra['authRetryCount'] as int?) ?? 0;
+
+    if (err.response?.statusCode != 401 || retryCount >= 1) {
+      handler.next(err);
+      return;
+    }
+
+    try {
+      final refreshToken = await TokenStorage.getRefreshToken();
+
+      if (refreshToken == null || refreshToken.isEmpty) {
+        handler.next(err);
+        return;
+      }
+
+      await reissue(refreshToken: refreshToken);
+
+      final accessToken = await TokenStorage.getAccessToken();
+
+      if (accessToken == null || accessToken.isEmpty) {
+        handler.next(err);
+        return;
+      }
+
+      request.extra['authRetryCount'] = retryCount + 1;
+      request.headers['Authorization'] = 'Bearer $accessToken';
+
+      final response = await dio.fetch<dynamic>(request);
+      handler.resolve(response);
+    } catch (_) {
+      handler.next(err);
+    }
   }
 }
