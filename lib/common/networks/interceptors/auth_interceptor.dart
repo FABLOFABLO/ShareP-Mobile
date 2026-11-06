@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:share_prompt/services/services/auth_service.dart';
-import '../../storage/token_storage.dart';
+import 'package:share_prompt/common/storage/token_storage.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio dio;

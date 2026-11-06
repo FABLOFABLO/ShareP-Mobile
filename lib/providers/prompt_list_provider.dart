@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:share_prompt/services/models/prompt_list_model.dart';
-import '../services/models/prompt_card_model.dart';
+import 'package:share_prompt/services/models/prompt_card_model.dart';
 
 final PromptListModel promptList = PromptListModel(
   prompts: [

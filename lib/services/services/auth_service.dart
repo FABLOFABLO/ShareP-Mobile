@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:share_prompt/common/networks/dio_provider.dart';
-import '../../common/router/router.dart';
-import '../../common/storage/token_storage.dart';
+import 'package:share_prompt/common/router/router.dart';
+import 'package:share_prompt/common/storage/token_storage.dart';
 
 Future<void> signUp({required String id, required String password}) async {
   await dio.post<void>(

@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
 import 'package:share_prompt/view/search/widgets/search_tag.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
-import '../../../common/components/prompt_card.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/prompt_card.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});

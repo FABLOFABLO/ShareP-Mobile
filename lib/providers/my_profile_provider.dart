@@ -40,6 +40,8 @@ final MyProfileModel myProfile = MyProfileModel(
     ),
   ],
 );
+import 'package:share_prompt/services/models/my_profile_model.dart';
+import 'package:share_prompt/services/services/profile_service.dart' as profile_service;
 
 final myProfileProvider =
     StateNotifierProvider<MyProfileNotifier, MyProfileModel>(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import '../constants/app_color.dart';
-import '../constants/app_text_style.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class SharePalertdialog extends StatelessWidget {
   const SharePalertdialog({super.key, required this.title, required this.tapYes});

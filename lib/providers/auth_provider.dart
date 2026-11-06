@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import '../services/services/auth_service.dart' as auth_service;
+import 'package:share_prompt/services/services/auth_service.dart' as auth_service;
 
 final authProvider = StateNotifierProvider<AuthNotifier, bool>(
   (ref) => AuthNotifier(),

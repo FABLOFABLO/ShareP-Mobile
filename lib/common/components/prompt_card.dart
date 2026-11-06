@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/common/components/prompt_tag.dart';
-import '../constants/app_color.dart';
-import '../constants/app_text_style.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class PromptCard extends StatefulWidget {
   const PromptCard({

@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/providers/prompt_detail_provider.dart';
 import 'package:share_prompt/view/home/widget/prompt_context.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_alert_dialog.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_alert_dialog.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class PromptDetailPage extends ConsumerStatefulWidget {
   const PromptDetailPage({super.key, this.isMine = false});
