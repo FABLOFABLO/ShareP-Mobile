@@ -103,8 +103,11 @@ Future<void> logout() async {
     return _logoutFuture;
   }
   _logoutFuture = () async {
-    await dio.post<void>('/user/logout');
-    await TokenStorage.clear();
+    try {
+      await dio.post<void>('/user/logout');
+    } finally {
+      await TokenStorage.clear();
+    }
   }();
 
   return _logoutFuture!.whenComplete(() {
@@ -132,9 +135,19 @@ Future<void> changeId({required String newId, required String password}) async {
   }
 
   _changeIdFuture = () async {
-    await dio.patch<void>(
+    final response = await dio.patch<Map<String, dynamic>>(
       '/user/id',
       data: {'password': password, 'new_id': newId},
+    );
+
+    final accessToken = response.data?['access_token'];
+    final newRefreshToken = response.data?['refresh_token'];
+
+    await TokenStorage.clear();
+
+    await TokenStorage.save(
+      accessToken: accessToken,
+      refreshToken: newRefreshToken,
     );
   }();
 
@@ -152,9 +165,19 @@ Future<void> changePassword({
   }
 
   _changePasswordFuture = () async {
-    await dio.patch<void>(
+    final response = await dio.patch<Map<String, dynamic>>(
       '/user/password',
       data: {'current_password': currentPassword, 'new_password': newPassword},
+    );
+
+    final accessToken = response.data?['access_token'];
+    final newRefreshToken = response.data?['refresh_token'];
+
+    await TokenStorage.clear();
+
+    await TokenStorage.save(
+      accessToken: accessToken,
+      refreshToken: newRefreshToken,
     );
   }();
 
