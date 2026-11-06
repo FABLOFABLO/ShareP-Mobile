@@ -39,9 +39,9 @@ class AuthInterceptor extends Interceptor {
     final path = err.requestOptions.path;
     final status = err.response?.statusCode;
 
-    if (path.contains('/user/login') ||
-        path.contains('/user/signup') ||
-        path.contains('/user/reissue')) {
+    if (path.endsWith('/user/login') ||
+        path.endsWith('/user/signup') ||
+        path.endsWith('/user/reissue')) {
       return handler.next(err);
     }
 
