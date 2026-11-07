@@ -11,6 +11,15 @@ Future<void>? _changeNickNameFuture;
 Future<void>? _changeIdFuture;
 Future<void>? _changePasswordFuture;
 
+void checkToken({required String? accessToken, required String? refreshToken}) {
+  if (accessToken is! String ||
+      accessToken.isEmpty ||
+      refreshToken is! String ||
+      refreshToken.isEmpty) {
+    throw const FormatException('재발급 응답에 유효한 토큰이 없습니다.');
+  }
+}
+
 Future<void> signUp({required String id, required String password}) async {
   if (_signUpFuture != null) {
     return _signUpFuture!;
@@ -40,12 +49,7 @@ Future<void> login({required String id, required String password}) async {
     final accessToken = response.data?['access_token'];
     final refreshToken = response.data?['refresh_token'];
 
-    if (accessToken is! String ||
-        accessToken.isEmpty ||
-        refreshToken is! String ||
-        refreshToken.isEmpty) {
-      throw const FormatException('로그인 응답에 유효한 토큰이 없습니다.');
-    }
+    checkToken(accessToken: accessToken, refreshToken: refreshToken);
 
     await TokenStorage.save(
       accessToken: response.data?['access_token'],
@@ -73,12 +77,7 @@ Future<void> reissue({required String refreshToken}) async {
       final accessToken = response.data?['access_token'];
       final newRefreshToken = response.data?['refresh_token'];
 
-      if (accessToken is! String ||
-          accessToken.isEmpty ||
-          newRefreshToken is! String ||
-          newRefreshToken.isEmpty) {
-        throw const FormatException('재발급 응답에 유효한 토큰이 없습니다.');
-      }
+      checkToken(accessToken: accessToken, refreshToken: newRefreshToken);
 
       await TokenStorage.save(
         accessToken: accessToken,
@@ -143,7 +142,7 @@ Future<void> changeId({required String newId, required String password}) async {
     final accessToken = response.data?['access_token'];
     final newRefreshToken = response.data?['refresh_token'];
 
-    await TokenStorage.clear();
+    checkToken(accessToken: accessToken, refreshToken: newRefreshToken);
 
     await TokenStorage.save(
       accessToken: accessToken,
@@ -173,7 +172,7 @@ Future<void> changePassword({
     final accessToken = response.data?['access_token'];
     final newRefreshToken = response.data?['refresh_token'];
 
-    await TokenStorage.clear();
+    checkToken(accessToken: accessToken, refreshToken: newRefreshToken);
 
     await TokenStorage.save(
       accessToken: accessToken,
