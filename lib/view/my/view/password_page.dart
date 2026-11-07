@@ -39,14 +39,21 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
       ).showSnackBar(const SnackBar(content: Text('비밀번호를 입력해주세요.')));
       return;
     }
-    await ref
-        .read(authProvider.notifier)
-        .changePassword(
-          currentPassword: currentPassword,
-          newPassword: newPassword,
-        );
-    if (!mounted) return;
-    context.go('/my');
+    try {
+      await ref
+          .read(authProvider.notifier)
+          .changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+      if (!mounted) return;
+      context.go('/my');
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('비밀번호 변경에 실패했습니다. 다시 확인해주세요.')),
+      );
+    }
   }
 
   @override
