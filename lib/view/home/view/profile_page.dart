@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
-import '../../../common/components/prompt_card.dart';
-import '../../../providers/user_profile_provider.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/prompt_card.dart';
+import 'package:share_prompt/providers/user_profile_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -31,7 +31,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             const SizedBox(height: 10),
             ProfileCard(
               name: profileCard.base.name,
-              promptCount: profileCard.base.promptCount,
+              promptCount: profileCard.base.promptsCount,
               followerCount: profileCard.base.followerCount,
               followingCount: profileCard.base.followingCount,
               isProfile: profileCard.isFollowing,

@@ -5,7 +5,7 @@ import 'package:share_prompt/view/home/widget/home_app_bar.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:share_prompt/providers/prompts_card_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../../../common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

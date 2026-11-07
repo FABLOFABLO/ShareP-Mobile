@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:share_prompt/services/models/prompt_list_model.dart';
-import '../services/models/prompt_card_model.dart';
+import 'package:share_prompt/services/models/prompt_card_model.dart';
 
 final PromptListModel promptList = PromptListModel(
   prompts: [
@@ -11,6 +11,7 @@ final PromptListModel promptList = PromptListModel(
       description: "AI가 몽환적인 인디 앨범 커버 만들어주는 프롬프트 뿌림",
       tag: "image",
       like: 16,
+      liked: false,
     ),
     PromptCardModel(
       promptId: 6,
@@ -18,6 +19,7 @@ final PromptListModel promptList = PromptListModel(
       date: DateTime.parse("2026-07-12 10:13:37"),
       description: "AI가 사이버펑크 앨범 커버 만들어주는 프롬프트",
       tag: "image",
+      liked: false,
       like: 10,
     ),
   ],

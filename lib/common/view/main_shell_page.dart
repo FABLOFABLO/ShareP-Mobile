@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../components/bottom_navigation_bar.dart';
+import 'package:share_prompt/common/components/bottom_navigation_bar.dart';
 
 class MainShellPage extends StatelessWidget {
   const MainShellPage({super.key, required this.navigationShell});

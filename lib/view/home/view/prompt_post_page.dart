@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/view/home/widget/tag_grid.dart';
-import '../../../common/components/bottom_button.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_text_field.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_text_field.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 
 class PromptPostPage extends StatefulWidget {
   const PromptPostPage({super.key});

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import '../../../common/components/bottom_button.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_text_field.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_text_field.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/providers/auth_provider.dart';
 
-class PasswordPage extends StatefulWidget {
+class PasswordPage extends ConsumerStatefulWidget {
   const PasswordPage({super.key});
 
   @override
-  State<PasswordPage> createState() => _PasswordPageState();
+  ConsumerState<PasswordPage> createState() => _PasswordPageState();
 }
 
-class _PasswordPageState extends State<PasswordPage> {
+class _PasswordPageState extends ConsumerState<PasswordPage> {
   final TextEditingController _nowPwController = TextEditingController();
   final TextEditingController _wantPwController = TextEditingController();
   final FocusNode _wantPwFocusNode = FocusNode();
@@ -22,6 +25,35 @@ class _PasswordPageState extends State<PasswordPage> {
     _nowPwController.dispose();
     _wantPwController.dispose();
     _wantPwFocusNode.dispose();
+  }
+
+  Future<void> _handlePassword() async {
+    if (ref.read(authProvider)) return;
+
+    final currentPassword = _nowPwController.text.trim();
+    final newPassword = _wantPwController.text.trim();
+
+    if (currentPassword.isEmpty || newPassword.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('비밀번호를 입력해주세요.')));
+      return;
+    }
+    try {
+      await ref
+          .read(authProvider.notifier)
+          .changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+      if (!mounted) return;
+      context.go('/my');
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('비밀번호 변경에 실패했습니다. 다시 확인해주세요.')),
+      );
+    }
   }
 
   @override
@@ -73,8 +105,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           BottomButton(
                             text: '변경하기',
                             color: AppColor.primary,
-                            // TODO : 비밀번호 변경 API 연동하기
-                            onTap: () {},
+                            onTap: _handlePassword,
                           ),
                           const SizedBox(height: 20),
                         ],

@@ -1,13 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/view/my/widget/setting_box.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_alert_dialog.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_alert_dialog.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/providers/auth_provider.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends ConsumerStatefulWidget {
   const SettingPage({super.key});
+
+  @override
+  ConsumerState<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends ConsumerState<SettingPage> {
+
+  Future<void> handleLogout() async {
+    if (ref.read(authProvider)) return;
+
+    try {
+      await ref.read(authProvider.notifier).logout();
+
+      if (!mounted) return;
+      context.go('/login');
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('로그아웃에 실패했습니다. 다시 확인해주세요.')),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +73,7 @@ class SettingPage extends StatelessWidget {
                           showCupertinoDialog(
                             context: context,
                             builder: (context) {
-                              return const SharePalertdialog(title: '정말 로그아웃 하시겠습니까?');
+                              return SharePalertdialog(title: '정말 로그아웃 하시겠습니까?', onTap: handleLogout,);
                             },
                           );
                         },

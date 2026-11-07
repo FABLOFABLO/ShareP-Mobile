@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../common/components/bottom_button.dart';
-import '../../../common/components/sharep_text_field.dart';
-import '../../../common/constants/app_assets.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/components/sharep_text_field.dart';
+import 'package:share_prompt/common/constants/app_assets.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/providers/auth_provider.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _checkPasswordController =
@@ -42,6 +44,32 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       _hasPasswordCheckError = hasError;
     });
+  }
+
+  Future<void> _handleSignUp() async {
+    if (ref.read(authProvider)) return;
+
+    final id = _idController.text.trim();
+    final password = _passwordController.text;
+
+    if (id.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('아이디와 비밀번호를 입력해주세요.')));
+      return;
+    }
+
+    try {
+      await ref.read(authProvider.notifier).signUp(id: id, password: password);
+
+      if (!mounted) return;
+      context.go('/login');
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('회원가입에 실패했습니다. 다시 확인해주세요.')));
+    }
   }
 
   @override
@@ -82,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                           SharepTextField(
                             text: '아이디',
-                            hintText: '아이디를 입력하세요',
+                            hintText: '아이디를 입력하세요 (영숫자 5~30자)',
                             hasIcon: false,
                             controller: _idController,
                             onSubmitted: (_) {
@@ -94,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           const SizedBox(height: 30),
                           SharepTextField(
                             text: '비밀번호',
-                            hintText: '비밀번호를 입력하세요',
+                            hintText: '비밀번호를 입력하세요 (영숫자 8~30자)',
                             hasIcon: true,
                             controller: _passwordController,
                             focusNode: _passwordFocusNode,
@@ -151,8 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           BottomButton(
                             text: '회원가입하기',
                             color: AppColor.primary,
-                            // TODO : 회원가입 API 연동하기
-                            onTap: () {},
+                            onTap: _handleSignUp,
                           ),
                           const SizedBox(height: 20),
                         ],

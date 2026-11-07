@@ -1,27 +1,56 @@
 import 'package:flutter/material.dart';
-import '../../../common/components/bottom_button.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_text_field.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_text_field.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/providers/auth_provider.dart';
 
-class IdPage extends StatefulWidget {
+class IdPage extends ConsumerStatefulWidget {
   const IdPage({super.key});
 
   @override
-  State<IdPage> createState() => _IdPageState();
+  ConsumerState<IdPage> createState() => _IdPageState();
 }
 
-class _IdPageState extends State<IdPage> {
-  final TextEditingController _nowIdController = TextEditingController();
-  final TextEditingController _wantIdController = TextEditingController();
-  final FocusNode _wantIdFocusNode = FocusNode();
+class _IdPageState extends ConsumerState<IdPage> {
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _passwordFocusNode = FocusNode();
 
   @override
   void dispose() {
     super.dispose();
-    _nowIdController.dispose();
-    _wantIdController.dispose();
-    _wantIdFocusNode.dispose();
+    _idController.dispose();
+    _passwordController.dispose();
+    _passwordFocusNode.dispose();
+  }
+
+  Future<void> _handleId() async {
+    if (ref.read(authProvider)) return;
+
+    final newId = _idController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (newId.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('비밀번호를 입력해주세요.')));
+      return;
+    }
+    try {
+      await ref
+          .read(authProvider.notifier)
+          .changeId(password: password, newId: newId);
+      if (!mounted) return;
+      context.go('/my');
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('아이디 변경에 실패했습니다. 다시 확인해주세요.')),
+      );
+    }
   }
 
   @override
@@ -47,23 +76,23 @@ class _IdPageState extends State<IdPage> {
                         children: [
                           const SizedBox(height: 47),
                           SharepTextField(
-                            text: '현재 아이디',
-                            hintText: '현재 아이디를 입력하세요',
+                            text: '변경할 아이디',
+                            hintText: '변경할 아이디를 입력하세요',
                             hasIcon: false,
-                            controller: _nowIdController,
+                            controller: _idController,
                             onSubmitted: (_) {
-                              _wantIdFocusNode.requestFocus();
+                              _passwordFocusNode.requestFocus();
                             },
                             minline: 1,
                             big: false,
                           ),
                           const SizedBox(height: 45),
                           SharepTextField(
-                            text: '변경할 아이디',
-                            hintText: '변경할 아이디를 입력하세요',
-                            hasIcon: false,
-                            controller: _wantIdController,
-                            focusNode: _wantIdFocusNode,
+                            text: '비밀번호',
+                            hintText: '비밀번호를 입력하세요',
+                            hasIcon: true,
+                            controller: _passwordController,
+                            focusNode: _passwordFocusNode,
                             textInputAction: TextInputAction.next,
                             onSubmitted: (_) => TextInputAction.done,
                             minline: 1,
@@ -73,8 +102,7 @@ class _IdPageState extends State<IdPage> {
                           BottomButton(
                             text: '변경하기',
                             color: AppColor.primary,
-                            // TODO : 아이디 변경 API 연동하기
-                            onTap: () {},
+                            onTap: _handleId,
                           ),
                           const SizedBox(height: 20),
                         ],

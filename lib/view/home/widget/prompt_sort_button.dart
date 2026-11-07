@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class PromptSortButton extends StatefulWidget {
   const PromptSortButton({super.key});

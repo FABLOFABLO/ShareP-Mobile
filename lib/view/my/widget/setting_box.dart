@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class SettingBox extends StatelessWidget {
   final String label;

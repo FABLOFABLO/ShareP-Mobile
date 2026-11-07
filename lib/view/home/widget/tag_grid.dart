@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_prompt/providers/tags_provider.dart';
-import '../../../common/components/prompt_tag.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/prompt_tag.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class TagGrid extends ConsumerStatefulWidget {
   const TagGrid({super.key});

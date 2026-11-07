@@ -3,10 +3,10 @@ import 'package:share_prompt/view/onboarding/widget/on_bording2_scaffold.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/components/bottom_button.dart';
-import '../../../common/constants/app_assets.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/constants/app_assets.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class OnBoarding2Page extends StatefulWidget {
   const OnBoarding2Page({super.key});

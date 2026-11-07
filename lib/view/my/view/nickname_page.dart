@@ -1,23 +1,44 @@
 import 'package:flutter/material.dart';
-import '../../../common/components/bottom_button.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_text_field.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_text_field.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/providers/auth_provider.dart';
+import 'package:share_prompt/providers/my_profile_provider.dart';
 
-class NicknamePage extends StatefulWidget {
+class NicknamePage extends ConsumerStatefulWidget {
   const NicknamePage({super.key});
 
   @override
-  State<NicknamePage> createState() => _NicknamePageState();
+  ConsumerState<NicknamePage> createState() => _NicknamePageState();
 }
 
-class _NicknamePageState extends State<NicknamePage> {
+class _NicknamePageState extends ConsumerState<NicknamePage> {
   final TextEditingController _wantNicknameController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     _wantNicknameController.dispose();
+  }
+
+  Future<void> _handleNickName() async {
+    if (ref.read(authProvider)) return;
+
+    final nickName = _wantNicknameController.text.trim();
+
+    if (nickName.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('닉네임을 입력해주세요.')));
+      return;
+    }
+    await ref.read(authProvider.notifier).changeNickName(nickName: nickName);
+    await ref.read(myProfileProvider.notifier).getMyProfile();
+    if (!mounted) return;
+    context.go('/my');
   }
 
   @override
@@ -56,8 +77,7 @@ class _NicknamePageState extends State<NicknamePage> {
                           BottomButton(
                             text: '변경하기',
                             color: AppColor.primary,
-                            // TODO : 닉네임 변경 API 연동하기
-                            onTap: () {},
+                            onTap: _handleNickName,
                           ),
                           const SizedBox(height: 20),
                         ],

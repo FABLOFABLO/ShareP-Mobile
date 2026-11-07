@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_prompt/providers/follow_provider.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../home/widget/follow_box.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/view/home/widget/follow_box.dart';
 
 class UserFollower extends ConsumerStatefulWidget {
   const UserFollower({super.key});

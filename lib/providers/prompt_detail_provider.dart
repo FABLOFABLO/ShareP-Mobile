@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import '../services/models/prompt_detail_model.dart';
+import 'package:share_prompt/services/models/prompt_detail_model.dart';
 
 final PromptDetailModel promptDetails =
   PromptDetailModel(
