@@ -15,10 +15,12 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  String _sort = 'LATEST';
   String? _errorMessage;
 
   Future<void> _loadPromptList(String sort) async {
     setState(() {
+      _sort = sort;
       _errorMessage = null;
     });
 
@@ -61,7 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
 
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: HomeAppBar(selectedSort: _sort, onSortChanged: _loadPromptList),
       body: SafeArea(
         child: ListView.builder(
           itemCount: promptList.prompts.length,

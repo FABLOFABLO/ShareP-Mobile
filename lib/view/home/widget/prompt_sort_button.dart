@@ -3,7 +3,9 @@ import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class PromptSortButton extends StatefulWidget {
-  const PromptSortButton({super.key});
+  const PromptSortButton({super.key, required this.selectedSort, required this.onSortChanged});
+  final String selectedSort;
+  final ValueChanged<String> onSortChanged;
 
   @override
   State<PromptSortButton> createState() => _PromptSortButtonState();
@@ -21,12 +23,15 @@ class _PromptSortButtonState extends State<PromptSortButton> {
         top: 100,
         left: 27,
         child: GestureDetector(
-          // TODO : 프롬프트 정렬 API 연동하기
           onTap: () {
             setState(() {
               now = otherOption;
               _hideOverlay();
             });
+
+            widget.onSortChanged(
+              now == '최신순' ? 'LATEST' : 'POPULARITY',
+            );
           },
           child: Container(
             height: 36,
