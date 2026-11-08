@@ -1,26 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_prompt/providers/prompt_list_provider.dart';
 import 'package:share_prompt/view/home/widget/home_app_bar.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
-import 'package:share_prompt/providers/prompts_card_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:share_prompt/common/constants/app_color.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final promptCards = ref.watch(promptCardProvider);
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  String? _errorMessage;
+
+  Future<void> _loadPromptList(String sort) async {
+    setState(() {
+      _errorMessage = null;
+    });
+
+    try {
+      await ref.read(promptListProvider.notifier).getPromptList(sort);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = '게시글 목록을 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _loadPromptList('LATEST');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final promptList = ref.watch(promptListProvider);
+
+    if (_errorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text(_errorMessage!)],
+          ),
+        ),
+      );
+    }
+
+    if (promptList == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SafeArea(
         child: ListView.builder(
-          itemCount: promptCards.length,
+          itemCount: promptList.prompts.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context, int index) {
-            final promptCard = promptCards[index];
+            final promptCard = promptList.prompts[index];
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
               child: PromptCard(

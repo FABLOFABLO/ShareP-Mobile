@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class PromptCardModel {
   final int promptId;
   final String title;
@@ -18,8 +20,9 @@ class PromptCardModel {
   });
 
   factory PromptCardModel.fromJson(Map<String, dynamic> json) {
+    debugPrint('prompt item: $json');
     return PromptCardModel(
-      promptId: json['id'] as int,
+      promptId: json['prompt_id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
       tag: json['tag'] as String,
