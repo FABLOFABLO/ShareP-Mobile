@@ -7,8 +7,6 @@ import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:share_prompt/common/constants/app_color.dart';
 
-import '../../../providers/prompt_detail_provider.dart';
-
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -37,21 +35,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
   }
 
-  Future<void> _loadPromptDetail(int promptId) async {
-    setState(() {
-      _promptDetailErrorMessage = null;
-    });
-
-    try {
-      await ref.read(promptDetailProvider.notifier).getPromptDetail(promptId);
-    } catch (error) {
-      if (!mounted) return;
-      setState(() {
-        _promptDetailErrorMessage = '해당 프롬프트를 불러오지 못했습니다.';
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -71,17 +54,6 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [Text(_promptListErrorMessage!)],
-          ),
-        ),
-      );
-    }
-
-    if (_promptDetailErrorMessage != null) {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text(_promptDetailErrorMessage!)],
           ),
         ),
       );
@@ -107,8 +79,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                 tag: promptCard.tag,
                 time: timeago.format(promptCard.date, locale: 'ko'),
                 like: promptCard.like,
-                onTap: () =>
-                    context.push('/detail?promptId=${promptCard.promptId}'),
+                onTap: () async {
+                  final deleted = await context.push<bool>(
+                    '/detail?promptId=${promptCard.promptId}',
+                  );
+
+                  if (deleted == true && context.mounted) {
+                    await _loadPromptList(_sort);
+                  }
+                },
               ),
             );
           },

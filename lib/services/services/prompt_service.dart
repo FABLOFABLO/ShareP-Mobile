@@ -39,3 +39,7 @@ Future<PromptDetailModel> getPromptDetail(int promptId) async {
 
   return PromptDetailModel.fromJson(data);
 }
+
+Future<void> deletePrompt(int promptId) async {
+  await dio.delete('/prompt/$promptId');
+}

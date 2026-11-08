@@ -8,6 +8,8 @@ import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/common/components/sharep_alert_dialog.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/services/services/prompt_service.dart'
+    as prompt_service;
 
 class PromptDetailPage extends ConsumerStatefulWidget {
   const PromptDetailPage({super.key, required this.promptId});
@@ -22,7 +24,21 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
   bool isLiked = false;
   bool isFollow = false;
   String? _promptDetailErrorMessage;
-  late bool isMine;
+
+  Future<void> _deletePrompt() async {
+    try {
+      await prompt_service.deletePrompt(widget.promptId);
+
+      if (!mounted) return;
+      context.pop(true);
+    } catch (error) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('프롬프트 삭제에 실패했습니다.')),
+      );
+    }
+  }
 
   Future<void> _loadPromptDetail(int promptId) async {
     setState(() {
@@ -230,7 +246,10 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
       builder: (context) {
         return SharePalertdialog(
           title: '정말 해당 프롬프트를\n삭제하시겠습니까?',
-          onTap: () => context.pop(),
+          onTap: () async {
+            context.pop();
+            await _deletePrompt();
+          }
         );
       },
     );
