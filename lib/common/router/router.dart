@@ -83,7 +83,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) {
-        return const ProfilePage();
+        final userId = int.parse(state.uri.queryParameters['userId']!);
         return ProfilePage(userId: userId);
       },
     ),

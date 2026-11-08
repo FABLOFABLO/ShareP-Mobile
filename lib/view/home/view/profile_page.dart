@@ -10,7 +10,9 @@ import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:share_prompt/providers/user_profile_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required this.userId});
+
+  final int userId;
 
   @override
   ConsumerState<ProfilePage> createState() => _ProfilePageState();
@@ -18,10 +20,48 @@ class ProfilePage extends ConsumerStatefulWidget {
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool isFollowed = false;
+  String? _errorMessage;
+
+  Future<void> _loadUserProfile(int userId) async {
+    setState(() {
+      _errorMessage = null;
+    });
+
+    try {
+      await ref.read(userProfileProvider.notifier).getUserProfile(userId);
+    } catch (error, stackTrace) {
+      debugPrint('유저페이지 오류: $error, 경로: $stackTrace');
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = '유저 페이지를 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserProfile(widget.userId);
+  }
 
   @override
   Widget build(BuildContext context) {
     final profileCard = ref.watch(userProfileProvider);
+
+    if (_errorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text(_errorMessage!)],
+          ),
+        ),
+      );
+    }
+
+    if (profileCard == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return Scaffold(
       appBar: const DefaultAppBar(title: '프로필', hasBack: true),
@@ -86,7 +126,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       time: timeago.format(promptsCard.date, locale: 'ko'),
                       like: promptsCard.like,
                       // TODO : 프롬프트 상세 조회 API 연동하기
-                      onTap: () => context.push('/detail'),
+                      onTap: () => context.push(
+                        '/detail?promptId=${promptsCard.promptId}',
+                      ),
                     ),
                   );
                 },
