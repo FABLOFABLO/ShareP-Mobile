@@ -11,6 +11,9 @@ import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/services/services/prompt_service.dart'
     as prompt_service;
 
+import '../../../providers/my_profile_provider.dart';
+import '../../../providers/prompt_list_provider.dart';
+
 class PromptDetailPage extends ConsumerStatefulWidget {
   const PromptDetailPage({super.key, required this.promptId});
 
@@ -24,6 +27,38 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
   bool isLiked = false;
   bool isFollow = false;
   String? _promptDetailErrorMessage;
+  bool _isUpdatingLike = false;
+
+  Future<void> _toggleLike(bool currentlyLiked) async {
+    if (_isUpdatingLike) return;
+
+    setState(() => _isUpdatingLike = true);
+
+    try {
+      if (currentlyLiked) {
+        await prompt_service.unlikePrompt(widget.promptId);
+      } else {
+        await prompt_service.likePrompt(widget.promptId);
+      }
+
+      await ref
+          .read(promptDetailProvider.notifier)
+          .getPromptDetail(widget.promptId);
+
+      await ref.read(promptListProvider.notifier).getPromptList('LATEST');
+
+      await ref.read(myProfileProvider.notifier).getMyProfile();
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('좋아요 변경에 실패했습니다.')));
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingLike = false);
+      }
+    }
+  }
 
   Future<void> _deletePrompt() async {
     try {
@@ -31,12 +66,15 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
 
       if (!mounted) return;
       context.pop(true);
+      await ref.read(promptListProvider.notifier).getPromptList('LATEST');
+
+      await ref.read(myProfileProvider.notifier).getMyProfile();
     } catch (error) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('프롬프트 삭제에 실패했습니다.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('프롬프트 삭제에 실패했습니다.')));
     }
   }
 
@@ -47,8 +85,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
 
     try {
       await ref.read(promptDetailProvider.notifier).getPromptDetail(promptId);
-    } catch (e, stackTrace) {
-      debugPrint('상세조회 오류: $e, 경로: $stackTrace');
+    } catch (e) {
       if (!mounted) return;
       setState(() {
         _promptDetailErrorMessage = '해당 프롬프트를 불러오지 못했습니다.';
@@ -121,20 +158,16 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                               ),
                               const Spacer(),
                               GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isLiked = !isLiked;
-                                  });
-                                },
+                                onTap: _isUpdatingLike
+                                    ? null
+                                    : () => _toggleLike(detail.liked),
                                 child: Row(
                                   children: [
                                     Icon(
-                                      isLiked
+                                      detail.liked
                                           ? Icons.favorite
                                           : Icons.favorite_border,
-                                      color: isLiked
-                                          ? AppColor.primary
-                                          : AppColor.primary,
+                                      color: AppColor.primary,
                                       size: 25,
                                     ),
                                     const SizedBox(width: 3),
@@ -226,7 +259,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                             ),
                           ),
                           const SizedBox(height: 34),
-                          PromptContext(prompt: detail.prompt),
+                          PromptContext(prompt: detail.prompt, tag: detail.tag),
                         ],
                       ),
                     ),
@@ -249,7 +282,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
           onTap: () async {
             context.pop();
             await _deletePrompt();
-          }
+          },
         );
       },
     );

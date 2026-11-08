@@ -7,7 +7,9 @@ import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/common/components/sharep_text_field.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 
+import '../../../providers/my_profile_provider.dart';
 import '../../../providers/post_prompt_provider.dart';
+import '../../../providers/prompt_list_provider.dart';
 
 class PromptPostPage extends ConsumerStatefulWidget {
   const PromptPostPage({super.key});
@@ -30,36 +32,38 @@ class _PromptPostPageState extends ConsumerState<PromptPostPage> {
     final prompt = _promptController.text.trim();
     final tag = _selectedTag;
 
-    if (title.isEmpty ||
-        description.isEmpty ||
-        prompt.isEmpty ||
-        tag == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('모든 항목과 태그를 입력해 주세요.')),
-      );
+    if (title.isEmpty || description.isEmpty || prompt.isEmpty || tag == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('모든 항목과 태그를 입력해 주세요.')));
       return;
     }
 
     try {
-      await ref.read(postPromptProvider.notifier).postPrompt(
-        title: title,
-        description: description,
-        tag: tag,
-        prompt: prompt,
-      );
+      await ref
+          .read(postPromptProvider.notifier)
+          .postPrompt(
+            title: title,
+            description: description,
+            tag: tag,
+            prompt: prompt,
+          );
 
       if (!mounted) return;
+      await ref.read(promptListProvider.notifier).getPromptList('LATEST');
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('프롬프트를 게시했습니다.')),
-      );
+      await ref.read(myProfileProvider.notifier).getMyProfile();
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('프롬프트를 게시했습니다.')));
       context.pop();
     } catch (error, stackTrace) {
       if (!mounted) return;
       debugPrint('프롬프트 게시 실패: $error, 경로: $stackTrace');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('프롬프트 게시에 실패했습니다.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('프롬프트 게시에 실패했습니다.')));
     }
   }
 
@@ -129,7 +133,11 @@ class _PromptPostPageState extends ConsumerState<PromptPostPage> {
                 ),
               ),
             ),
-            BottomButton(text: '게시하기', color: AppColor.primary, onTap: _handlePostPrompt),
+            BottomButton(
+              text: '게시하기',
+              color: AppColor.primary,
+              onTap: _handlePostPrompt,
+            ),
             const SizedBox(height: 20),
           ],
         ),

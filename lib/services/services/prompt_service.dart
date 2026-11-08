@@ -43,3 +43,11 @@ Future<PromptDetailModel> getPromptDetail(int promptId) async {
 Future<void> deletePrompt(int promptId) async {
   await dio.delete('/prompt/$promptId');
 }
+
+Future<void> likePrompt(int promptId) async {
+  await dio.put('/prompt/$promptId/like');
+}
+
+Future<void> unlikePrompt(int promptId) async {
+  await dio.delete('/prompt/$promptId/unlike');
+}

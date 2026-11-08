@@ -84,6 +84,9 @@ class OnBoarding4Page extends StatelessWidget {
               time: '3시간 전',
               like: 12,
               onTap: () {},
+              promptId: -2,
+              liked: false,
+              onLikeChanged: () async {},
             ),
             const SizedBox(height: 30),
             Text(

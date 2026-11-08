@@ -8,6 +8,9 @@ import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:share_prompt/providers/user_profile_provider.dart';
+import 'package:share_prompt/providers/my_profile_provider.dart';
+import '../../../providers/my_profile_provider.dart';
+import '../../../providers/prompt_list_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key, required this.userId});
@@ -125,10 +128,20 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       tag: promptsCard.tag,
                       time: timeago.format(promptsCard.date, locale: 'ko'),
                       like: promptsCard.like,
-                      // TODO : 프롬프트 상세 조회 API 연동하기
                       onTap: () => context.push(
                         '/detail?promptId=${promptsCard.promptId}',
                       ),
+                      promptId: promptsCard.promptId,
+                      liked: promptsCard.liked,
+                      onLikeChanged: () async {
+                        await ref
+                            .read(promptListProvider.notifier)
+                            .getPromptList('LATEST');
+
+                        await ref
+                            .read(myProfileProvider.notifier)
+                            .getMyProfile();
+                      },
                     ),
                   );
                 },

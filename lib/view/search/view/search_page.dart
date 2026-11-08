@@ -8,6 +8,9 @@ import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 
+import '../../../providers/my_profile_provider.dart';
+import '../../../providers/prompt_list_provider.dart';
+
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
 
@@ -157,8 +160,17 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               tag: promptCard.tag,
               time: timeago.format(promptCard.date, locale: 'ko'),
               like: promptCard.like,
-              // TODO : 프롬프트 상세 조회 API 연동하기
-              onTap: () => context.push('/detail'),
+              promptId: promptCard.promptId,
+              liked: promptCard.liked,
+              onTap: () =>
+                  context.push('/detail?promptId=${promptCard.promptId}'),
+              onLikeChanged: () async {
+                await ref
+                    .read(promptListProvider.notifier)
+                    .getPromptList('LATEST');
+
+                await ref.read(myProfileProvider.notifier).getMyProfile();
+              },
             ),
           );
         },

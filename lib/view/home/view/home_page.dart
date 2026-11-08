@@ -7,6 +7,8 @@ import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:share_prompt/common/constants/app_color.dart';
 
+import '../../../providers/my_profile_provider.dart';
+
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -17,7 +19,6 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   String _sort = 'LATEST';
   String? _promptListErrorMessage;
-  String? _promptDetailErrorMessage;
 
   Future<void> _loadPromptList(String sort) async {
     setState(() {
@@ -79,14 +80,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                 tag: promptCard.tag,
                 time: timeago.format(promptCard.date, locale: 'ko'),
                 like: promptCard.like,
+                promptId: promptCard.promptId,
+                liked: promptCard.liked,
                 onTap: () async {
-                  final deleted = await context.push<bool>(
+                  await context.push<bool>(
                     '/detail?promptId=${promptCard.promptId}',
                   );
 
-                  if (deleted == true && context.mounted) {
-                    await _loadPromptList(_sort);
-                  }
+                  if (!context.mounted) return;
+                  await _loadPromptList(_sort);
+                },
+                onLikeChanged: () async {
+                  await Future.wait([
+                    _loadPromptList(_sort),
+                    ref.read(myProfileProvider.notifier).getMyProfile(),
+                  ]);
                 },
               ),
             );

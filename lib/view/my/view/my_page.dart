@@ -10,6 +10,8 @@ import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
 import 'package:share_prompt/providers/my_profile_provider.dart';
 
+import '../../../providers/prompt_list_provider.dart';
+
 class MyPage extends ConsumerStatefulWidget {
   const MyPage({super.key});
 
@@ -138,6 +140,17 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                           onTap: () => context.push(
                             '/detail?promptId=${promptCard.promptId}',
                           ),
+                          promptId: promptCard.promptId,
+                          liked: promptCard.liked,
+                          onLikeChanged: () async {
+                            await ref
+                                .read(promptListProvider.notifier)
+                                .getPromptList('LATEST');
+
+                            await ref
+                                .read(myProfileProvider.notifier)
+                                .getMyProfile();
+                          },
                         ),
                       );
                     },
@@ -159,9 +172,27 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                           tag: promptCard.tag,
                           time: timeago.format(promptCard.date, locale: 'ko'),
                           like: promptCard.like,
-                          onTap: () => context.push(
-                            '/detail?promptId=${promptCard.promptId}',
-                          ),
+                          promptId: promptCard.promptId,
+                          liked: promptCard.liked,
+                          onTap: () async {
+                            await context.push<bool>(
+                              '/detail?promptId=${promptCard.promptId}',
+                            );
+
+                            if (!mounted) return;
+                            await ref
+                                .read(myProfileProvider.notifier)
+                                .getMyProfile();
+                          },
+                          onLikeChanged: () async {
+                            await ref
+                                .read(promptListProvider.notifier)
+                                .getPromptList('LATEST');
+
+                            await ref
+                                .read(myProfileProvider.notifier)
+                                .getMyProfile();
+                          },
                         ),
                       );
                     },
