@@ -2,46 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 
-class SearchTag extends StatefulWidget {
-  final String tag;
-  final VoidCallback onTap;
-  final bool hasTap;
-
+class SearchTag extends StatelessWidget {
   const SearchTag({
     super.key,
-    required this.onTap,
-    this.hasTap = false,
     required this.tag,
+    required this.filterValue,
+    required this.isSelected,
+    required this.onSelected,
   });
 
-  @override
-  State<SearchTag> createState() => _SearchTagState();
-}
-
-class _SearchTagState extends State<SearchTag> {
-  bool isTap = false;
+  final String tag;
+  final String filterValue;
+  final bool isSelected;
+  final ValueChanged<String> onSelected;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: () => onSelected(filterValue),
       child: Container(
         width: 48,
         height: 20,
         decoration: BoxDecoration(
-          color: widget.hasTap ? AppColor.primary : AppColor.secondary,
+          color: isSelected ? AppColor.primary : AppColor.secondary,
           borderRadius: BorderRadius.circular(100),
         ),
         child: Center(
-          child: widget.hasTap
-              ? Text(
-                  widget.tag,
-                  style: AppTextStyles.body5.copyWith(color: AppColor.white),
-                )
-              : Text(
-                  widget.tag,
-                  style: AppTextStyles.body5.copyWith(color: AppColor.primary),
-                ),
+          child: Text(
+            tag,
+            style: AppTextStyles.body5.copyWith(
+              color: isSelected ? AppColor.white : AppColor.primary,
+            ),
+          ),
         ),
       ),
     );

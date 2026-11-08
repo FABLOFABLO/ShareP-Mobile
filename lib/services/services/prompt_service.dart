@@ -51,3 +51,14 @@ Future<void> likePrompt(int promptId) async {
 Future<void> unlikePrompt(int promptId) async {
   await dio.delete('/prompt/$promptId/unlike');
 }
+
+Future<PromptListModel?> searchPrompt(String text, String filter) async {
+  final response = await dio.get('/prompt/search?search=$text&filter=$filter');
+
+  final data = response.data;
+  if (data == null) {
+    throw const FormatException('검색목록을 불러오지 못했습니다.');
+  }
+
+  return PromptListModel.fromJson(data);
+}

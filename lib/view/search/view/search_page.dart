@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_prompt/providers/prompts_card_provider.dart';
-import 'package:share_prompt/view/search/widgets/search_tag.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
-import 'package:share_prompt/common/components/prompt_card.dart';
-
-import '../../../providers/my_profile_provider.dart';
-import '../../../providers/prompt_list_provider.dart';
+import 'package:share_prompt/providers/my_profile_provider.dart';
+import 'package:share_prompt/providers/prompt_list_provider.dart';
+import 'package:share_prompt/providers/search_prompt_provider.dart';
+import 'package:share_prompt/view/search/widgets/search_tag.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -19,24 +18,60 @@ class SearchPage extends ConsumerStatefulWidget {
 }
 
 class _SearchPageState extends ConsumerState<SearchPage> {
-  final Set<int> selectedTags = {};
-  final List<String> divideList = ['제목', '태그', '설명'];
   final TextEditingController _textController = TextEditingController();
-  bool isSubmitted = false;
 
-  void toggleTag(int index) {
+  String _selectedFilter = 'TITLE';
+  String? _errorMessage;
+  bool _isSearching = false;
+
+  Future<void> _handleSearchPrompt(String text, String filter) async {
+    final query = text.trim();
+    if (query.isEmpty) return;
+
     setState(() {
-      if (selectedTags.contains(index)) {
-        selectedTags.remove(index);
-        return;
-      }
-      for (int i = 0; i < divideList.length; i++) {
-        if (selectedTags.contains(i)) {
-          selectedTags.remove(i);
-        }
-      }
-      selectedTags.add(index);
+      _errorMessage = null;
+      _isSearching = true;
     });
+
+    try {
+      await ref.read(searchPromptProvider.notifier).searchPrompt(query, filter);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = '$error';
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSearching = false;
+        });
+      }
+    }
+  }
+
+  void _selectFilter(String filter) {
+    setState(() {
+      _selectedFilter = filter;
+    });
+
+    final query = _textController.text.trim();
+    if (query.isNotEmpty) {
+      _handleSearchPrompt(query, filter);
+    }
+  }
+
+  Future<void> _refreshAfterLike() async {
+    final query = _textController.text.trim();
+
+    if (query.isNotEmpty) {
+      await ref
+          .read(searchPromptProvider.notifier)
+          .searchPrompt(query, _selectedFilter);
+    }
+
+    await ref.read(promptListProvider.notifier).getPromptList('LATEST');
+
+    await ref.read(myProfileProvider.notifier).getMyProfile();
   }
 
   @override
@@ -47,133 +82,123 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-        _textController.value = const TextEditingValue(text: '');
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 26),
-                child: Container(
-                  width: double.infinity,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.gray40, width: 1),
-                    borderRadius: BorderRadius.circular(12),
+    final searchedList = ref.watch(searchPromptProvider);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.gray40, width: 1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        TextField(
-                          onSubmitted: (value) {
-                            setState(() {
-                              if (value == '') {
-                                isSubmitted = false;
-                              } else {
-                                isSubmitted = true;
-                              }
-                            });
-                          },
-                          controller: _textController,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              color: AppColor.gray100,
-                              size: 24,
-                            ),
-                            prefixIconConstraints: const BoxConstraints(
-                              maxWidth: 35,
-                            ),
-                            hintText: '프롬프트 검색',
-                            hintStyle: AppTextStyles.body4.copyWith(
-                              color: AppColor.gray40,
-                            ),
-                            border: InputBorder.none,
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _textController,
+                        onSubmitted: (value) {
+                          _handleSearchPrompt(value, _selectedFilter);
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.search,
+                            color: AppColor.gray100,
+                            size: 24,
                           ),
-                          style: AppTextStyles.body4,
-                          cursorWidth: 1,
-                          cursorHeight: 15,
+                          prefixIconConstraints: const BoxConstraints(
+                            maxWidth: 35,
+                          ),
+                          hintText: '프롬프트 검색',
+                          hintStyle: AppTextStyles.body4.copyWith(
+                            color: AppColor.gray40,
+                          ),
+                          border: InputBorder.none,
                         ),
-                        Row(
-                          spacing: 9,
-                          children: [
-                            SearchTag(
-                              tag: divideList[0],
-                              onTap: () => toggleTag(0),
-                              hasTap: selectedTags.contains(0),
-                            ),
-                            SearchTag(
-                              tag: divideList[1],
-                              onTap: () => toggleTag(1),
-                              hasTap: selectedTags.contains(1),
-                            ),
-                            SearchTag(
-                              tag: divideList[2],
-                              onTap: () => toggleTag(2),
-                              hasTap: selectedTags.contains(2),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                        style: AppTextStyles.body4,
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        spacing: 9,
+                        children: [
+                          SearchTag(
+                            tag: '제목',
+                            filterValue: 'TITLE',
+                            isSelected: _selectedFilter == 'TITLE',
+                            onSelected: _selectFilter,
+                          ),
+                          SearchTag(
+                            tag: '태그',
+                            filterValue: 'TAG',
+                            isSelected: _selectedFilter == 'TAG',
+                            onSelected: _selectFilter,
+                          ),
+                          SearchTag(
+                            tag: '설명',
+                            filterValue: 'DESCRIPTION',
+                            isSelected: _selectedFilter == 'DESCRIPTION',
+                            onSelected: _selectFilter,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              ?isSubmitted
-                  ? showSearchResult()
-                  : Expanded(
-                      child: Center(
-                        child: Text(
-                          '검색된 프롬프트가 없습니다.',
-                          style: AppTextStyles.body4Bold.copyWith(
-                            color: AppColor.gray50,
-                          ),
-                        ),
-                      ),
-                    ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget? showSearchResult() {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: promptCards.length,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (BuildContext context, int index) {
-          final promptCard = promptCards[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
-            child: PromptCard(
-              title: promptCard.title,
-              description: promptCard.description,
-              tag: promptCard.tag,
-              time: timeago.format(promptCard.date, locale: 'ko'),
-              like: promptCard.like,
-              promptId: promptCard.promptId,
-              liked: promptCard.liked,
-              onTap: () =>
-                  context.push('/detail?promptId=${promptCard.promptId}'),
-              onLikeChanged: () async {
-                await ref
-                    .read(promptListProvider.notifier)
-                    .getPromptList('LATEST');
-
-                await ref.read(myProfileProvider.notifier).getMyProfile();
-              },
             ),
-          );
-        },
+            const SizedBox(height: 20),
+            if (_errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(_errorMessage!),
+              ),
+            Expanded(
+              child: _isSearching
+                  ? const Center(child: CircularProgressIndicator())
+                  : searchedList == null
+                  ? const Center(child: Text('검색어를 입력하세요'))
+                  : searchedList.prompts.isEmpty
+                  ? const Center(child: Text('검색 결과가 없습니다'))
+                  : ListView.builder(
+                      itemCount: searchedList.prompts.length,
+                      itemBuilder: (context, index) {
+                        final promptCard = searchedList.prompts[index];
+
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 26,
+                            vertical: 6,
+                          ),
+                          child: PromptCard(
+                            promptId: promptCard.promptId,
+                            title: promptCard.title,
+                            description: promptCard.description,
+                            tag: promptCard.tag,
+                            time: timeago.format(promptCard.date, locale: 'ko'),
+                            like: promptCard.like,
+                            liked: promptCard.liked,
+                            onTap: () {
+                              context.push(
+                                '/detail?promptId=${promptCard.promptId}',
+                              );
+                            },
+                            onLikeChanged: _refreshAfterLike,
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
