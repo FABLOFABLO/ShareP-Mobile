@@ -26,16 +26,9 @@ class PromptCardModel {
       title: json['title'] as String,
       description: json['description'] as String,
       tag: json['tag'] as String,
-      date: DateTime.parse(json['create_at'] as String).toLocal(),
+      date: DateTime.parse('${json['create_at']}Z').toLocal(),
       like: json['like_count'] as int,
       liked: json['liked'] as bool,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'title': title,
-    'description': description,
-    'tag': tag,
-    'like': like,
-  };
 }
