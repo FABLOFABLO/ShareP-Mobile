@@ -10,9 +10,9 @@ import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class PromptDetailPage extends ConsumerStatefulWidget {
-  const PromptDetailPage({super.key, this.isMine = false});
+  const PromptDetailPage({super.key, required this.promptId});
 
-  final bool isMine;
+  final int promptId;
 
   @override
   ConsumerState<PromptDetailPage> createState() => _PromptDetailPageState();
@@ -21,14 +21,55 @@ class PromptDetailPage extends ConsumerStatefulWidget {
 class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
   bool isLiked = false;
   bool isFollow = false;
+  String? _promptDetailErrorMessage;
+  late bool isMine;
+
+  Future<void> _loadPromptDetail(int promptId) async {
+    setState(() {
+      _promptDetailErrorMessage = null;
+    });
+
+    try {
+      await ref.read(promptDetailProvider.notifier).getPromptDetail(promptId);
+    } catch (e, stackTrace) {
+      debugPrint('상세조회 오류: $e, 경로: $stackTrace');
+      if (!mounted) return;
+      setState(() {
+        _promptDetailErrorMessage = '해당 프롬프트를 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPromptDetail(widget.promptId);
+  }
 
   @override
   Widget build(BuildContext context) {
     final detail = ref.watch(promptDetailProvider);
+
+    if (_promptDetailErrorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text(_promptDetailErrorMessage!)],
+          ),
+        ),
+      );
+    }
+    if (detail == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    final isMine = detail.isAuthor;
+
     return Scaffold(
       appBar: DefaultAppBar(
         hasBack: true,
-        actions: widget.isMine
+        actions: isMine
             ? [
                 TextButton(
                   onPressed: showDeletePrompt,
@@ -96,8 +137,9 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                           Row(
                             children: [
                               GestureDetector(
-                                // TODO : 유저 프로필 조회 API 연동하기
-                                onTap: () => context.push('/profile'),
+                                onTap: () => context.push(
+                                  '/profile?userId=${detail.authorId}',
+                                ),
                                 child: Row(
                                   children: [
                                     const CircleAvatar(
@@ -120,7 +162,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                                 ),
                               ),
                               const Spacer(),
-                              ?widget.isMine
+                              ?isMine
                                   ? null
                                   : GestureDetector(
                                       onTap: () {
@@ -186,7 +228,10 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return SharePalertdialog(title: '정말 해당 프롬프트를\n삭제하시겠습니까?', onTap: () => context.pop(),);
+        return SharePalertdialog(
+          title: '정말 해당 프롬프트를\n삭제하시겠습니까?',
+          onTap: () => context.pop(),
+        );
       },
     );
   }

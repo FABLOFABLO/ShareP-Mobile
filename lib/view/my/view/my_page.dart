@@ -22,7 +22,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
 
   String? _errorMessage;
 
-  Future<void> _loadProfile() async {
+  Future<void> _loadMyProfile() async {
     setState(() {
       _errorMessage = null;
     });
@@ -43,7 +43,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      _loadProfile();
+      _loadMyProfile();
     });
   }
 
@@ -135,8 +135,9 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                           tag: promptCard.tag,
                           time: timeago.format(promptCard.date, locale: 'ko'),
                           like: promptCard.like,
-                          // TODO : 프롬프트 상세 조회 API 연동하기
-                          onTap: () => context.push('/detail?isMine=true'),
+                          onTap: () => context.push(
+                            '/detail?promptId=${promptCard.promptId}',
+                          ),
                         ),
                       );
                     },
@@ -158,8 +159,9 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                           tag: promptCard.tag,
                           time: timeago.format(promptCard.date, locale: 'ko'),
                           like: promptCard.like,
-                          // TODO : 프롬프트 상세 조회 API 연동하기
-                          onTap: () => context.push('/detail'),
+                          onTap: () => context.push(
+                            '/detail?promptId=${promptCard.promptId}',
+                          ),
                         ),
                       );
                     },

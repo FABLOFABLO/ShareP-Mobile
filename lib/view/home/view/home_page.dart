@@ -7,6 +7,8 @@ import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:share_prompt/common/constants/app_color.dart';
 
+import '../../../providers/prompt_detail_provider.dart';
+
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -16,12 +18,13 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   String _sort = 'LATEST';
-  String? _errorMessage;
+  String? _promptListErrorMessage;
+  String? _promptDetailErrorMessage;
 
   Future<void> _loadPromptList(String sort) async {
     setState(() {
       _sort = sort;
-      _errorMessage = null;
+      _promptListErrorMessage = null;
     });
 
     try {
@@ -29,7 +32,22 @@ class _HomePageState extends ConsumerState<HomePage> {
     } catch (error) {
       if (!mounted) return;
       setState(() {
-        _errorMessage = '게시글 목록을 불러오지 못했습니다.';
+        _promptListErrorMessage = '게시글 목록을 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  Future<void> _loadPromptDetail(int promptId) async {
+    setState(() {
+      _promptDetailErrorMessage = null;
+    });
+
+    try {
+      await ref.read(promptDetailProvider.notifier).getPromptDetail(promptId);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _promptDetailErrorMessage = '해당 프롬프트를 불러오지 못했습니다.';
       });
     }
   }
@@ -47,12 +65,23 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final promptList = ref.watch(promptListProvider);
 
-    if (_errorMessage != null) {
+    if (_promptListErrorMessage != null) {
       return Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text(_errorMessage!)],
+            children: [Text(_promptListErrorMessage!)],
+          ),
+        ),
+      );
+    }
+
+    if (_promptDetailErrorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text(_promptDetailErrorMessage!)],
           ),
         ),
       );
@@ -78,8 +107,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 tag: promptCard.tag,
                 time: timeago.format(promptCard.date, locale: 'ko'),
                 like: promptCard.like,
-                // TODO : 프롬프트 상세조회 API 연동하기
-                onTap: () => context.push('/detail'),
+                onTap: () =>
+                    context.push('/detail?promptId=${promptCard.promptId}'),
               ),
             );
           },

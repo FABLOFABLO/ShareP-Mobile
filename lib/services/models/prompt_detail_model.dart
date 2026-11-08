@@ -7,8 +7,10 @@ class PromptDetailModel {
   final int like;
   final String prompt;
   final String author;
-  final int followerCount;
+  final int authorId;
   final bool isFollowing;
+  final bool liked;
+  final bool isAuthor;
 
   PromptDetailModel({
     required this.promptId,
@@ -19,22 +21,26 @@ class PromptDetailModel {
     required this.like,
     required this.prompt,
     required this.author,
-    required this.followerCount,
+    required this.authorId,
     required this.isFollowing,
+    required this.liked,
+    required this.isAuthor,
   });
 
   factory PromptDetailModel.fromJson(Map<String, dynamic> json) {
     return PromptDetailModel(
-      promptId: json['prompt-id'] as int,
+      promptId: json['prompt_id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
       tag: json['tag'] as String,
-      date: json['date'] as String,
-      like: json['like'] as int,
-      followerCount: json['follower-count'] as int,
-      isFollowing: json['is-following'] as bool,
+      date: json['create_at'] as String,
+      like: json['like_count'] as int,
+      isFollowing: json['followed'] as bool,
       prompt: json['prompt'] as String,
-      author: json['author'] as String
+      author: json['author'] as String,
+      authorId: json['author_id'] as int,
+      liked: json['liked'] as bool,
+      isAuthor: json['is_author'] as bool
     );
   }
 }
