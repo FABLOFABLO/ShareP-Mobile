@@ -35,8 +35,21 @@ class _NicknamePageState extends ConsumerState<NicknamePage> {
       ).showSnackBar(const SnackBar(content: Text('닉네임을 입력해주세요.')));
       return;
     }
-    await ref.read(authProvider.notifier).changeNickName(nickName: nickName);
-    await ref.read(myProfileProvider.notifier).getMyProfile();
+    try {
+      await ref.read(authProvider.notifier).changeNickName(nickName: nickName);
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('닉네임 변경이 실패하였습니다. 다시 확인해 주세요.')),
+      );
+      return;
+    }
+    try {
+      await ref.read(myProfileProvider.notifier).getMyProfile();
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('마이페이지를 불러오는데 실패하였습니다. 다시 확인해 주세요.')),
+      );
+    }
     if (!mounted) return;
     context.go('/my');
   }
