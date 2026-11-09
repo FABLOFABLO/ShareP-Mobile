@@ -16,23 +16,15 @@ class SettingPage extends ConsumerStatefulWidget {
 }
 
 class _SettingPageState extends ConsumerState<SettingPage> {
-
   Future<void> handleLogout() async {
     if (ref.read(authProvider)) return;
 
     try {
       await ref.read(authProvider.notifier).logout();
-
-      if (!mounted) return;
-      context.go('/login');
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('로그아웃에 실패했습니다. 다시 확인해주세요.')),
-      );
-    }
+    } catch (_) {}
+    if (!mounted) return;
+    context.go('/login');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +65,10 @@ class _SettingPageState extends ConsumerState<SettingPage> {
                           showCupertinoDialog(
                             context: context,
                             builder: (context) {
-                              return SharePalertdialog(title: '정말 로그아웃 하시겠습니까?', onTap: handleLogout,);
+                              return SharePalertdialog(
+                                title: '정말 로그아웃 하시겠습니까?',
+                                onTap: handleLogout,
+                              );
                             },
                           );
                         },
