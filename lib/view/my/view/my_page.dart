@@ -10,6 +10,8 @@ import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
 import 'package:share_prompt/providers/my_profile_provider.dart';
 
+import '../../../providers/prompt_list_provider.dart';
+
 class MyPage extends ConsumerStatefulWidget {
   const MyPage({super.key});
 
@@ -22,7 +24,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
 
   String? _errorMessage;
 
-  Future<void> _loadProfile() async {
+  Future<void> _loadMyProfile() async {
     setState(() {
       _errorMessage = null;
     });
@@ -43,7 +45,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      _loadProfile();
+      _loadMyProfile();
     });
   }
 
@@ -125,6 +127,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                       final promptCard = profileCard.base.prompts[index];
 
                       return Padding(
+                        key: ValueKey(promptCard.promptId),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 26,
                           vertical: 6,
@@ -135,8 +138,20 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                           tag: promptCard.tag,
                           time: timeago.format(promptCard.date, locale: 'ko'),
                           like: promptCard.like,
-                          // TODO : 프롬프트 상세 조회 API 연동하기
-                          onTap: () => context.push('/detail?isMine=true'),
+                          onTap: () => context.push(
+                            '/detail?promptId=${promptCard.promptId}',
+                          ),
+                          promptId: promptCard.promptId,
+                          liked: promptCard.liked,
+                          onLikeChanged: () async {
+                            await ref
+                                .read(promptListProvider.notifier)
+                                .getPromptList('LATEST');
+
+                            await ref
+                                .read(myProfileProvider.notifier)
+                                .getMyProfile();
+                          },
                         ),
                       );
                     },
@@ -148,6 +163,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                       final promptCard = profileCard.liked[index];
 
                       return Padding(
+                        key: ValueKey(promptCard.promptId),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 26,
                           vertical: 6,
@@ -158,8 +174,27 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                           tag: promptCard.tag,
                           time: timeago.format(promptCard.date, locale: 'ko'),
                           like: promptCard.like,
-                          // TODO : 프롬프트 상세 조회 API 연동하기
-                          onTap: () => context.push('/detail'),
+                          promptId: promptCard.promptId,
+                          liked: promptCard.liked,
+                          onTap: () async {
+                            await context.push<bool>(
+                              '/detail?promptId=${promptCard.promptId}',
+                            );
+
+                            if (!mounted) return;
+                            await ref
+                                .read(myProfileProvider.notifier)
+                                .getMyProfile();
+                          },
+                          onLikeChanged: () async {
+                            await ref
+                                .read(promptListProvider.notifier)
+                                .getPromptList('LATEST');
+
+                            await ref
+                                .read(myProfileProvider.notifier)
+                                .getMyProfile();
+                          },
                         ),
                       );
                     },

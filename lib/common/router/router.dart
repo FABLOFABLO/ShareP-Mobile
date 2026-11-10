@@ -75,15 +75,16 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/detail',
       builder: (BuildContext context, GoRouterState state) {
-        final isMine = state.uri.queryParameters['isMine'] == 'true';
-        return PromptDetailPage(isMine: isMine);
+        final promptId = int.parse(state.uri.queryParameters['promptId']!);
+        return PromptDetailPage(promptId: promptId);
       },
     ),
 
     GoRoute(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) {
-        return const ProfilePage();
+        final userId = int.parse(state.uri.queryParameters['userId']!);
+        return ProfilePage(userId: userId);
       },
     ),
 

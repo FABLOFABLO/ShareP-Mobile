@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:share_prompt/common/components/prompt_tag.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/services/services/prompt_service.dart';
 
 class PromptCard extends StatefulWidget {
   const PromptCard({
     super.key,
+    required this.promptId,
     required this.title,
     required this.description,
     required this.tag,
     required this.time,
     required this.like,
     required this.onTap,
+    required this.liked,
+    required this.onLikeChanged,
   });
 
   final String title;
@@ -20,13 +24,73 @@ class PromptCard extends StatefulWidget {
   final String time;
   final int like;
   final VoidCallback onTap;
+  final Future<void> Function() onLikeChanged;
+  final int promptId;
+  final bool liked;
 
   @override
   State<PromptCard> createState() => _PromptCardState();
 }
 
 class _PromptCardState extends State<PromptCard> {
-  bool isLiked = false;
+  late bool _liked;
+  late int _likeCount;
+  bool _isUpdatingLike = false;
+
+  @override
+  void didUpdateWidget(PromptCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.liked != widget.liked) {
+      _liked = widget.liked;
+    }
+
+    if (oldWidget.like != widget.like) {
+      _likeCount = widget.like;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _liked = widget.liked;
+    _likeCount = widget.like;
+  }
+
+  Future<void> _toggleLike() async {
+    if (_isUpdatingLike) return;
+
+    setState(() => _isUpdatingLike = true);
+
+    try {
+      if (_liked) {
+        await unlikePrompt(widget.promptId);
+      } else {
+        await likePrompt(widget.promptId);
+      }
+
+      if (!mounted) return;
+      setState(() {
+        _liked = !_liked;
+        _likeCount += _liked ? 1 : -1;
+      });
+
+      try {
+        await widget.onLikeChanged();
+      } catch (error) {
+        debugPrint('좋아요 목록 새로고침 오류: $error');
+      }
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('좋아요 변경에 실패했습니다.')));
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingLike = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,25 +161,18 @@ class _PromptCardState extends State<PromptCard> {
                       ),
                     ),
                     const Spacer(),
-                    // TODO : 좋아요 API 연동하기
                     GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isLiked = !isLiked;
-                        });
-                      },
+                      onTap: _toggleLike,
                       child: Row(
                         children: [
                           Icon(
-                            isLiked ? Icons.favorite : Icons.favorite_border,
-                            color: isLiked
-                                ? AppColor.primary
-                                : AppColor.primary,
+                            _liked ? Icons.favorite : Icons.favorite_border,
+                            color: AppColor.primary,
                             size: 20,
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            '${widget.like + (isLiked ? 1 : 0)}',
+                            '$_likeCount',
                             style: AppTextStyles.body4Bold.copyWith(
                               color: AppColor.primary,
                             ),
