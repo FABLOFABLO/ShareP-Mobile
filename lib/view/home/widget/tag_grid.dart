@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_prompt/providers/tags_provider.dart';
-import '../../../common/components/prompt_tag.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/prompt_tag.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class TagGrid extends ConsumerStatefulWidget {
-  const TagGrid({super.key});
+  const TagGrid({super.key, required this.onTagSelected});
+
+  final ValueChanged<String?> onTagSelected;
 
   @override
   ConsumerState<TagGrid> createState() => _TagGridState();
@@ -18,14 +20,13 @@ class _TagGridState extends ConsumerState<TagGrid> {
     setState(() {
       if (selectedTags.contains(index)) {
         selectedTags.remove(index);
+        widget.onTagSelected(null);
         return;
       }
-      for (int i = 0; i < tagList.length; i++) {
-        if (selectedTags.contains(i)) {
-          selectedTags.remove(i);
-        }
-      }
+
+      selectedTags.clear();
       selectedTags.add(index);
+      widget.onTagSelected(tagList[index]);
     });
   }
 

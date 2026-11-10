@@ -9,7 +9,7 @@ class UserProfileModel {
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
       base: CommonProfileModel.fromJson(json),
-      isFollowing: json['is-following'] as bool,
+      isFollowing: json['followed'] as bool,
     );
   }
 }

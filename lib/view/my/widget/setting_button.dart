@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 
 class SettingButton extends StatelessWidget {
   const SettingButton({super.key});

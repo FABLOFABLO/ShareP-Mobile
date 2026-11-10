@@ -4,15 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/providers/prompt_detail_provider.dart';
 import 'package:share_prompt/view/home/widget/prompt_context.dart';
-import '../../../common/components/default_app_bar.dart';
-import '../../../common/components/sharep_alert_dialog.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/components/sharep_alert_dialog.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/services/services/prompt_service.dart'
+    as prompt_service;
+
+import '../../../providers/my_profile_provider.dart';
+import '../../../providers/prompt_list_provider.dart';
 
 class PromptDetailPage extends ConsumerStatefulWidget {
-  const PromptDetailPage({super.key, this.isMine = false});
+  const PromptDetailPage({super.key, required this.promptId});
 
-  final bool isMine;
+  final int promptId;
 
   @override
   ConsumerState<PromptDetailPage> createState() => _PromptDetailPageState();
@@ -21,14 +26,108 @@ class PromptDetailPage extends ConsumerStatefulWidget {
 class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
   bool isLiked = false;
   bool isFollow = false;
+  String? _promptDetailErrorMessage;
+  bool _isUpdatingLike = false;
+
+  Future<void> _toggleLike(bool currentlyLiked) async {
+    if (_isUpdatingLike) return;
+
+    setState(() => _isUpdatingLike = true);
+
+    try {
+      if (currentlyLiked) {
+        await prompt_service.unlikePrompt(widget.promptId);
+      } else {
+        await prompt_service.likePrompt(widget.promptId);
+      }
+
+      await ref
+          .read(promptDetailProvider(widget.promptId).notifier)
+          .getPromptDetail(widget.promptId);
+
+      await ref.read(promptListProvider.notifier).getPromptList('LATEST');
+
+      await ref.read(myProfileProvider.notifier).getMyProfile();
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('좋아요 변경에 실패했습니다.')));
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingLike = false);
+      }
+    }
+  }
+
+  Future<void> _deletePrompt() async {
+    try {
+      await prompt_service.deletePrompt(widget.promptId);
+
+      if (!mounted) return;
+
+      await ref.read(promptListProvider.notifier).getPromptList('LATEST');
+
+      await ref.read(myProfileProvider.notifier).getMyProfile();
+      if (!context.mounted) return;
+
+      context.pop(true);
+    } catch (error) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('프롬프트 삭제에 실패했습니다.')));
+    }
+  }
+
+  Future<void> _loadPromptDetail(int promptId) async {
+    setState(() {
+      _promptDetailErrorMessage = null;
+    });
+
+    try {
+      await ref
+          .read(promptDetailProvider(promptId).notifier)
+          .getPromptDetail(promptId);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _promptDetailErrorMessage = '해당 프롬프트를 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPromptDetail(widget.promptId);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final detail = ref.watch(promptDetailProvider);
+    final detail = ref.watch(promptDetailProvider(widget.promptId));
+
+    if (_promptDetailErrorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text(_promptDetailErrorMessage!)],
+          ),
+        ),
+      );
+    }
+    if (detail == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    final isMine = detail.isAuthor;
+
     return Scaffold(
       appBar: DefaultAppBar(
         hasBack: true,
-        actions: widget.isMine
+        actions: isMine
             ? [
                 TextButton(
                   onPressed: showDeletePrompt,
@@ -64,20 +163,16 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                               ),
                               const Spacer(),
                               GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isLiked = !isLiked;
-                                  });
-                                },
+                                onTap: _isUpdatingLike
+                                    ? null
+                                    : () => _toggleLike(detail.liked),
                                 child: Row(
                                   children: [
                                     Icon(
-                                      isLiked
+                                      detail.liked
                                           ? Icons.favorite
                                           : Icons.favorite_border,
-                                      color: isLiked
-                                          ? AppColor.primary
-                                          : AppColor.primary,
+                                      color: AppColor.primary,
                                       size: 25,
                                     ),
                                     const SizedBox(width: 3),
@@ -96,8 +191,9 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                           Row(
                             children: [
                               GestureDetector(
-                                // TODO : 유저 프로필 조회 API 연동하기
-                                onTap: () => context.push('/profile'),
+                                onTap: () => context.push(
+                                  '/profile?userId=${detail.authorId}',
+                                ),
                                 child: Row(
                                   children: [
                                     const CircleAvatar(
@@ -120,7 +216,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                                 ),
                               ),
                               const Spacer(),
-                              ?widget.isMine
+                              ?isMine
                                   ? null
                                   : GestureDetector(
                                       onTap: () {
@@ -168,7 +264,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                             ),
                           ),
                           const SizedBox(height: 34),
-                          PromptContext(prompt: detail.prompt),
+                          PromptContext(prompt: detail.prompt, tag: detail.tag),
                         ],
                       ),
                     ),
@@ -186,7 +282,13 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     showCupertinoDialog(
       context: context,
       builder: (context) {
-        return const SharePalertdialog(title: '정말 해당 프롬프트를\n삭제하시겠습니까?');
+        return SharePalertdialog(
+          title: '정말 해당 프롬프트를\n삭제하시겠습니까?',
+          onTap: () async {
+            context.pop();
+            await _deletePrompt();
+          },
+        );
       },
     );
   }

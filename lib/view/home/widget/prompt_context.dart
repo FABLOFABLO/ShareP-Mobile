@@ -3,15 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io';
-import '../../../common/components/prompt_tag.dart';
-import '../../../common/constants/app_assets.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/prompt_tag.dart';
+import 'package:share_prompt/common/constants/app_assets.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class PromptContext extends StatefulWidget {
   final String prompt;
+  final String tag;
 
-  const PromptContext({super.key, required this.prompt});
+  const PromptContext({super.key, required this.prompt, required this.tag});
 
   @override
   State<PromptContext> createState() => _PromptContextState();
@@ -107,7 +108,7 @@ class _PromptContextState extends State<PromptContext> {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: AppColor.gray40, width: 1.5),
             ),
-            child:  Padding(
+            child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text(widget.prompt, style: AppTextStyles.body4),
             ),
@@ -115,7 +116,7 @@ class _PromptContextState extends State<PromptContext> {
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [PromptTag(tag: '로고', onTap: () {})],
+            children: [PromptTag(tag: widget.tag, onTap: () {})],
           ),
         ],
       ),

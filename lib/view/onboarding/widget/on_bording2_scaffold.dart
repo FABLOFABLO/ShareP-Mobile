@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../common/constants/app_assets.dart';
+import 'package:share_prompt/common/constants/app_assets.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold({super.key, required this.body});

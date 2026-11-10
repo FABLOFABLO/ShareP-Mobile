@@ -3,10 +3,10 @@ import 'package:share_prompt/view/onboarding/widget/on_bording2_scaffold.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/components/bottom_button.dart';
-import '../../../common/constants/app_assets.dart';
-import '../../../common/constants/app_color.dart';
-import '../../../common/constants/app_text_style.dart';
+import 'package:share_prompt/common/components/bottom_button.dart';
+import 'package:share_prompt/common/constants/app_assets.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_text_style.dart';
 
 class OnBoarding2Page extends StatefulWidget {
   const OnBoarding2Page({super.key});
@@ -67,6 +67,9 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                   time: '3시간 전',
                   like: 12,
                   onTap: () {},
+                  promptId: -4,
+                  liked: false,
+                  onLikeChanged: () async {},
                 ),
                 const SizedBox(height: 15),
                 PromptCard(
@@ -76,6 +79,9 @@ class _OnBording2PageState extends State<OnBoarding2Page> {
                   time: '3시간 전',
                   like: 12,
                   onTap: () {},
+                  promptId: -3,
+                  liked: false,
+                  onLikeChanged: () async {},
                 ),
               ],
             ),

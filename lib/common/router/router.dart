@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../view/auth/view/login_page.dart';
-import '../../view/auth/view/sign_up_page.dart';
-import '../../view/home/view/home_page.dart';
-import '../../view/home/view/profile_page.dart';
-import '../../view/home/view/prompt_detail_page.dart';
-import '../../view/home/view/prompt_post_page.dart';
-import '../view/main_shell_page.dart';
-import '../../view/my/view/id_page.dart';
-import '../../view/my/view/nickname_page.dart';
-import '../../view/my/view/password_page.dart';
-import '../../view/my/view/my_page.dart';
-import '../../view/my/view/setting_page.dart';
-import '../../view/my/view/user_follower.dart';
-import '../../view/my/view/user_following.dart';
-import '../../view/onboarding/view/onboarding1_page.dart';
-import '../../view/onboarding/view/onboarding2_page.dart';
-import '../../view/onboarding/view/onboarding3_page.dart';
-import '../../view/onboarding/view/onboarding4_page.dart';
-import '../../view/search/view/search_page.dart';
+import 'package:share_prompt/view/auth/view/login_page.dart';
+import 'package:share_prompt/view/auth/view/sign_up_page.dart';
+import 'package:share_prompt/view/home/view/home_page.dart';
+import 'package:share_prompt/view/home/view/profile_page.dart';
+import 'package:share_prompt/view/home/view/prompt_detail_page.dart';
+import 'package:share_prompt/view/home/view/prompt_post_page.dart';
+import 'package:share_prompt/common/view/main_shell_page.dart';
+import 'package:share_prompt/view/my/view/id_page.dart';
+import 'package:share_prompt/view/my/view/nickname_page.dart';
+import 'package:share_prompt/view/my/view/password_page.dart';
+import 'package:share_prompt/view/my/view/my_page.dart';
+import 'package:share_prompt/view/my/view/setting_page.dart';
+import 'package:share_prompt/view/my/view/user_follower.dart';
+import 'package:share_prompt/view/my/view/user_following.dart';
+import 'package:share_prompt/view/onboarding/view/onboarding1_page.dart';
+import 'package:share_prompt/view/onboarding/view/onboarding2_page.dart';
+import 'package:share_prompt/view/onboarding/view/onboarding3_page.dart';
+import 'package:share_prompt/view/onboarding/view/onboarding4_page.dart';
+import 'package:share_prompt/view/search/view/search_page.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/onboarding',
@@ -75,15 +75,16 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/detail',
       builder: (BuildContext context, GoRouterState state) {
-        final isMine = state.uri.queryParameters['isMine'] == 'true';
-        return PromptDetailPage(isMine: isMine);
+        final promptId = int.parse(state.uri.queryParameters['promptId']!);
+        return PromptDetailPage(promptId: promptId);
       },
     ),
 
     GoRoute(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) {
-        return const ProfilePage();
+        final userId = int.parse(state.uri.queryParameters['userId']!);
+        return ProfilePage(userId: userId);
       },
     ),
 

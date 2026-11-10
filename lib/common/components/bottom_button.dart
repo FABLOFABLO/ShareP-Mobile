@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/app_color.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 
 class BottomButton extends StatelessWidget {
   final String text;

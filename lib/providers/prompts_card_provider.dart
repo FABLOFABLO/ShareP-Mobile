@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import '../services/models/prompt_card_model.dart';
+import 'package:share_prompt/services/models/prompt_card_model.dart';
 
 final List<PromptCardModel> promptCards = [
   PromptCardModel(
@@ -8,6 +8,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 19,
   ),
   PromptCardModel(
@@ -16,6 +17,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 20,
   ),
   PromptCardModel(
@@ -24,6 +26,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 21,
   ),
   PromptCardModel(
@@ -32,6 +35,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 22,
   ),
   PromptCardModel(
@@ -40,6 +44,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 23,
   ),
   PromptCardModel(
@@ -48,6 +53,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 24,
   ),
   PromptCardModel(
@@ -56,6 +62,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 25,
   ),
   PromptCardModel(
@@ -64,6 +71,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 26,
   ),
   PromptCardModel(
@@ -72,6 +80,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 27,
   ),
   PromptCardModel(
@@ -80,6 +89,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 28,
   ),
   PromptCardModel(
@@ -88,6 +98,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2026-07-12 10:13:37"),
     like: 12,
+    liked: false,
     promptId: 29,
   ),
   PromptCardModel(
@@ -96,6 +107,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2020-07-08 12:56:17"),
     like: 12,
+    liked: false,
     promptId: 30,
   ),
   PromptCardModel(
@@ -104,6 +116,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2020-07-08 12:56:17"),
     like: 12,
+    liked: false,
     promptId: 31,
   ),
   PromptCardModel(
@@ -112,6 +125,7 @@ final List<PromptCardModel> promptCards = [
     tag: '로고',
     date: DateTime.parse("2020-07-08 12:56:17"),
     like: 12,
+    liked: false,
     promptId: 32,
   ),
 ];
