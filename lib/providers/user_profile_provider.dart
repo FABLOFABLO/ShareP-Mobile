@@ -4,8 +4,8 @@ import 'package:share_prompt/services/services/profile_service.dart'
     as profile_service;
 
 final userProfileProvider =
-    StateNotifierProvider<UserProfileNotifier, UserProfileModel?>(
-      (ref) => UserProfileNotifier(),
+    StateNotifierProvider.family<UserProfileNotifier, UserProfileModel?, int>(
+      (ref, userId) => UserProfileNotifier(),
     );
 
 class UserProfileNotifier extends StateNotifier<UserProfileModel?> {

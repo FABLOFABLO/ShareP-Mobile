@@ -9,7 +9,6 @@ import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/common/components/prompt_card.dart';
 import 'package:share_prompt/providers/user_profile_provider.dart';
 import 'package:share_prompt/providers/my_profile_provider.dart';
-import '../../../providers/my_profile_provider.dart';
 import '../../../providers/prompt_list_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
@@ -31,7 +30,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     });
 
     try {
-      await ref.read(userProfileProvider.notifier).getUserProfile(userId);
+      await ref.read(userProfileProvider(widget.userId).notifier).getUserProfile(userId);
     } catch (error, stackTrace) {
       debugPrint('유저페이지 오류: $error, 경로: $stackTrace');
       if (!mounted) return;
@@ -49,7 +48,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final profileCard = ref.watch(userProfileProvider);
+    final profileCard = ref.watch(userProfileProvider(widget.userId));
 
     if (_errorMessage != null) {
       return Scaffold(
