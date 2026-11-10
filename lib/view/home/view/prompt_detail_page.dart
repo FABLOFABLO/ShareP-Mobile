@@ -69,6 +69,8 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
       await ref.read(promptListProvider.notifier).getPromptList('LATEST');
 
       await ref.read(myProfileProvider.notifier).getMyProfile();
+      if (!context.mounted) return;
+
       context.pop(true);
     } catch (error) {
       if (!mounted) return;
