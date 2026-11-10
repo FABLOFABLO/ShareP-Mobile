@@ -73,6 +73,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           itemBuilder: (BuildContext context, int index) {
             final promptCard = promptList.prompts[index];
             return Padding(
+              key: ValueKey(promptCard.promptId),
               padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
               child: PromptCard(
                 title: promptCard.title,
