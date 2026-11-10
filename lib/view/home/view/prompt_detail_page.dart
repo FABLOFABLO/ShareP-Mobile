@@ -65,10 +65,11 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
       await prompt_service.deletePrompt(widget.promptId);
 
       if (!mounted) return;
-      context.pop(true);
+
       await ref.read(promptListProvider.notifier).getPromptList('LATEST');
 
       await ref.read(myProfileProvider.notifier).getMyProfile();
+      context.pop(true);
     } catch (error) {
       if (!mounted) return;
 
@@ -84,7 +85,9 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     });
 
     try {
-      await ref.read(promptDetailProvider(promptId).notifier).getPromptDetail(promptId);
+      await ref
+          .read(promptDetailProvider(promptId).notifier)
+          .getPromptDetail(promptId);
     } catch (e) {
       if (!mounted) return;
       setState(() {
