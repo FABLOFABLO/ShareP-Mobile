@@ -127,6 +127,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                       final promptCard = profileCard.base.prompts[index];
 
                       return Padding(
+                        key: ValueKey(promptCard.promptId),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 26,
                           vertical: 6,
@@ -162,6 +163,7 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
                       final promptCard = profileCard.liked[index];
 
                       return Padding(
+                        key: ValueKey(promptCard.promptId),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 26,
                           vertical: 6,

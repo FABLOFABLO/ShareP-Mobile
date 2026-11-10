@@ -174,6 +174,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         final promptCard = searchedList.prompts[index];
 
                         return Padding(
+                          key: ValueKey(promptCard.promptId),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 26,
                             vertical: 6,

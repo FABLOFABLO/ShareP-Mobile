@@ -30,7 +30,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     });
 
     try {
-      await ref.read(userProfileProvider(widget.userId).notifier).getUserProfile(userId);
+      await ref
+          .read(userProfileProvider(widget.userId).notifier)
+          .getUserProfile(userId);
     } catch (error, stackTrace) {
       debugPrint('유저페이지 오류: $error, 경로: $stackTrace');
       if (!mounted) return;
@@ -117,6 +119,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   final promptsCard = profileCard.base.prompts[index];
 
                   return Padding(
+                    key: ValueKey(promptsCard.promptId),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 26,
                       vertical: 6,
