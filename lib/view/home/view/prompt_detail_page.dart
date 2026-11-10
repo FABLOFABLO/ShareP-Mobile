@@ -42,7 +42,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
       }
 
       await ref
-          .read(promptDetailProvider.notifier)
+          .read(promptDetailProvider(widget.promptId).notifier)
           .getPromptDetail(widget.promptId);
 
       await ref.read(promptListProvider.notifier).getPromptList('LATEST');
@@ -84,7 +84,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     });
 
     try {
-      await ref.read(promptDetailProvider.notifier).getPromptDetail(promptId);
+      await ref.read(promptDetailProvider(promptId).notifier).getPromptDetail(promptId);
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -101,7 +101,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final detail = ref.watch(promptDetailProvider);
+    final detail = ref.watch(promptDetailProvider(widget.promptId));
 
     if (_promptDetailErrorMessage != null) {
       return Scaffold(

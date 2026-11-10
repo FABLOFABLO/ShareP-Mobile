@@ -4,8 +4,8 @@ import 'package:share_prompt/services/services/prompt_service.dart'
     as prompt_service;
 
 final promptDetailProvider =
-    StateNotifierProvider<PromptDetailNotifier, PromptDetailModel?>(
-      (ref) => PromptDetailNotifier(),
+    StateNotifierProvider.family<PromptDetailNotifier, PromptDetailModel?, int>(
+            (ref, promptId) => PromptDetailNotifier()
     );
 
 class PromptDetailNotifier extends StateNotifier<PromptDetailModel?> {
