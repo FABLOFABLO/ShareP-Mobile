@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
+import 'package:share_prompt/providers/follower_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
@@ -12,9 +13,10 @@ import 'package:share_prompt/providers/my_profile_provider.dart';
 import '../../../providers/prompt_list_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
-  const ProfilePage({super.key, required this.userId});
+  const ProfilePage({super.key, required this.userId, required this.isAuthor});
 
   final int userId;
+  final bool isAuthor;
 
   @override
   ConsumerState<ProfilePage> createState() => _ProfilePageState();
@@ -38,6 +40,21 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       if (!mounted) return;
       setState(() {
         _errorMessage = '유저 페이지를 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  Future<void> _loadFollowerList(int userId) async {
+    setState(() {
+      _errorMessage = null;
+    });
+
+    try {
+      await ref.read(followerProvider(widget.userId).notifier).getFollowerList(userId);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = '팔로워 목록을 불러오지 못했습니다.';
       });
     }
   }
@@ -76,9 +93,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ProfileCard(
               name: profileCard.base.name,
               promptCount: profileCard.base.promptsCount,
-              followerCount: profileCard.base.followerCount,
-              followingCount: profileCard.base.followingCount,
-              isProfile: profileCard.isFollowing,
+              followerCount: profileCard.base.followingCount,
+              followingCount: profileCard.base.followerCount,
+              isProfile: !widget.isAuthor,
+              userId: profileCard.base.userId,
+              isFollow: profileCard.isFollowing,
+              onFollowChanged: () async {
+                _loadUserProfile(widget.userId);
+                await ref
+                    .read(myProfileProvider.notifier)
+                    .getMyProfile();
+              }
             ),
             const SizedBox(height: 40),
             Padding(
