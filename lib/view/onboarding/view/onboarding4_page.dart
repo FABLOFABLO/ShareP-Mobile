@@ -17,11 +17,13 @@ class OnBoarding4Page extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 150),
-            const ProfileCard(
+            ProfileCard(
               name: '한지석',
               promptCount: 124,
               followerCount: 4,
               followingCount: 560,
+              userId: -1,
+              onFollowChanged: () async {},
             ),
             const SizedBox(height: 30),
 
