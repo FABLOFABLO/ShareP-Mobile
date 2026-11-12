@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/providers/prompt_detail_provider.dart';
+import 'package:share_prompt/services/services/follow_service.dart';
 import 'package:share_prompt/view/home/widget/prompt_context.dart';
 import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/common/components/sharep_alert_dialog.dart';
@@ -25,9 +26,9 @@ class PromptDetailPage extends ConsumerStatefulWidget {
 
 class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
   bool isLiked = false;
-  bool isFollow = false;
   String? _promptDetailErrorMessage;
   bool _isUpdatingLike = false;
+  bool _isUpdatingFollow = false;
 
   Future<void> _toggleLike(bool currentlyLiked) async {
     if (_isUpdatingLike) return;
@@ -97,6 +98,37 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
       });
     }
   }
+
+  Future<void> _toggleFollow(int authorId, bool isFollowing) async {
+    if (_isUpdatingFollow) return;
+
+    setState(() => _isUpdatingFollow = true);
+
+    try {
+      if (isFollowing) {
+        await unFollow(authorId);
+      } else {
+        await follow(authorId);
+      }
+
+      await ref
+          .read(promptDetailProvider(widget.promptId).notifier)
+          .getPromptDetail(widget.promptId);
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('팔로우 상태 변경에 실패했습니다.')),
+      );
+    } finally {
+      await ref
+          .read(myProfileProvider.notifier)
+          .getMyProfile();
+      if (mounted) {
+        setState(() => _isUpdatingFollow = false);
+      }
+    }
+  }
+
 
   @override
   void initState() {
@@ -192,7 +224,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                             children: [
                               GestureDetector(
                                 onTap: () => context.push(
-                                  '/profile?userId=${detail.authorId}',
+                                  '/profile?userId=${detail.authorId}&isAuthor=${detail.isAuthor}',
                                 ),
                                 child: Row(
                                   children: [
@@ -216,44 +248,35 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                                 ),
                               ),
                               const Spacer(),
-                              ?isMine
-                                  ? null
-                                  : GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          isFollow = !isFollow;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 53,
-                                        height: 26,
-                                        decoration: BoxDecoration(
-                                          color: isFollow
-                                              ? AppColor.primary
-                                              : AppColor.secondary,
-                                          borderRadius: BorderRadius.circular(
-                                            100,
+                              if (!isMine)
+                                GestureDetector(
+                                  onTap: _isUpdatingFollow
+                                      ? null
+                                      : () => _toggleFollow(
+                                            detail.authorId,
+                                            detail.isFollowing,
                                           ),
-                                        ),
-                                        child: Center(
-                                          child: isFollow
-                                              ? Text(
-                                                  '팔로우',
-                                                  style: AppTextStyles.body5
-                                                      .copyWith(
-                                                        color: AppColor.white,
-                                                      ),
-                                                )
-                                              : Text(
-                                                  '팔로잉',
-                                                  style: AppTextStyles.body5
-                                                      .copyWith(
-                                                        color: AppColor.primary,
-                                                      ),
-                                                ),
+                                  child: Container(
+                                    width: 53,
+                                    height: 26,
+                                    decoration: BoxDecoration(
+                                      color: detail.isFollowing
+                                          ? AppColor.secondary
+                                          : AppColor.primary,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        detail.isFollowing ? '팔로잉' : '팔로우',
+                                        style: AppTextStyles.body5.copyWith(
+                                          color: detail.isFollowing
+                                              ? AppColor.primary
+                                              : AppColor.white,
                                         ),
                                       ),
                                     ),
+                                  ),
+                                ),
                             ],
                           ),
                           const SizedBox(height: 34),

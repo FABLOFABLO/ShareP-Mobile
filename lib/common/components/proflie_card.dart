@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/services/services/follow_service.dart';
 
 class ProfileCard extends StatefulWidget {
   final String name;
@@ -10,6 +11,8 @@ class ProfileCard extends StatefulWidget {
   final int followingCount;
   final bool isProfile;
   final bool isFollow;
+  final int userId;
+  final Future<void> Function() onFollowChanged;
 
   const ProfileCard({
     super.key,
@@ -19,6 +22,8 @@ class ProfileCard extends StatefulWidget {
     required this.followingCount,
     this.isProfile = false,
     this.isFollow = false,
+    required this.userId,
+    required this.onFollowChanged,
   });
 
   @override
@@ -27,11 +32,46 @@ class ProfileCard extends StatefulWidget {
 
 class _ProflieCardState extends State<ProfileCard> {
   late bool _isFollow = widget.isFollow;
+  bool _isUpdatingFollow = false;
 
   @override
-  void didUpdateWidget(covariant ProfileCard oldWidget) {
+  void didUpdateWidget(ProfileCard oldWidget) {
     super.didUpdateWidget(oldWidget);
     _isFollow = widget.isFollow;
+  }
+
+  Future<void> _toggleFollow() async {
+    if (_isUpdatingFollow) return;
+
+    setState(() => _isUpdatingFollow = true);
+
+    try {
+      if (_isFollow) {
+        await unFollow(widget.userId);
+      } else {
+        await follow(widget.userId);
+      }
+
+      if (!mounted) return;
+      setState(() {
+        _isFollow = !_isFollow;
+      });
+
+      try {
+        await widget.onFollowChanged();
+      } catch (error) {
+        debugPrint('팔로우 오류: $error');
+      }
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('팔로우 불러오기에 실패했습니다.')));
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingFollow = false);
+      }
+    }
   }
 
   @override
@@ -57,7 +97,7 @@ class _ProflieCardState extends State<ProfileCard> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              _isFollow = !_isFollow;
+                              _toggleFollow();
                             });
                           },
                           child: Container(
@@ -65,22 +105,22 @@ class _ProflieCardState extends State<ProfileCard> {
                             height: 24,
                             decoration: BoxDecoration(
                               color: _isFollow
-                                  ? AppColor.primary
-                                  : AppColor.secondary,
+                                  ? AppColor.secondary
+                                  : AppColor.primary,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: Center(
                               child: _isFollow
                                   ? Text(
-                                      '팔로우',
-                                      style: AppTextStyles.body5.copyWith(
-                                        color: AppColor.white,
-                                      ),
-                                    )
-                                  : Text(
                                       '팔로잉',
                                       style: AppTextStyles.body5.copyWith(
                                         color: AppColor.primary,
+                                      ),
+                                    )
+                                  : Text(
+                                      '팔로우',
+                                      style: AppTextStyles.body5.copyWith(
+                                        color: AppColor.white,
                                       ),
                                     ),
                             ),
@@ -104,8 +144,8 @@ class _ProflieCardState extends State<ProfileCard> {
                     ],
                   ),
                   GestureDetector(
-                    // TODO : 팔로워 목록 조회 API 연동하기
-                    onTap: () => context.push('/follower'),
+                    onTap: () =>
+                        context.push('/follower?userId=${widget.userId}'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -119,8 +159,8 @@ class _ProflieCardState extends State<ProfileCard> {
                   ),
 
                   GestureDetector(
-                    // TODO : 팔로잉한 유저 목록 조회 API 연동하기
-                    onTap: () => context.push('/following'),
+                    onTap: () =>
+                        context.push('/following?userId=${widget.userId}'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
