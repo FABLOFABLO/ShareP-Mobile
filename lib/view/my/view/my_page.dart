@@ -83,9 +83,11 @@ class _MyPageState extends ConsumerState<MyPage> with TickerProviderStateMixin {
             ProfileCard(
               name: profileCard.base.name,
               promptCount: profileCard.base.promptsCount,
-              followerCount: profileCard.base.followerCount,
-              followingCount: profileCard.base.followingCount,
+              followerCount: profileCard.base.followingCount,
+              followingCount: profileCard.base.followerCount,
               isProfile: false,
+              userId: profileCard.base.userId,
+              onFollowChanged: () async {},
             ),
             const SizedBox(height: 40),
             Padding(

@@ -84,21 +84,24 @@ final GoRouter router = GoRouter(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) {
         final userId = int.parse(state.uri.queryParameters['userId']!);
-        return ProfilePage(userId: userId);
+        final isAuthor = state.uri.queryParameters['isAuthor'] == 'true';
+        return ProfilePage(userId: userId, isAuthor: isAuthor);
       },
     ),
 
     GoRoute(
       path: '/follower',
       builder: (BuildContext context, GoRouterState state) {
-        return const UserFollower();
+        final userId = int.parse(state.uri.queryParameters['userId']!);
+        return UserFollower(userId: userId,);
       },
     ),
 
     GoRoute(
       path: '/following',
       builder: (BuildContext context, GoRouterState state) {
-        return const UserFollowing();
+        final userId = int.parse(state.uri.queryParameters['userId']!);
+        return UserFollowing(userId: userId,);
       },
     ),
 
