@@ -12,9 +12,9 @@ class FollowingBoxModel {
   factory FollowingBoxModel.fromJson(Map<String, dynamic> json) {
     return FollowingBoxModel(
       hasFollowing: _parseFollowing(json['following']),
-      userNickName: (json['following_nickname'] ?? json['follower_nickname']) as String,
-      userId: (json['following_id'] ?? json['follower_id']) as int,
-      userLoginId: (json['following_login_id'] ?? json['follower_login_id']) as String,
+      userNickName: (json['following_nickname']) as String,
+      userId: (json['following_id']) as int,
+      userLoginId: (json['following_login_id']) as String,
     );
   }
 }
