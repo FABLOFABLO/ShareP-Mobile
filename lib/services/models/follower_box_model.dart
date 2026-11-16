@@ -1,12 +1,16 @@
+import 'package:share_prompt/common/utils/follow_enum.dart';
+
 class FollowerBoxModel {
-  final bool hasFollowing;
+  final IsFollowing hasFollowing;
   final String userLoginId;
   final int userId;
   final String userNickName;
 
   FollowerBoxModel({
     required this.hasFollowing,
-    required this.userId, required this.userLoginId, required this.userNickName,
+    required this.userId,
+    required this.userLoginId,
+    required this.userNickName,
   });
 
   factory FollowerBoxModel.fromJson(Map<String, dynamic> json) {
@@ -19,15 +23,15 @@ class FollowerBoxModel {
   }
 }
 
-bool _parseFollowing(dynamic value) {
-  if (value is bool) return value;
+IsFollowing _parseFollowing(dynamic value) {
   if (value is String) {
     switch (value.trim().toUpperCase()) {
       case 'TRUE':
-        return true;
+        return IsFollowing.yes;
       case 'FALSE':
+        return IsFollowing.no;
       case 'ME':
-        return false;
+        return IsFollowing.me;
     }
   }
   throw FormatException('알 수 없는 following 값: $value');
