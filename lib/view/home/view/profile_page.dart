@@ -93,8 +93,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ProfileCard(
               name: profileCard.base.name,
               promptCount: profileCard.base.promptsCount,
-              followerCount: profileCard.base.followingCount,
-              followingCount: profileCard.base.followerCount,
+              followerCount: profileCard.base.followerCount,
+              followingCount: profileCard.base.followingCount,
               isProfile: !widget.isAuthor,
               userId: profileCard.base.userId,
               isFollow: profileCard.isFollowing,

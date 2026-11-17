@@ -21,8 +21,8 @@ class CommonProfileModel {
     return CommonProfileModel(
       userId: json['user_id'] as int,
       name: json['nickname'] as String,
-      followerCount: json['follower'] as int,
-      followingCount: json['following'] as int,
+      followingCount: json['follower'] as int,
+      followerCount: json['following'] as int,
       promptsCount: json['prompt_count'] as int,
       prompts: (json['prompts'] as List<dynamic>)
           .map((item) => PromptCardModel.fromJson(item as Map<String, dynamic>))
