@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
-import 'package:share_prompt/services/services/follow_service.dart';
+import 'package:share_prompt/providers/follow_provider.dart';
 
-class ProfileCard extends StatefulWidget {
+class ProfileCard extends ConsumerStatefulWidget {
   final String name;
   final int promptCount;
   final int followerCount;
@@ -27,17 +28,37 @@ class ProfileCard extends StatefulWidget {
   });
 
   @override
-  State<ProfileCard> createState() => _ProflieCardState();
+  ConsumerState<ProfileCard> createState() => _ProflieCardState();
 }
 
-class _ProflieCardState extends State<ProfileCard> {
-  late bool _isFollow = widget.isFollow;
+class _ProflieCardState extends ConsumerState<ProfileCard> {
   bool _isUpdatingFollow = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initFollowState();
+  }
+
+  void _initFollowState() {
+    if (!widget.isProfile) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref
+          .read(followProvider(widget.userId).notifier)
+          .setInitValue(widget.isFollow);
+    });
+  }
 
   @override
   void didUpdateWidget(ProfileCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _isFollow = widget.isFollow;
+    if (oldWidget.userId != widget.userId ||
+        oldWidget.isFollow != widget.isFollow ||
+        oldWidget.isProfile != widget.isProfile) {
+      _initFollowState();
+    }
   }
 
   Future<void> _toggleFollow() async {
@@ -46,16 +67,7 @@ class _ProflieCardState extends State<ProfileCard> {
     setState(() => _isUpdatingFollow = true);
 
     try {
-      if (_isFollow) {
-        await unFollow(widget.userId);
-      } else {
-        await follow(widget.userId);
-      }
-
-      if (!mounted) return;
-      setState(() {
-        _isFollow = !_isFollow;
-      });
+      await ref.read(followProvider(widget.userId).notifier).toggleFollow();
 
       try {
         await widget.onFollowChanged();
@@ -76,6 +88,10 @@ class _ProflieCardState extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
+    final isFollow = widget.isProfile
+        ? ref.watch(followProvider(widget.userId))
+        : widget.isFollow;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35),
       child: Row(
@@ -95,22 +111,20 @@ class _ProflieCardState extends State<ProfileCard> {
                         Text(widget.name, style: AppTextStyles.title3),
                         const SizedBox(width: 15),
                         GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _toggleFollow();
-                            });
-                          },
+                          onTap: _isUpdatingFollow || isFollow == null
+                              ? null
+                              : _toggleFollow,
                           child: Container(
                             width: 51,
                             height: 24,
                             decoration: BoxDecoration(
-                              color: _isFollow
+                              color: isFollow == true
                                   ? AppColor.secondary
                                   : AppColor.primary,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: Center(
-                              child: _isFollow
+                              child: isFollow == true
                                   ? Text(
                                       '팔로잉',
                                       style: AppTextStyles.body5.copyWith(
