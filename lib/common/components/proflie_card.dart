@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:share_prompt/providers/follow_provider.dart';
 
-class ProfileCard extends StatefulWidget {
+class ProfileCard extends ConsumerStatefulWidget {
   final String name;
   final int promptCount;
   final int followerCount;
   final int followingCount;
   final bool isProfile;
   final bool isFollow;
+  final int userId;
+  final Future<void> Function() onFollowChanged;
 
   const ProfileCard({
     super.key,
@@ -19,23 +23,71 @@ class ProfileCard extends StatefulWidget {
     required this.followingCount,
     this.isProfile = false,
     this.isFollow = false,
+    required this.userId,
+    required this.onFollowChanged,
   });
 
   @override
-  State<ProfileCard> createState() => _ProflieCardState();
+  ConsumerState<ProfileCard> createState() => _ProflieCardState();
 }
 
-class _ProflieCardState extends State<ProfileCard> {
-  late bool _isFollow = widget.isFollow;
+class _ProflieCardState extends ConsumerState<ProfileCard> {
+  bool _isUpdatingFollow = false;
 
   @override
-  void didUpdateWidget(covariant ProfileCard oldWidget) {
+  void initState() {
+    super.initState();
+    _initFollowState();
+  }
+
+  void _initFollowState() {
+    if (!mounted) return;
+    ref
+        .read(followProvider(widget.userId).notifier)
+        .setInitValue(widget.isFollow);
+  }
+
+  @override
+  void didUpdateWidget(ProfileCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _isFollow = widget.isFollow;
+    if (oldWidget.userId != widget.userId ||
+        oldWidget.isFollow != widget.isFollow ||
+        oldWidget.isProfile != widget.isProfile) {
+      _initFollowState();
+    }
+  }
+
+  Future<void> _toggleFollow() async {
+    if (_isUpdatingFollow) return;
+
+    setState(() => _isUpdatingFollow = true);
+
+    try {
+      await ref.read(followProvider(widget.userId).notifier).toggleFollow();
+
+      try {
+        await widget.onFollowChanged();
+      } catch (error) {
+        debugPrint('팔로우 오류: $error');
+      }
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('팔로우 불러오기에 실패했습니다.')));
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingFollow = false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final isFollow = widget.isProfile
+        ? ref.watch(followProvider(widget.userId))
+        : widget.isFollow;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35),
       child: Row(
@@ -55,32 +107,30 @@ class _ProflieCardState extends State<ProfileCard> {
                         Text(widget.name, style: AppTextStyles.title3),
                         const SizedBox(width: 15),
                         GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isFollow = !_isFollow;
-                            });
-                          },
+                          onTap: _isUpdatingFollow || isFollow == null
+                              ? null
+                              : _toggleFollow,
                           child: Container(
                             width: 51,
                             height: 24,
                             decoration: BoxDecoration(
-                              color: _isFollow
-                                  ? AppColor.primary
-                                  : AppColor.secondary,
+                              color: isFollow == true
+                                  ? AppColor.secondary
+                                  : AppColor.primary,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: Center(
-                              child: _isFollow
+                              child: isFollow == true
                                   ? Text(
-                                      '팔로우',
-                                      style: AppTextStyles.body5.copyWith(
-                                        color: AppColor.white,
-                                      ),
-                                    )
-                                  : Text(
                                       '팔로잉',
                                       style: AppTextStyles.body5.copyWith(
                                         color: AppColor.primary,
+                                      ),
+                                    )
+                                  : Text(
+                                      '팔로우',
+                                      style: AppTextStyles.body5.copyWith(
+                                        color: AppColor.white,
                                       ),
                                     ),
                             ),
@@ -104,8 +154,8 @@ class _ProflieCardState extends State<ProfileCard> {
                     ],
                   ),
                   GestureDetector(
-                    // TODO : 팔로워 목록 조회 API 연동하기
-                    onTap: () => context.push('/follower'),
+                    onTap: () =>
+                        context.push('/follower?userId=${widget.userId}'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -119,8 +169,8 @@ class _ProflieCardState extends State<ProfileCard> {
                   ),
 
                   GestureDetector(
-                    // TODO : 팔로잉한 유저 목록 조회 API 연동하기
-                    onTap: () => context.push('/following'),
+                    onTap: () =>
+                        context.push('/following?userId=${widget.userId}'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
