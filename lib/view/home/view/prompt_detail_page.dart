@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_prompt/providers/follow_provider.dart';
 import 'package:share_prompt/providers/prompt_detail_provider.dart';
-import 'package:share_prompt/services/services/follow_service.dart';
 import 'package:share_prompt/view/home/widget/prompt_context.dart';
 import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/common/components/sharep_alert_dialog.dart';
@@ -11,7 +11,6 @@ import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/services/services/prompt_service.dart'
     as prompt_service;
-
 import '../../../providers/my_profile_provider.dart';
 import '../../../providers/prompt_list_provider.dart';
 
@@ -99,36 +98,31 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     }
   }
 
-  Future<void> _toggleFollow(int authorId, bool isFollowing) async {
+  Future<void> _toggleFollow(int authorId) async {
     if (_isUpdatingFollow) return;
 
     setState(() => _isUpdatingFollow = true);
 
     try {
-      if (isFollowing) {
-        await unFollow(authorId);
-      } else {
-        await follow(authorId);
-      }
+      await ref.read(followProvider(authorId).notifier).toggleFollow();
 
-      await ref
-          .read(promptDetailProvider(widget.promptId).notifier)
-          .getPromptDetail(widget.promptId);
+      try {
+        _loadPromptDetail(widget.promptId);
+        await ref.read(myProfileProvider.notifier).getMyProfile();
+      } catch (error) {
+        debugPrint('팔로우 오류: $error');
+      }
     } catch (error) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('팔로우 상태 변경에 실패했습니다.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('팔로우 불러오기에 실패했습니다.')));
     } finally {
-      await ref
-          .read(myProfileProvider.notifier)
-          .getMyProfile();
       if (mounted) {
         setState(() => _isUpdatingFollow = false);
       }
     }
   }
-
 
   @override
   void initState() {
@@ -224,7 +218,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                             children: [
                               GestureDetector(
                                 onTap: () => context.push(
-                                  '/profile?userId=${detail.authorId}&isAuthor=${detail.isAuthor}',
+                                  '/profile?authorId=${detail.authorId}&isAuthor=${detail.isAuthor}',
                                 ),
                                 child: Row(
                                   children: [
@@ -252,10 +246,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                                 GestureDetector(
                                   onTap: _isUpdatingFollow
                                       ? null
-                                      : () => _toggleFollow(
-                                            detail.authorId,
-                                            detail.isFollowing,
-                                          ),
+                                      : () => _toggleFollow(detail.authorId),
                                   child: Container(
                                     width: 53,
                                     height: 26,

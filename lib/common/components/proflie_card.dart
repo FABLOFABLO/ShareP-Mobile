@@ -41,14 +41,10 @@ class _ProflieCardState extends ConsumerState<ProfileCard> {
   }
 
   void _initFollowState() {
-    if (!widget.isProfile) return;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      ref
-          .read(followProvider(widget.userId).notifier)
-          .setInitValue(widget.isFollow);
-    });
+    if (!mounted) return;
+    ref
+        .read(followProvider(widget.userId).notifier)
+        .setInitValue(widget.isFollow);
   }
 
   @override
