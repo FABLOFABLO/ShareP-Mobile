@@ -98,16 +98,18 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
     }
   }
 
-  Future<void> _toggleFollow(int authorId) async {
+  Future<void> _toggleFollow(int authorId, bool isFollowing) async {
     if (_isUpdatingFollow) return;
 
     setState(() => _isUpdatingFollow = true);
 
     try {
-      await ref.read(followProvider(authorId).notifier).toggleFollow();
+      await ref
+          .read(followProvider(authorId).notifier)
+          .toggleFollow(isFollowing: isFollowing);
 
       try {
-        _loadPromptDetail(widget.promptId);
+        await _loadPromptDetail(widget.promptId);
         await ref.read(myProfileProvider.notifier).getMyProfile();
       } catch (error) {
         debugPrint('팔로우 오류: $error');
@@ -218,7 +220,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                             children: [
                               GestureDetector(
                                 onTap: () => context.push(
-                                  '/profile?authorId=${detail.authorId}&isAuthor=${detail.isAuthor}',
+                                  '/profile?userId=${detail.authorId}&isAuthor=${detail.isAuthor}',
                                 ),
                                 child: Row(
                                   children: [
@@ -246,7 +248,10 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                                 GestureDetector(
                                   onTap: _isUpdatingFollow
                                       ? null
-                                      : () => _toggleFollow(detail.authorId),
+                                      : () => _toggleFollow(
+                                          detail.authorId,
+                                          detail.isFollowing,
+                                        ),
                                   child: Container(
                                     width: 53,
                                     height: 26,

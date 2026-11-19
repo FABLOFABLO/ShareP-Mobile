@@ -34,36 +34,15 @@ class ProfileCard extends ConsumerStatefulWidget {
 class _ProflieCardState extends ConsumerState<ProfileCard> {
   bool _isUpdatingFollow = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _initFollowState();
-  }
-
-  void _initFollowState() {
-    if (!mounted) return;
-    ref
-        .read(followProvider(widget.userId).notifier)
-        .setInitValue(widget.isFollow);
-  }
-
-  @override
-  void didUpdateWidget(ProfileCard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.userId != widget.userId ||
-        oldWidget.isFollow != widget.isFollow ||
-        oldWidget.isProfile != widget.isProfile) {
-      _initFollowState();
-    }
-  }
-
   Future<void> _toggleFollow() async {
     if (_isUpdatingFollow) return;
 
     setState(() => _isUpdatingFollow = true);
 
     try {
-      await ref.read(followProvider(widget.userId).notifier).toggleFollow();
+      await ref
+          .read(followProvider(widget.userId).notifier)
+          .toggleFollow(isFollowing: widget.isFollow);
 
       try {
         await widget.onFollowChanged();
@@ -85,7 +64,7 @@ class _ProflieCardState extends ConsumerState<ProfileCard> {
   @override
   Widget build(BuildContext context) {
     final isFollow = widget.isProfile
-        ? ref.watch(followProvider(widget.userId))
+        ? ref.watch(followProvider(widget.userId)) ?? widget.isFollow
         : widget.isFollow;
 
     return Padding(
@@ -107,9 +86,7 @@ class _ProflieCardState extends ConsumerState<ProfileCard> {
                         Text(widget.name, style: AppTextStyles.title3),
                         const SizedBox(width: 15),
                         GestureDetector(
-                          onTap: _isUpdatingFollow || isFollow == null
-                              ? null
-                              : _toggleFollow,
+                          onTap: _isUpdatingFollow ? null : _toggleFollow,
                           child: Container(
                             width: 51,
                             height: 24,

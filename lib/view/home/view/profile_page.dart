@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/components/proflie_card.dart';
-import 'package:share_prompt/providers/follower_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
@@ -44,20 +43,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     }
   }
 
-  Future<void> _loadFollowerList(int userId) async {
-    setState(() {
-      _errorMessage = null;
-    });
-
-    try {
-      await ref.read(followerProvider(widget.userId).notifier).getFollowerList(userId);
-    } catch (error) {
-      if (!mounted) return;
-      setState(() {
-        _errorMessage = '팔로워 목록을 불러오지 못했습니다.';
-      });
-    }
-  }
 
   @override
   void initState() {
