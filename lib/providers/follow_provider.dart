@@ -11,17 +11,10 @@ class FollowNotifier extends StateNotifier<bool?> {
 
   final int userId;
   bool _isUpdating = false;
-  bool _hasInitValue = false;
 
-  void setInitValue(bool isFollowing) {
-    if (_hasInitValue) return;
-    _hasInitValue = true;
-    state = isFollowing;
-  }
-
-  Future<void> toggleFollow() async {
-    final currentState = state;
-    if (_isUpdating || currentState == null) return;
+  Future<void> toggleFollow({required bool isFollowing}) async {
+    if (_isUpdating) return;
+    final currentState = state ?? isFollowing;
 
     _isUpdating = true;
     try {
