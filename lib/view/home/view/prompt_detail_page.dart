@@ -109,7 +109,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
           .toggleFollow(isFollowing: isFollowing);
 
       try {
-        _loadPromptDetail(widget.promptId);
+        await _loadPromptDetail(widget.promptId);
         await ref.read(myProfileProvider.notifier).getMyProfile();
       } catch (error) {
         debugPrint('팔로우 오류: $error');
