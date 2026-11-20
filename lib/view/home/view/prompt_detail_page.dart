@@ -183,13 +183,15 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                detail.title,
-                                style: AppTextStyles.title1.copyWith(
-                                  color: AppColor.gray100,
+                              Expanded(
+                                child: Text(
+                                  detail.title,
+                                  style: AppTextStyles.title1.copyWith(
+                                    color: AppColor.gray100,
+                                    overflow: TextOverflow.ellipsis
+                                  ),
                                 ),
                               ),
-                              const Spacer(),
                               GestureDetector(
                                 onTap: _isUpdatingLike
                                     ? null
