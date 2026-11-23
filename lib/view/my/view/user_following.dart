@@ -28,7 +28,9 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
     });
 
     try {
-      await ref.read(followingProvider(widget.userId).notifier).getFollowingList(userId);
+      await ref
+          .read(followingProvider(widget.userId).notifier)
+          .getFollowingList(userId);
     } catch (error) {
       if (!mounted) return;
       setState(() {
@@ -52,26 +54,32 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
           : boxes!.followingList.isEmpty
           ? const Center(child: Text('아직 팔로잉하는 유저가 없습니다.'))
           : SafeArea(
-              child: ListView.builder(
-                itemCount: boxes.followingList.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  final box = boxes.followingList[index];
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 26,
-                      vertical: 6,
-                    ),
-                    child: FollowBox(
-                      key: ValueKey(box.userId),
-                      userName: box.userNickName,
-                      userId: box.userId,
-                      hasFollowing: box.hasFollowing,
-                      onFollowChanged: () => _loadFollowingList(widget.userId),
-                    ),
-                  );
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await _loadFollowingList(widget.userId);
                 },
+                child: ListView.builder(
+                  itemCount: boxes.followingList.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    final box = boxes.followingList[index];
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
+                        vertical: 6,
+                      ),
+                      child: FollowBox(
+                        key: ValueKey(box.userId),
+                        userName: box.userNickName,
+                        userId: box.userId,
+                        hasFollowing: box.hasFollowing,
+                        onFollowChanged: () =>
+                            _loadFollowingList(widget.userId),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
     );
