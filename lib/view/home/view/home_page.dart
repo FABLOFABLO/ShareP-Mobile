@@ -68,6 +68,8 @@ class _HomePageState extends ConsumerState<HomePage> {
       appBar: HomeAppBar(selectedSort: _sort, onSortChanged: _loadPromptList),
       body: SafeArea(
         child: RefreshIndicator(
+          backgroundColor: AppColor.primary,
+          color: AppColor.white,
           onRefresh: () async {
             await _loadPromptList(_sort);
           },

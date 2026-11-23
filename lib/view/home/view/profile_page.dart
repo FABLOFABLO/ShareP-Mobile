@@ -120,6 +120,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             const SizedBox(height: 25),
             Expanded(
               child: RefreshIndicator(
+                backgroundColor: AppColor.primary,
+                color: AppColor.white,
                 onRefresh: () async {
                   await _loadUserProfile(widget.userId);
                 },

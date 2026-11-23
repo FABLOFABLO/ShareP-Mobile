@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/providers/following_provider.dart';
 import 'package:share_prompt/view/my/widget/follow_box.dart';
 
@@ -55,6 +56,8 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
           ? const Center(child: Text('아직 팔로잉하는 유저가 없습니다.'))
           : SafeArea(
               child: RefreshIndicator(
+                backgroundColor: AppColor.primary,
+                color: AppColor.white,
                 onRefresh: () async {
                   await _loadFollowingList(widget.userId);
                 },
