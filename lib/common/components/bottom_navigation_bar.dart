@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class AppBottomNavigationbar extends StatelessWidget {
   final int currentIndex;
@@ -43,13 +44,13 @@ class AppBottomNavigationbar extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _item(index: 0, icon: Icons.search, label: '검색'),
+                  _item(index: 0, icon: Symbols.search, label: '검색'),
 
                   const SizedBox(width: 33),
 
                   _item(
                     index: 1,
-                    icon: currentIndex == 1 ? Icons.home : Icons.home_outlined,
+                    icon: currentIndex == 1 ? Symbols.home_filled_rounded: Symbols.home_rounded,
                     label: '홈',
                   ),
 
@@ -58,8 +59,8 @@ class AppBottomNavigationbar extends StatelessWidget {
                   _item(
                     index: 2,
                     icon: currentIndex == 2
-                        ? Icons.person_2
-                        : Icons.person_2_outlined,
+                        ? Symbols.person
+                        : Symbols.person_outline,
                     label: '마이페이지',
                   ),
                 ],
@@ -89,7 +90,7 @@ class AppBottomNavigationbar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: color, size: 33),
+            Icon(icon, color: color, size: 33, fill: selected ? 1.0 : 0.0),
             Text(label, style: AppTextStyles.body4.copyWith(color: color)),
           ],
         ),

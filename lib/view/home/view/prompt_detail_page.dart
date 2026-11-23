@@ -188,7 +188,7 @@ class _PromptDetailPageState extends ConsumerState<PromptDetailPage> {
                                   detail.title,
                                   style: AppTextStyles.title1.copyWith(
                                     color: AppColor.gray100,
-                                    overflow: TextOverflow.ellipsis
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ),
