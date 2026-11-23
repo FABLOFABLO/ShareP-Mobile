@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/providers/follower_provider.dart';
 import 'package:share_prompt/common/components/default_app_bar.dart';
 import 'package:share_prompt/view/my/widget/follow_box.dart';
@@ -22,7 +23,9 @@ class _UserFollowerState extends ConsumerState<UserFollower> {
     });
 
     try {
-      await ref.read(followerProvider(widget.userId).notifier).getFollowerList(userId);
+      await ref
+          .read(followerProvider(widget.userId).notifier)
+          .getFollowerList(userId);
     } catch (error) {
       debugPrint('팔로워 오류: $error');
       if (!mounted) return;
@@ -32,7 +35,8 @@ class _UserFollowerState extends ConsumerState<UserFollower> {
     }
   }
 
-  @override void initState() {
+  @override
+  void initState() {
     super.initState();
     _loadFollowerList(widget.userId);
   }
@@ -40,7 +44,6 @@ class _UserFollowerState extends ConsumerState<UserFollower> {
   @override
   Widget build(BuildContext context) {
     final boxes = ref.watch(followerProvider(widget.userId));
-
 
     if (boxes == null && _errorMessage == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -53,23 +56,33 @@ class _UserFollowerState extends ConsumerState<UserFollower> {
           : boxes!.followerList.isEmpty
           ? const Center(child: Text('아직 팔로워가 없습니다.'))
           : SafeArea(
-        child: ListView.builder(
-          itemCount: boxes.followerList.length,
-          itemBuilder: (BuildContext context, int index) {
-            final box = boxes.followerList[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
-              child: FollowBox(
-                key: ValueKey(box.userId),
-                userName: box.userNickName,
-                userId: box.userId,
-                hasFollowing: box.hasFollowing,
-                onFollowChanged: () => _loadFollowerList(widget.userId),
+              child: RefreshIndicator(
+                backgroundColor: AppColor.primary,
+                color: AppColor.white,
+                onRefresh: () async {
+                  await _loadFollowerList(widget.userId);
+                },
+                child: ListView.builder(
+                  itemCount: boxes.followerList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final box = boxes.followerList[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
+                        vertical: 6,
+                      ),
+                      child: FollowBox(
+                        key: ValueKey(box.userId),
+                        userName: box.userNickName,
+                        userId: box.userId,
+                        hasFollowing: box.hasFollowing,
+                        onFollowChanged: () => _loadFollowerList(widget.userId),
+                      ),
+                    );
+                  },
+                ),
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }

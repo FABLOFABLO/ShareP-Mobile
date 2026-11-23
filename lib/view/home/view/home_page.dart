@@ -67,39 +67,49 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       appBar: HomeAppBar(selectedSort: _sort, onSortChanged: _loadPromptList),
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: promptList.prompts.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (BuildContext context, int index) {
-            final promptCard = promptList.prompts[index];
-            return Padding(
-              key: ValueKey(promptCard.promptId),
-              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 6),
-              child: PromptCard(
-                title: promptCard.title,
-                description: promptCard.description,
-                tag: promptCard.tag,
-                time: timeago.format(promptCard.date, locale: 'ko'),
-                like: promptCard.like,
-                promptId: promptCard.promptId,
-                liked: promptCard.liked,
-                onTap: () async {
-                  await context.push<bool>(
-                    '/detail?promptId=${promptCard.promptId}',
-                  );
-
-                  if (!context.mounted) return;
-                  await _loadPromptList(_sort);
-                },
-                onLikeChanged: () async {
-                  await Future.wait([
-                    _loadPromptList(_sort),
-                    ref.read(myProfileProvider.notifier).getMyProfile(),
-                  ]);
-                },
-              ),
-            );
+        child: RefreshIndicator(
+          backgroundColor: AppColor.primary,
+          color: AppColor.white,
+          onRefresh: () async {
+            await _loadPromptList(_sort);
           },
+          child: ListView.builder(
+            itemCount: promptList.prompts.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              final promptCard = promptList.prompts[index];
+              return Padding(
+                key: ValueKey(promptCard.promptId),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 26,
+                  vertical: 6,
+                ),
+                child: PromptCard(
+                  title: promptCard.title,
+                  description: promptCard.description,
+                  tag: promptCard.tag,
+                  time: timeago.format(promptCard.date, locale: 'ko'),
+                  like: promptCard.like,
+                  promptId: promptCard.promptId,
+                  liked: promptCard.liked,
+                  onTap: () async {
+                    await context.push<bool>(
+                      '/detail?promptId=${promptCard.promptId}',
+                    );
+
+                    if (!context.mounted) return;
+                    await _loadPromptList(_sort);
+                  },
+                  onLikeChanged: () async {
+                    await Future.wait([
+                      _loadPromptList(_sort),
+                      ref.read(myProfileProvider.notifier).getMyProfile(),
+                    ]);
+                  },
+                ),
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

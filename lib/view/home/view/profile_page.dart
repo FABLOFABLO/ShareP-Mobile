@@ -43,7 +43,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     }
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -85,10 +84,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               isFollow: profileCard.isFollowing,
               onFollowChanged: () async {
                 _loadUserProfile(widget.userId);
-                await ref
-                    .read(myProfileProvider.notifier)
-                    .getMyProfile();
-              }
+                await ref.read(myProfileProvider.notifier).getMyProfile();
+              },
             ),
             const SizedBox(height: 40),
             Padding(
@@ -122,41 +119,48 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             const SizedBox(height: 25),
             Expanded(
-              child: ListView.builder(
-                itemCount: profileCard.base.prompts.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  final promptsCard = profileCard.base.prompts[index];
-
-                  return Padding(
-                    key: ValueKey(promptsCard.promptId),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 26,
-                      vertical: 6,
-                    ),
-                    child: PromptCard(
-                      title: promptsCard.title,
-                      description: promptsCard.description,
-                      tag: promptsCard.tag,
-                      time: timeago.format(promptsCard.date, locale: 'ko'),
-                      like: promptsCard.like,
-                      onTap: () => context.push(
-                        '/detail?promptId=${promptsCard.promptId}',
-                      ),
-                      promptId: promptsCard.promptId,
-                      liked: promptsCard.liked,
-                      onLikeChanged: () async {
-                        await ref
-                            .read(promptListProvider.notifier)
-                            .getPromptList('LATEST');
-
-                        await ref
-                            .read(myProfileProvider.notifier)
-                            .getMyProfile();
-                      },
-                    ),
-                  );
+              child: RefreshIndicator(
+                backgroundColor: AppColor.primary,
+                color: AppColor.white,
+                onRefresh: () async {
+                  await _loadUserProfile(widget.userId);
                 },
+                child: ListView.builder(
+                  itemCount: profileCard.base.prompts.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    final promptsCard = profileCard.base.prompts[index];
+
+                    return Padding(
+                      key: ValueKey(promptsCard.promptId),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
+                        vertical: 6,
+                      ),
+                      child: PromptCard(
+                        title: promptsCard.title,
+                        description: promptsCard.description,
+                        tag: promptsCard.tag,
+                        time: timeago.format(promptsCard.date, locale: 'ko'),
+                        like: promptsCard.like,
+                        onTap: () => context.push(
+                          '/detail?promptId=${promptsCard.promptId}',
+                        ),
+                        promptId: promptsCard.promptId,
+                        liked: promptsCard.liked,
+                        onLikeChanged: () async {
+                          await ref
+                              .read(promptListProvider.notifier)
+                              .getPromptList('LATEST');
+
+                          await ref
+                              .read(myProfileProvider.notifier)
+                              .getMyProfile();
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],

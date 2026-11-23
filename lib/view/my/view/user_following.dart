@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_prompt/common/components/default_app_bar.dart';
+import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/providers/following_provider.dart';
 import 'package:share_prompt/view/my/widget/follow_box.dart';
 
@@ -28,7 +29,9 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
     });
 
     try {
-      await ref.read(followingProvider(widget.userId).notifier).getFollowingList(userId);
+      await ref
+          .read(followingProvider(widget.userId).notifier)
+          .getFollowingList(userId);
     } catch (error) {
       if (!mounted) return;
       setState(() {
@@ -52,26 +55,34 @@ class _UserFollowingState extends ConsumerState<UserFollowing> {
           : boxes!.followingList.isEmpty
           ? const Center(child: Text('아직 팔로잉하는 유저가 없습니다.'))
           : SafeArea(
-              child: ListView.builder(
-                itemCount: boxes.followingList.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  final box = boxes.followingList[index];
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 26,
-                      vertical: 6,
-                    ),
-                    child: FollowBox(
-                      key: ValueKey(box.userId),
-                      userName: box.userNickName,
-                      userId: box.userId,
-                      hasFollowing: box.hasFollowing,
-                      onFollowChanged: () => _loadFollowingList(widget.userId),
-                    ),
-                  );
+              child: RefreshIndicator(
+                backgroundColor: AppColor.primary,
+                color: AppColor.white,
+                onRefresh: () async {
+                  await _loadFollowingList(widget.userId);
                 },
+                child: ListView.builder(
+                  itemCount: boxes.followingList.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    final box = boxes.followingList[index];
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
+                        vertical: 6,
+                      ),
+                      child: FollowBox(
+                        key: ValueKey(box.userId),
+                        userName: box.userNickName,
+                        userId: box.userId,
+                        hasFollowing: box.hasFollowing,
+                        onFollowChanged: () =>
+                            _loadFollowingList(widget.userId),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
     );
