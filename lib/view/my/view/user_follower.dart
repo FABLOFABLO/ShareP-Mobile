@@ -15,74 +15,65 @@ class UserFollower extends ConsumerStatefulWidget {
 }
 
 class _UserFollowerState extends ConsumerState<UserFollower> {
-  String? _errorMessage;
+  Future<void> _loadFollowerList() async {
+    if (!mounted) return;
 
-  Future<void> _loadFollowerList(int userId) async {
-    setState(() {
-      _errorMessage = null;
-    });
-
-    try {
-      await ref
-          .read(followerProvider(widget.userId).notifier)
-          .getFollowerList(userId);
-    } catch (error) {
-      debugPrint('팔로워 오류: $error');
-      if (!mounted) return;
-      setState(() {
-        _errorMessage = '팔로워 목록을 불러오지 못했습니다.';
-      });
-    }
+    await ref
+        .read(followerProvider(widget.userId).notifier)
+        .getFollowerList(widget.userId);
   }
 
   @override
   void initState() {
     super.initState();
-    _loadFollowerList(widget.userId);
+    _loadFollowerList();
   }
 
   @override
   Widget build(BuildContext context) {
     final boxes = ref.watch(followerProvider(widget.userId));
 
-    if (boxes == null && _errorMessage == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
     return Scaffold(
       appBar: const DefaultAppBar(title: '팔로워', hasBack: true),
-      body: _errorMessage != null
-          ? Center(child: Text(_errorMessage!))
-          : boxes!.followerList.isEmpty
-          ? const Center(child: Text('아직 팔로워가 없습니다.'))
-          : SafeArea(
-              child: RefreshIndicator(
-                backgroundColor: AppColor.primary,
-                color: AppColor.white,
-                onRefresh: () async {
-                  await _loadFollowerList(widget.userId);
+      body: boxes.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) =>
+            const Center(child: Text('팔로워 목록을 불러오지 못했습니다.')),
+        data: (data) {
+          if (data.followerList.isEmpty) {
+            return const Center(child: Text('아직 팔로워가 없습니다.'));
+          }
+
+          return SafeArea(
+            child: RefreshIndicator(
+              backgroundColor: AppColor.primary,
+              color: AppColor.white,
+              onRefresh: _loadFollowerList,
+              child: ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: data.followerList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final box = data.followerList[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 26,
+                      vertical: 6,
+                    ),
+                    child: FollowBox(
+                      key: ValueKey(box.userId),
+                      userName: box.userNickName,
+                      userId: box.userId,
+                      hasFollowing: box.hasFollowing,
+                      onFollowChanged: _loadFollowerList,
+                    ),
+                  );
                 },
-                child: ListView.builder(
-                  itemCount: boxes.followerList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final box = boxes.followerList[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 26,
-                        vertical: 6,
-                      ),
-                      child: FollowBox(
-                        key: ValueKey(box.userId),
-                        userName: box.userNickName,
-                        userId: box.userId,
-                        hasFollowing: box.hasFollowing,
-                        onFollowChanged: () => _loadFollowerList(widget.userId),
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
+          );
+        },
+      ),
     );
   }
 }

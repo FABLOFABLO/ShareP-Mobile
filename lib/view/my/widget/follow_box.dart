@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/common/utils/follow_enum.dart';
@@ -97,7 +98,9 @@ class _FollowBoxState extends ConsumerState<FollowBox> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(widget.userName, style: AppTextStyles.body3),
+              TextButton(onPressed: () => context.push(
+        '/profile?userId=${widget.userId}&isAuthor=${_isMine}',
+        ), child: Text(widget.userName, style: AppTextStyles.body3,)),
               const Spacer(),
               _isMine
                   ? const SizedBox(

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:share_prompt/common/constants/app_color.dart';
 import 'package:share_prompt/common/constants/app_text_style.dart';
 import 'package:share_prompt/providers/follow_provider.dart';
+import 'package:share_prompt/providers/follower_provider.dart';
+import 'package:share_prompt/providers/following_provider.dart';
 
 class ProfileCard extends ConsumerStatefulWidget {
   final String name;
@@ -33,6 +35,48 @@ class ProfileCard extends ConsumerStatefulWidget {
 
 class _ProflieCardState extends ConsumerState<ProfileCard> {
   bool _isUpdatingFollow = false;
+  String? _followerMessage;
+  String? _followingMessage;
+
+  Future<void> _loadFollowerList(int userId) async {
+    setState(() {
+      _followerMessage = null;
+    });
+
+    try {
+      await ref
+          .read(followerProvider(widget.userId).notifier)
+          .getFollowerList(userId);
+    } catch (error) {
+      debugPrint('팔로워 오류: $error');
+      if (!mounted) return;
+      setState(() {
+        _followerMessage = '팔로워 목록을 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  Future<void> _loadFollowingList(int userId) async {
+    setState(() {
+      _followingMessage = null;
+    });
+
+    try {
+      await ref
+          .read(followingProvider(widget.userId).notifier)
+          .getFollowingList(userId);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _followingMessage = '팔로잉 목록을 불러오지 못했습니다.';
+      });
+    }
+  }
+
+  Future<void> _loadFollowList(int userId) async {
+    await _loadFollowingList(userId);
+    await _loadFollowerList(userId);
+  }
 
   Future<void> _toggleFollow() async {
     if (_isUpdatingFollow) return;
@@ -55,6 +99,7 @@ class _ProflieCardState extends ConsumerState<ProfileCard> {
         context,
       ).showSnackBar(const SnackBar(content: Text('팔로우 불러오기에 실패했습니다.')));
     } finally {
+      await _loadFollowList(widget.userId);
       if (mounted) {
         setState(() => _isUpdatingFollow = false);
       }
